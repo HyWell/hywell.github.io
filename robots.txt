@@ -1,0 +1,17 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+
+Sitemap: https://iassas.com/search.xml
+Sitemap: https://iassas.com/sitemap.xml
+Sitemap: https://iassas.com/baidusitemap.xml
