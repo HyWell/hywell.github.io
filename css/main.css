@@ -2095,7 +2095,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #d4ffe7;
+  background: #14b61f;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3037,7 +3037,7 @@ hr {
   background: rgba(241,241,241,0.8);
 }
 .header {
-  background: rgba(241,241,241,0.8);
+  background: rgba(241,241,241,0.1);
 }
 body {
   position: relative; /* Required by scrollspy */
@@ -3069,7 +3069,7 @@ body {
   }
 }
 .footer {
-  background: rgba(241,241,241,0.8);
+  background: rgba(241,241,241,0.1);
 }
 .post {
   margin-top: 60px;
