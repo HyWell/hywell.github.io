@@ -4,6 +4,52 @@
 
     
   <url>
+    <loc>https://iassas.com/archives/84973573.html</loc>
+    <lastmod>2018-08-27T07:01:45.972Z</lastmod>
+    <data>
+        <display>
+        <title>Python27-Scrapy学习(一)</title>
+        <pubTime>2018-08-27T07:01:25.000Z</pubTime>
+        
+        <tag>scrapy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/366a0bef.html</loc>
+    <lastmod>2018-08-24T08:10:44.750Z</lastmod>
+    <data>
+        <display>
+        <title>MacOS python27 pycurl安装</title>
+        <pubTime>2018-08-20T10:13:59.000Z</pubTime>
+        
+        <tag>pycurl</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://iassas.com/archives/221b42d4.html</loc>
     <lastmod>2018-08-22T10:28:38.144Z</lastmod>
     <data>
@@ -47,29 +93,6 @@
           
              
               <breadCrumb title="渗透测试" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/366a0bef.html</loc>
-    <lastmod>2018-08-20T10:14:23.318Z</lastmod>
-    <data>
-        <display>
-        <title>MacOS python27 pycurl安装</title>
-        <pubTime>2018-08-20T10:13:59.000Z</pubTime>
-        
-        <tag>pycurl</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
           
         </display>
     </data>
