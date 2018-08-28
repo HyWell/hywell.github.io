@@ -4,8 +4,31 @@
 
     
   <url>
+    <loc>https://iassas.com/archives/2ba6ae11.html</loc>
+    <lastmod>2018-08-28T07:40:39.048Z</lastmod>
+    <data>
+        <display>
+        <title>Python27-Scrapy学习(二)</title>
+        <pubTime>2018-08-27T07:04:16.113Z</pubTime>
+        
+        <tag>scrapy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://iassas.com/archives/84973573.html</loc>
-    <lastmod>2018-08-27T07:01:45.972Z</lastmod>
+    <lastmod>2018-08-28T00:52:00.592Z</lastmod>
     <data>
         <display>
         <title>Python27-Scrapy学习(一)</title>
