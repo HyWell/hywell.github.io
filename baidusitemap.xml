@@ -4,6 +4,31 @@
 
     
   <url>
+    <loc>https://iassas.com/archives/5f6b1580.html</loc>
+    <lastmod>2018-11-06T06:49:49.469Z</lastmod>
+    <data>
+        <display>
+        <title>渗透测试-加密SQL注入</title>
+        <pubTime>2018-11-06T06:49:42.000Z</pubTime>
+        
+        <tag>渗透</tag>
+         
+        <tag>SQL注入</tag>
+         
+         
+           
+             
+              <breadCrumb title="安全研究" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+          
+             
+              <breadCrumb title="渗透测试" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://iassas.com/archives/221b42d4.html</loc>
     <lastmod>2018-09-15T06:24:33.757Z</lastmod>
     <data>
@@ -11,9 +36,9 @@
         <title>蚁剑MacOS版本-app类型</title>
         <pubTime>2018-08-22T07:55:12.000Z</pubTime>
         
-        <tag>渗透</tag>
-         
         <tag>工具</tag>
+         
+        <tag>渗透</tag>
          
          
            

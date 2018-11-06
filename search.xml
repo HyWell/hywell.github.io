@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[渗透测试-加密SQL注入]]></title>
+    <url>%2Farchives%2F5f6b1580.html</url>
+    <content type="text"><![CDATA[在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息，。最后使用SQLMap加载tamper进行自动注入。寻找注入点渗透的时候，发现了一个页面，参数有initSql，看到这个参数名称猜测这个参数是用来进行SQL查询的，但是这个参数被加密了。将initSql的值替换成后另一个包的initSql参数的值，回显信息里面出现了SQL报错信息。现在可以判断这个就是一个注入点，但是现在这样是没办法把数据成功注入出来！转头一想，进行请求的时候参数值已经被加密，那么这个加密操作十有八九是在前端通过JS进行加密，服务器再进行解密。寻找加密信息按照刚刚的思路，现在去import的JS里面进行寻找关键的加密函数以及加密,使用chrome开发者工具中的【Select an element in the page to inspect it】定位到【Sources】中的对应行业，点击左边的行数进行debug，通过不断的单步直至找到对应的js。使用找到的iv、key可成功的对加密之后的语句进行解密，但是这样去注入得手工一点一点的去搞，还是得祭出SQLMap这种神器最方便。想起SQLMap可以使用tamper加载脚本，对注入的payload进行处理。这里直接把代码贴上来给大家参考参考。123456789101112131415161718192021222324252627282930#!/usr/bin/env python"""Copyright (c) 2006-2018 sqlmap developers (http://sqlmap.org/)See the file 'LICENSE' for copying permission"""import base64from Crypto.Cipher import AESfrom lib.core.enums import PRIORITY__priority__ = PRIORITY.LOWdef tamper(payload, **kwargs): BS = AES.block_size pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS) key = "xxxxxxxxxx" iv = "xxxxxxxx" cipher = AES.new(key) cipher = AES.new(key, AES.MODE_CBC, IV=iv) encrypted = cipher.encrypt(pad(payload)) encrypted = base64.b64encode(encrypted) return encrypted后面加载这个tamper就可以直接用SQLMap跑了。总结这个漏洞产生原因”大概“是因为上次被发现注入，开发人员”偷懒“直接调用CryptoJS进行加密，导致该漏洞产生；现在很多操作都会放在前端进行操作，挖挖前端也是一种思路。]]></content>
+      <categories>
+        <category>安全研究</category>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python27-Scrapy学习(二)]]></title>
     <url>%2Farchives%2F2ba6ae11.html</url>
     <content type="text"><![CDATA[继续学习scrapy～～～[]在上一章大致了解了scrapy的基础使用方式，接下里开始使用scrapy爬取所需的信息。freebuf资讯爬取假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在class=news_inner news-list的div中。使用scrapy shell命令进行调试。1scrapy shell -s USER_AGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36' 'http://www.freebuf.com使用xpath选择器来筛选需要的数据。最后使用scrapy crawl freebufSprider -o result.json可将结果保存至result.json中。总结爬虫的步骤：访问站点、解析数据、获取数据。scrapy支出css、xpath，大家看哪个顺手就用那个好了。完整代码完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！Code。]]></content>
@@ -33,8 +46,8 @@
         <category>渗透测试</category>
       </categories>
       <tags>
-        <tag>渗透</tag>
         <tag>工具</tag>
+        <tag>渗透</tag>
       </tags>
   </entry>
   <entry>

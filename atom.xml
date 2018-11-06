@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2018-08-28T07:40:39.048Z</updated>
+  <updated>2018-11-06T06:49:49.469Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -17,6 +17,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>渗透测试-加密SQL注入</title>
+    <link href="https://iassas.com/archives/5f6b1580.html"/>
+    <id>https://iassas.com/archives/5f6b1580.html</id>
+    <published>2018-11-06T06:49:42.000Z</published>
+    <updated>2018-11-06T06:49:49.469Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息，。最后使用SQLMap加载tamper进行自动注入。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; alt=&quot;sqlmap.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透" scheme="https://iassas.com/tags/%E6%B8%97%E9%80%8F/"/>
+    
+      <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Python27-Scrapy学习(二)</title>
     <link href="https://iassas.com/archives/2ba6ae11.html"/>
     <id>https://iassas.com/archives/2ba6ae11.html</id>
@@ -25,7 +49,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy～～～&lt;br&gt;[&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;]&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy～～～&lt;br&gt;[&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;]&lt;br&gt;
     
     </summary>
     
@@ -47,7 +71,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; alt=&quot;scrapy crawl.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; alt=&quot;scrapy crawl.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -69,7 +93,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行蚁剑每次都需要&lt;code&gt;npm start&lt;/code&gt;，感觉太繁琐了。因此，想把蚁剑打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg。&lt;br&gt;链接:&lt;a href=&quot;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&lt;/a&gt; 密码:eokx&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; alt=&quot;antsword-success.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行蚁剑每次都需要&lt;code&gt;npm start&lt;/code&gt;，感觉太繁琐了。因此，想把蚁剑打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg。&lt;br&gt;链接:&lt;a href=&quot;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&lt;/a&gt; 密码:eokx&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; alt=&quot;antsword-success.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -78,9 +102,9 @@
       <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="渗透" scheme="https://iassas.com/tags/%E6%B8%97%E9%80%8F/"/>
-    
       <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="渗透" scheme="https://iassas.com/tags/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
@@ -93,7 +117,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;MacOS安装pycurl的时候出了一堆问题：SSL、Permitted等，用网上的一堆方法都无法成功安装。最后，通过查看pycurl官网文档、网上资料结合，终于安装成功！&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/20/5b7a9015e7522.png&quot; alt=&quot;python pycurl.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;MacOS安装pycurl的时候出了一堆问题：SSL、Permitted等，用网上的一堆方法都无法成功安装。最后，通过查看pycurl官网文档、网上资料结合，终于安装成功！&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/20/5b7a9015e7522.png&quot; alt=&quot;python pycurl.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -115,7 +139,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Content Injection Vulnerability in WordPress进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/31/5b0f887805634.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Content Injection Vulnerability in WordPress进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/31/5b0f887805634.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -139,7 +163,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对CVE-2016-8735复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/30/5b0e433658076.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对CVE-2016-8735复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/30/5b0e433658076.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -163,7 +187,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/29/5b0d484a0d66a.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/29/5b0d484a0d66a.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -187,7 +211,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL Code Execution Privilege Escalation进行漏洞复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/28/5b0bf1a7cd28e.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL Code Execution Privilege Escalation进行漏洞复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/28/5b0bf1a7cd28e.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -211,31 +235,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/28/5b0bad646bb23.png&quot; alt=&quot;html.png&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="安全研究" scheme="https://iassas.com/tags/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CVE-2016-1240分析</title>
-    <link href="https://iassas.com/archives/29004be5.html"/>
-    <id>https://iassas.com/archives/29004be5.html</id>
-    <published>2018-05-27T13:46:40.000Z</published>
-    <updated>2018-05-28T07:13:29.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Tue Nov 06 2018 11:34:33 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Apache Tomcat 8/7/6 (Debian-Based Distros) - Privilege Escalation进行漏洞复现并分析。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/05/27/5b0ab46ce5759.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/05/27/5b0ab46ce5759.png&quot; alt=&quot;success.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Tue Nov 06 2018 14:52:47 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/28/5b0bad646bb23.png&quot; alt=&quot;html.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
