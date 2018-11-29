@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Python27-Scrapy学习(三)]]></title>
+    <title><![CDATA[BurpSuite抓取非HTTP协议流量]]></title>
+    <url>%2Farchives%2Fffc80a19.html</url>
+    <content type="text"><![CDATA[在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。NoPE安装NoPE安装很简单，直接下载对应的jar文件，然后在BurpSuite的【Extender】选项卡中添加即可。Ps：记得要配置Java Environment环境。NoPE使用安装完成之后，需要对NoPE进行配置：DNS配置、HTTP代理设置等。Server设置在NoPE工具的【Server Config】选项卡进行配置，猜测设置DNS是为了获取请求包的domain。设置【DNS Response IP】和【DNS Listener Port】，将这个ip设置为代理服务器的ip地址，port设置为DNS常用端口：53；设置【Interface】，这个是设置网卡，可通过ifconfig查看 ；点击【Add 80 &amp; 443 to Burp】，将80、443端口添加到Burp。设置完之后回到【Proxy】选项卡的【Options】看一下，并且将Invisible设置为勾选（如果没勾选）。Ps：这时候可以使用手机进行操作，看看BurpSuite能不能拦截到HTTP的包。HTTP Proxy设置设置完Server之后，在【NoPE Proxy】选项卡的【Server Config】中启动DNS服务，直接点击那个大大的绿色箭头就可以了，显示红色为已经运行。查看【DNS History】选项卡中的DNS记录，获取Domain、Port等信息。开启Port Monitor；在手机上进行操作；获取Domain和与其对应的Port。在获取对应Port有可能会有点烦，我在获取Port的时候每次会有一堆的信息冒出来，导致并不知道那个Port跟domain是对应上的，所以点了好多次。获取到Domain与Port之后，回到【Server Config】选项卡中，将信息填入到【Non HTTP Proxy Settings】中，例如我现在有了一个domain为xxxx.com，端口为8020，将其填入对应的地方进行添加，添加之后勾选Enable即可。拦截TCP流量通过上面的配置，现在已经可以通过NoPE拦截非HTTP协议的流量。在【TCP intercept】选项卡开启【Intercept is ON】，在手机上进行操作，就可以在下面看到对应的请求包。由于我这边已经把包放过了，给大家看下历史记录的包。总结通过这种方式已经可以拦截到TCP的流量，但是通过NoPE感觉操作很繁琐。不知道有没有比的简单、优雅的方式？]]></content>
+      <categories>
+        <category>安全研究</category>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+        <tag>BurpSuite</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python2-Scrapy学习(三)]]></title>
     <url>%2Farchives%2F80b032ee.html</url>
-    <content type="text"><![CDATA[继续学习scrapy,这次学习如何将数据进行存储。在上一章学习如何通过xpath获取数据，接下来通过MongDB or MySQL将数据进行保存。scrapy数据存储freebuf搜索信息爬取上一章中爬取的数据为freebuf首页的资讯，这次爬取freebuf搜索所产生的数据。Ps：上一章通过HTTP进行访问，这次直接通过HTTPS就不需要考虑COOKIE的问题。由于搜索返回的是json，因此不需要使用xpath，直接使用json进行解析即可获取数据。这里就直接贴上爬取代码：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# -*- coding: utf-8 -*-import scrapyimport timeimport jsonimport pymongofrom freebuf.items import FreebufItemclass FreebufSpider(scrapy.Spider): name = 'freebuf' allowed_domains = ['freebuf.com'] custom_settings = &#123; 'ITEM_PIPELINES': &#123; 'freebuf.pipelines.MongodbPipeline': 300, &#125; &#125; def start_requests(self): urls = [ u'https://search.freebuf.com/search/find/?year=0&amp;score=0&amp;articleType=0&amp;origin=0&amp;tabType=1&amp;content=攻击&amp;page=1', ] for url in urls: yield scrapy.Request(url=url, callback=self.parse) def parse(self, response): item = FreebufItem() data = json.loads(response.body_as_unicode()) if data["data"]["total"] != u'0': page = int(response.url[response.url.find('page=') + 5:]) + 1 next_page = response.url[:response.url.find('page=') + 5] + str(page) for i in data["data"]["list"]: if i["time"] == time.strftime("%Y-%m-%d").decode('utf-8'): item['source'] = 'freebuf' item['title'] = i["title"] item['url'] = i['url'] item['content'] = i['content'] item['time'] = i['time'] item['author'] = i['name'] else: next_page = None continue yield item if next_page is not None: next_page = response.urljoin(next_page) yield scrapy.Request(next_page, callback=self.parse) self.log("Freebuf sprider:%s" % (response.url))custom_settings用于爬虫自定义设置，该优先级大于项目设置。这里设置使用pipelines.py文件中MongodbPipeline类对数据进行处理，优先级300（数字越小，优先级越高）。数据处理在piplines.py中我写了两个类：MongodbPipeline、MysqlPipeline，分别存储进MongoDB、MySQL。其中MongoDB已经测试，可完美进行存储；MySQL还未进行测试。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960# -*- coding: utf-8 -*-# Define your item pipelines here## Don't forget to add your pipeline to the ITEM_PIPELINES setting# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.htmlimport pymongoimport pymysqlfrom scrapy import logfrom scrapy.conf import settingsfrom twisted.enterprise import adbapiclass MongodbPipeline(object): def __init__(self): self.mongo_host = settings["MONGODB_HOST"] self.mongo_port = settings["MONGODB_PORT"] self.mongo_db = settings["MONGODB_DBNAME"] def open_spider(self, spider): self.client = pymongo.MongoClient(host=self.mongo_host, port=self.mongo_port) self.db = self.client[self.mongo_db] def close_spider(self, spider): self.client.close() def process_item(self, item, spider): info = dict(item) self.db[item['source']].insert_one(info) return itemclass MysqlPipeline(object): def __init__(self): dbparms = dict( host = settings['MYSQL_HOST'], port = settings['MYSQL_PORT'], dbname = settings['MYSQL_DBNAME'], user = settings['MYSQL_USER'], passwd = settings['MYSQL_PASSWORD'], charset = 'utf8', cursorclass = pymysql.cursors.DictCursor, use_unicode = True, ) self.dbpool = adbapi.ConnectionPool("pymysql", **dbparms) def process_item(self, item, spider): query = self.dbpool.runInteraction(self.do_insert, item, spider) log.msg("MySQL connect") query.addErrback(self.handle_error, item, spider) query.addBoth(lambda _: item) return query def handle_error(self, failure, item, spider): print failure def do_insert(self, cursor, item): cursor.execute("insert into freebuf (title, url, content, time, author, source) values(%s, %s, %s, %s, %s, %s)", item['title'], item['url'], item['content'], item['time'], item['author'], item['source'])数据库配置在项目settings.py文件需要定义数据库host、port、username、password等，直接在最后面加上配置信息即可。# MongDB Config MONGODB_HOST = &apos;localhost&apos; MONGODB_PORT = 27017 MONGODB_DBNAME = &apos;freebuf&apos; # MySQL Config # MYSQL_HOST = &apos;localhost&apos; # MYSQL_PORT = 3306 # MYSQL_DBNAME = &apos;freebuf&apos; # MYSQL_USER = &apos;root&apos; # MYSQL_PASSWORD = &apos;root&apos; 总结项目、爬虫本身都可以进行配置，爬虫本身所配置的优先级大于项目。优先级：Command line options (most precedence)> Settings per-spider> Project settings module> Default settings per-command> Default global settings (less precedence)；通过response.urljoin可将需要爬取的url添加至待爬取池，只要解析规则正确就可以将所需要的页面不断加入待爬取池；scrapy函数大部分都可以通过callback进行回调，yield进行资源控制超级棒；感觉item.py文件利用的较少，应该还有我不知道的用途。]]></content>
+    <content type="text"><![CDATA[继续学习scrapy,这次学习如何将数据进行存储。在上一章学习如何通过xpath获取数据，接下来通过MongDB or MySQL将数据进行保存。scrapy数据存储freebuf搜索信息爬取上一章中爬取的数据为freebuf首页的资讯，这次爬取freebuf搜索所产生的数据。Ps：上一章通过HTTP进行访问，这次直接通过HTTPS就不需要考虑COOKIE的问题。由于搜索返回的是json，因此不需要使用xpath，直接使用json进行解析即可获取数据。这里就直接贴上爬取代码：# -*- coding: utf-8 -*- import scrapy import time import json import pymongo from freebuf.items import FreebufItem class FreebufSpider(scrapy.Spider): name = &apos;freebuf&apos; allowed_domains = [&apos;freebuf.com&apos;] custom_settings = { &apos;ITEM_PIPELINES&apos;: { &apos;freebuf.pipelines.MongodbPipeline&apos;: 300, } } def start_requests(self): urls = [ u&apos;https://search.freebuf.com/search/find/?year=0&amp;score=0&amp;articleType=0&amp;origin=0&amp;tabType=1&amp;content=攻击&amp;page=1&apos;, ] for url in urls: yield scrapy.Request(url=url, callback=self.parse) def parse(self, response): item = FreebufItem() data = json.loads(response.body_as_unicode()) if data[&quot;data&quot;][&quot;total&quot;] != u&apos;0&apos;: page = int(response.url[response.url.find(&apos;page=&apos;) + 5:]) + 1 next_page = response.url[:response.url.find(&apos;page=&apos;) + 5] + str(page) for i in data[&quot;data&quot;][&quot;list&quot;]: if i[&quot;time&quot;] == time.strftime(&quot;%Y-%m-%d&quot;).decode(&apos;utf-8&apos;): item[&apos;source&apos;] = &apos;freebuf&apos; item[&apos;title&apos;] = i[&quot;title&quot;] item[&apos;url&apos;] = i[&apos;url&apos;] item[&apos;content&apos;] = i[&apos;content&apos;] item[&apos;time&apos;] = i[&apos;time&apos;] item[&apos;author&apos;] = i[&apos;name&apos;] else: next_page = None continue yield item if next_page is not None: next_page = response.urljoin(next_page) yield scrapy.Request(next_page, callback=self.parse) self.log(&quot;Freebuf sprider:%s&quot; % (response.url)) custom_settings用于爬虫自定义设置，该优先级大于项目设置。这里设置使用pipelines.py文件中MongodbPipeline类对数据进行处理，优先级300（数字越小，优先级越高）。数据处理在piplines.py中我写了两个类：MongodbPipeline、MysqlPipeline，分别存储进MongoDB、MySQL。其中MongoDB已经测试，可完美进行存储；MySQL还未进行测试。# -*- coding: utf-8 -*- # Define your item pipelines here # # Don&apos;t forget to add your pipeline to the ITEM_PIPELINES setting # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html import pymongo import pymysql from scrapy import log from scrapy.conf import settings from twisted.enterprise import adbapi class MongodbPipeline(object): def __init__(self): self.mongo_host = settings[&quot;MONGODB_HOST&quot;] self.mongo_port = settings[&quot;MONGODB_PORT&quot;] self.mongo_db = settings[&quot;MONGODB_DBNAME&quot;] def open_spider(self, spider): self.client = pymongo.MongoClient(host=self.mongo_host, port=self.mongo_port) self.db = self.client[self.mongo_db] def close_spider(self, spider): self.client.close() def process_item(self, item, spider): info = dict(item) self.db[item[&apos;source&apos;]].insert_one(info) return item class MysqlPipeline(object): def __init__(self): dbparms = dict( host = settings[&apos;MYSQL_HOST&apos;], port = settings[&apos;MYSQL_PORT&apos;], dbname = settings[&apos;MYSQL_DBNAME&apos;], user = settings[&apos;MYSQL_USER&apos;], passwd = settings[&apos;MYSQL_PASSWORD&apos;], charset = &apos;utf8&apos;, cursorclass = pymysql.cursors.DictCursor, use_unicode = True, ) self.dbpool = adbapi.ConnectionPool(&quot;pymysql&quot;, **dbparms) def process_item(self, item, spider): query = self.dbpool.runInteraction(self.do_insert, item, spider) log.msg(&quot;MySQL connect&quot;) query.addErrback(self.handle_error, item, spider) query.addBoth(lambda _: item) return query def handle_error(self, failure, item, spider): print failure def do_insert(self, cursor, item): cursor.execute(&quot;insert into freebuf (title, url, content, time, author, source) values(%s, %s, %s, %s, %s, %s)&quot;, item[&apos;title&apos;], item[&apos;url&apos;], item[&apos;content&apos;], item[&apos;time&apos;], item[&apos;author&apos;], item[&apos;source&apos;]) 数据库配置在项目settings.py文件需要定义数据库host、port、username、password等，直接在最后面加上配置信息即可。# MongDB Config MONGODB_HOST = &apos;localhost&apos; MONGODB_PORT = 27017 MONGODB_DBNAME = &apos;freebuf&apos; # MySQL Config # MYSQL_HOST = &apos;localhost&apos; # MYSQL_PORT = 3306 # MYSQL_DBNAME = &apos;freebuf&apos; # MYSQL_USER = &apos;root&apos; # MYSQL_PASSWORD = &apos;root&apos; 总结项目、爬虫本身都可以进行配置，爬虫本身所配置的优先级大于项目。优先级：Command line options (most precedence)> Settings per-spider> Project settings module> Default settings per-command> Default global settings (less precedence)；通过response.urljoin可将需要爬取的url添加至待爬取池，只要解析规则正确就可以将所需要的页面不断加入待爬取池；scrapy函数大部分都可以通过callback进行回调，yield进行资源控制超级棒；感觉item.py文件利用的较少，应该还有我不知道的用途。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>scrapy</tag>
+        <tag>Python2</tag>
       </tags>
   </entry>
   <entry>
@@ -26,27 +41,29 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python27-Scrapy学习(二)]]></title>
+    <title><![CDATA[Python2-Scrapy学习(二)]]></title>
     <url>%2Farchives%2F2ba6ae11.html</url>
     <content type="text"><![CDATA[继续学习scrapy,这次学习如何进行数据爬取。[]在上一章大致了解了scrapy的基础使用方式，接下来开始使用scrapy结合xpath爬取所需的信息。freebuf资讯爬取假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在class=news_inner news-list的div中。使用scrapy shell命令进行调试。1scrapy shell -s USER_AGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36' 'http://www.freebuf.com使用xpath选择器来筛选需要的数据。最后使用scrapy crawl freebufSprider -o result.json可将结果保存至result.json中。总结爬虫的步骤：访问站点、解析数据、获取数据。scrapy支出css、xpath，大家看哪个顺手就用那个好了。完整代码完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！Code。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>scrapy</tag>
+        <tag>Python2</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python27-Scrapy学习(一)]]></title>
+    <title><![CDATA[Python2-Scrapy学习(一)]]></title>
     <url>%2Farchives%2F84973573.html</url>
     <content type="text"><![CDATA[以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。Install scrapy使用pip安装scrapy即可。sudo pip install scrapyscrapy的命令常用的有：startproject、shell、crawl等。Scrapy runspider使用scrapy runspider直接运行爬虫脚本。相对项目而言方便快捷。这里我直接使用官方文档的示例。import scrapyclass QuotesSpider(scrapy.Spider): name = &quot;quotes&quot; start_urls = [ &apos;http://quotes.toscrape.com/tag/humor/&apos;, ] def parse(self, response): for quote in response.css(&apos;div.quote&apos;): yield { &apos;text&apos;: quote.css(&apos;span.text::text&apos;).extract_first(), &apos;author&apos;: quote.xpath(&apos;span/small/text()&apos;).extract_first(), } next_page = response.css(&apos;li.next a::attr(&quot;href&quot;)&apos;).extract_first() if next_page is not None: yield response.follow(next_page, self.parse) 使用-o参数可以导出结果。scrapy runsprider freebuf.py -o result.jsonscrapy startproject使用scrapy startproject创建爬虫项目。Config setting使用scrapy新建爬虫项目，这里我测试站点选择freebuf，建立一个爬虫项目。scrapy startproject freebuf进入freebuf目录，创建基础爬虫。scrapy genspider freebufSprider “freebuf.com”之后目录结构如下图：进入freebuf目录下，查看settings.py配置文件。下面列出几个需要修改的配置。ROBOTSTXT_OBEY = False(不遵循Robots.txt规则)USER_AGENT = ‘Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36’(修改User-Agent)DEFAULT_REQUEST_HEADERS = {‘Referer’: ‘http://www.freebuf.com/&#39;}(设置默认请求头)scrapy crawl一开始对freebuf进行爬虫的时候，发现响应包返回不正确。初步猜测freebuf站点有反爬虫的策略(猜测主要有四点：User-Agent、Cookie、Referer、请求间隔)。为了方便查看请求包，对请求设置HTTP代理。修改settings.py文件中的DOWNOLOAD_MIDDLEAWARESDOWNLOADER_MIDDLEWARES = {‘scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware’: 110,‘freebuf.middlewares.ProxyMiddleware’: 100,}在middlewares.py中增加一个class。class ProxyMiddleware(object):# overwrite process request def process_request(self, request, spider): # Set the location of the proxy request.meta[&apos;proxy&apos;] = &quot;http://127.0.0.1:8080&quot; 如上配置，请求包会通过代理发送到本地8080端口。这里，我使用BurpSuite进行代理拦截。freebufSprider.py文件进行编写，设置cookie。freebuf的cookie最主要的有两个：acw_sc、acw_tc。# -*- coding: utf-8 -*- import scrapy from scrapy import Request class FreebufspriderSpider(scrapy.Spider): name = &apos;freebufSprider&apos; allowed_domains = [&apos;freebuf.com&apos;] start_urls = [&apos;http://www.freebuf.com&apos;] cookie = { &apos;acw_sc__&apos;: &apos;5b7fb0aee4ffebd067ed819b701014fb3451fcbe&apos;, &apos;acw_tc&apos;: &apos;5b7fbdbc6a0b102973a7c8a7b9ecbf0304865342&apos;, } def start_requests(self): yield Request(self.start_urls[0], callback=self.parse, cookies=self.cookie) def parse(self, response): title = response.css(&apos;title::text&apos;).extract_first() self.log(u&apos;编码:%s&apos; % response.encoding) self.log(u&apos;标题:%s&apos; % title) 在项目目录下执行sudo scrapy crawl freebufSpriderscrapy shell也可以使用scrapy的shell进行测试，通过-s USER_AGENT进行请求头设置（不知道为什么使用shell命令，不带cookie也会得到正确的回显）。sudo scrapy shell -s USER_AGENT=’Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36’ ‘http://www.freebuf.com总结针对不同站点写爬虫的时候，首先需要对站点有所了解：robots.txt、反爬虫机制等。Scarpy爬虫项目相对自己编写的爬虫，整体感强，作为一整个项目来进行编写。以前的那种写法，经常一个脚本就要包含一大堆东西，到最后整体很乱，不利于后期代码维护；用Scrapy或者Requests&amp;bs4都需要对目标站点需要有所了解；单个脚本的scrapy提供了导出等API接口，相对自己些的更方便。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>scrapy</tag>
+        <tag>Python2</tag>
       </tags>
   </entry>
   <entry>
@@ -63,12 +80,12 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[MacOS python27 pycurl安装]]></title>
+    <title><![CDATA[MacOS python2 pycurl安装]]></title>
     <url>%2Farchives%2F366a0bef.html</url>
     <content type="text"><![CDATA[MacOS安装pycurl的时候出了一堆问题：SSL、Permitted等，用网上的一堆方法都无法成功安装。最后，通过查看pycurl官网文档、网上资料结合，终于安装成功！前言一开始使用easy_install、pip两种安装方式都会遇到SSL报错。查询网上资料，指定openssl的环境变量并指定使用openssl安装也无法解决。解决过程下载pycurl源码，解压到对应目录。sudo python setup.py install --with-openssl --openssl-dir=/usr/local/opt/openssl其中”openssl-dir”需要根据自身电脑安装路径进行设置。使用上诉命令会出现权限不够的问题，通过添加–user可以解决。sudo python setup.py install --with-openssl --openssl-dir=/usr/local/opt/openssl --user总结MacOS安装东西真麻烦！！！]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>pycurl</tag>
@@ -232,16 +249,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python-Pymysql中文写入]]></title>
+    <title><![CDATA[Python2-Pymysql中文写入]]></title>
     <url>%2Farchives%2F40673788.html</url>
     <content type="text"><![CDATA[python27的编码是一大难点，然而这次的难点并不是在于python，而在于数据库。前言最近在使用Pymysql向mysql数据库写入中文时，发现出现Warning:(1366, u”Incorrect string value: ‘\x······”)数据库里面的结果为乱码解决思路看到中文乱码，马上就想到编码问题。该问题共涉及到三处编码（有可能还多，想不出来了）：数据库编码、数据来源编码、脚本连接编码。由于数据来源编码能肯定为Unicode，因此需要从脚本连接编码、数据库编码去解决。解决历程脚本连接编码由于pymysql支持charset字段，下意识想到通过charset参数进行设置。123456789101112import pymysql.cursors config = &#123; 'host':'127.0.0.1', 'port':3306, 'user':'root', 'password':'', 'db':'test', 'charset':'utf8mb4', 'cursorclass':pymysql.cursors.DictCursor, &#125;connection = pymysql.connect(**config)然后重新运行脚本，发现并没有解决。数据库编码查看数据库编码，发现数据库默认编码为latin1。1show variables like "char%";找到问题所在就方便了！修改database编码即可。由于我使用的是debian，需要修改/etc/mysql/my.cnf文件。1vim /etc/mysql/my.cnf在[mysqld]字段下面添加character-set-server=utf8，保存并重启mysql服务即可。重新查询数据库编码。美滋滋的运行代码，发现还是Warning！！！最终解决在修改了数据库编码以为脚本可以成功运行的时候，现实跟我说too young！后面兜兜转转，发现重新建立数据库即可！总结Python27遇到中文的时候，需要特别注意编码；Python进行数据交互的时候，每个地方的编码都需要注意；配置修改之后，一定要刷新或者新建！！！]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>Code</tag>
-        <tag>Python</tag>
+        <tag>Python2</tag>
         <tag>MySQL</tag>
       </tags>
   </entry>
@@ -260,16 +277,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python-Oracle爆破]]></title>
+    <title><![CDATA[Python2-Oracle爆破]]></title>
     <url>%2Farchives%2F209eed3d.html</url>
     <content type="text"><![CDATA[做渗透的时候遇到Oracle端口对外开放，用python编写脚本去自动爆破，爆破成功就是拿下数据库。环境搭建Oracle安装去Oracle官网下载Oracle Database 11g，下载地址。我这边下载Windows版本进行安装，两个文件都要下载，下载完成之后全部选中解压。解压之后，运行setup.exe。取消【我希望通过My Oracle Support接受安全更新】勾选，点下一步。会跳出一个提示，直接点击【是】即可。选择【创建和配置数据库】。由于我们用来做测试，所以选择【桌面类】即可。接下来对数据库进行配置，我这边将全局数据库名设置为Brute，管理口令设置成BruteTest，别的保持默认即可。如果管理口令不符合Oracle建议的标准，会有一个提示，直接点击【是】即可。接下来程序就会进行检查，待检查完成会出现一个概要。点击完成，开始安装。安装完成之后，点击【口令管理】对用户口令进行修改。对sys、system两个用户设置新口令。如果口令不满足复杂性策略，会有一个提示，直接点击【是】即可。最后Oracle数据库安装成功。Oracle配置安装完成之后，在所有程序菜单中找到Oracle，打开【Database Control - Brute】。使用sys用户、SYSDBA身份登录。表空间点击【服务器】→【表空间】。点击【创建】。输入名称，点击【添加】。输入文件名，点击【继续】。点击【确定】，建立表空间。用户点击【服务器】→【用户】。点击【创建】。输入名称、口令，点击【确定】。由于只是用于爆破，所以这里就不设置【角色】、【权限】等。端口对外开放对listener.ora、tnsnames.ora文件进行修改，文件路径类似：\app\Administrator\product\11.2.0\dbhome_2\NETWORK\ADMIN\，根据安装时所选的目录自行寻找。将两个文件里的localhost修改成计算机名。重启【OracleDBConsoleBrute】、【OracleOraDb11g_home1TNSListener】服务。可以使用其他电脑成功连接。脚本编写Python27有一个库支持对Oracle进行操作，cx_Oracle，使用pip安装即可。1pip install cx_Oracle安装好之后，需要安装Oracle的client，不同系统安装的方式也不同，具体可以参考官方文档。client安装完成之后，使用cx_Oracle尝试连接。信息错误情况的各种错误信息。终端输出爆破时，信息有很多。如果不对样式进行设置，导致不能快速找到有效信息。因此，需要对终端输出设置样式。有一个外部库colorama支持输出时的样式设置，通过pip安装即可.1pip install colorama安装完成之后，需要先调用init进行初始化。12345678910111213# --coding=utf-8--## 参照表## Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.## Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.## Style: DIM, NORMAL, BRIGHT, RESET_ALLfrom colorama import init, Fore, Style, Backinit(autoreset=True)print Fore.GREEN + u'字体颜色设置'print Style.DIM + u'字体样式设置'print Back.GREEN + u'背景颜色设置'异步设置使用gevent进行爆破，当爆破量很大的时候，会导致内存飙高。因此，设置了阀值。1234567891011while True: if not blasting.empty(): if len(self.threads) &lt; 5000: self.threads.append(gevent.spawn(self._test, blasting.get())) else: gevent.joinall(self.threads) self.threads = [] else: if len(self.threads) &gt; 0: gevent.joinall(self.threads) break总结在编写Oracle爆破脚本的时候，大部分的问题由环境搭建、配置引起。Oracle安装完成之后，数据库是不对外开放需要修改配置文件，配置文件localhost修改成计算机名，当服务器IP修改时，其他计算机还是可以连接。修改成ip时，服务器IP修改时，需要修改配置文件中的ip；Oracle端口不对外开放，确认配置文件修改正确的情况下，【OracleDBConsoleBrute】、【OracleOraDb11g_home1TNSListener】服务需要重启，网上说只需要重启TNS服务即可，但是测试时，发现两个服务都需要重启；Python终端彩字输出可以使用\033[显示方式;前景色;背景色m + 结尾部分：\033[0m，但Windows下失败，Linux下没去尝试；使用colorama需要先初始化init(autoreset=True)。完整代码完整代码已经上传到我的GiHub。如果有兴趣，不妨移步到Github上一观！Code。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>Code</tag>
-        <tag>Python27</tag>
+        <tag>Python2</tag>
         <tag>Oracle</tag>
       </tags>
   </entry>
@@ -300,29 +317,29 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python-py转exe(附GUI界面)]]></title>
+    <title><![CDATA[Python2-py转exe(附GUI界面)]]></title>
     <url>%2Farchives%2F2329ebda.html</url>
     <content type="text"><![CDATA[有时候写了一个脚本，但是换到另外一台电脑上的时候，发现并没有Python的解析环境，这时候将py文件转成exe，再将其换到另外一台Windows电脑运行，是一个很好的选择。准备py转exe有:py2exe、pyinstaller等多种选择。这两种我都用过，我更倾向于pyinstaller。本文使用的就是pyinstaller。pyinstaller使用pip快捷安装pyinstaller。如果对pyinstaller感兴趣，可以参考文档1pip install pyinstaller如果无法使用pip安装，可以在官网下载源码安装。成功安装可以输出对应版本信息。py文件将py文件转exe，那么必备的就是py文件了。本文采用我以前写的RSA加密文件脚本，可以在这里下载。转换Exe有了pyinstaller之后，将py文件转成exe只需要一条命令即可完成。该条命令会生成两个文件夹:build、dist。生成的exe在dist文件夹中。1pyinstaller Encryptiong.py单文件生成刚刚转换出来的exe有许多依赖的文件在dist文件夹下。就是说想要运行这个exe，那么整个dist文件夹下所有文件都需要存在。pyinstaller提供了将py文件转换成单exe模式，只需要在转换命令加上-F参数即可。1pyinstaller Encryptiong.py -F压缩如果转换出来的exe大小很大，pyinstaller也支持压缩。压缩需要下载upx，并加上对应参数即可。1pyinstaller Encryptiong.py -F --upx-dir D:\Code\Python27\upx394w图标现在已经成功生成了exe，但是现在的exe图标很”大众”。这是pyinstaller默认图标，如果想自定义图标的话，pyinstaller也提供了对应参数-i。但是需要提供多种尺寸的ico图标，因为不同情况下需要不一样尺寸的图标。可以使用png2ico工具转换，使用png2ico需要使用对应的命令。1png2ico myicon.ico icon_128x128.png icon_64x64.png icon_48x48.png icon_32x32.png icon_16x16.png也可以使用在线转换工具ConvertIcon!,导出的时候需要勾对应尺寸。有了图标之后，使用对应命令即可。1pyinstaller Encryptiong.py -F --upx-dir D:\Code\Python27\upx394w -i ico.icoGUI界面现在生成的exe文件，打开之后连GUI界面都没有。没有GUI界面的exe就是耍流氓。(Ps:来源某位小伙伴)我这么正经的人，怎么可能耍流氓！Python想要生成GUI界面，需要安装PyQt。我安装的是PyQt4。由于最新版的PyQt已经不提供Windows二进制安装程序，大家可以安装4.11.4版本。找到合适自己的版本，下载、安装即可。UI生成安装完PyQt4之后，大家可以在Python27\Lib\site-packages\PyQt4文件夹找到designer.exe用来构建GUI界面的UI。打开designer.exe新建一个窗体，通过左边拖拽控件，将控件按照自己喜欢的位置布局到窗体里面。设计好了保存成ui文件即可。最后可以Python27\Lib\site-packages\PyQt4\pyuic4.bat来生成对应的布局代码。1pyuic4.bat -o EncryptiongUi.py EncryptiongUi.ui生成的布局代码文件有一个Ui类，其中包含了setupUi、retranslateUi函数。GUI生成用了UI布局，现在新建一个脚本(Encry.py)通过代码生成一个窗体即可。12345678910111213141516171819202122# -*- coding: utf-8 -*-from PyQt4.QtGui import * from PyQt4 import QtGuifrom PyQt4.QtCore import * import sys import EncryptiongUiclass TestDlg(QDialog, EncryptiongUi.Ui_RSA): # 继承EncryptiongUI.UI_RSA def __init__(self, parent=None): super(TestDlg, self).__init__(parent) self.setupUi(self) # self.setWindowIcon(QtGui.QIcon('./ico.ico')) # 设置icon def main(): app = QApplication(sys.argv) dialog = TestDlg() dialog.show() sys.exit(app.exec_()) if __name__ == '__main__': main()运行Encry.py即可生成一个GUI界面。控件功能配置我设计了一个包含两个line、三个button的窗体。根据button来执行Encryptiong.py的不同功能，根据line的值进行传参。首先对Encryptiong.py脚本进行改造。只需要把180、181注释，让其不运行即可。12# if __name__ == '__main__': # main()其次对EncryptiongUI.py进行改造。导入Encryptiong的Encryptiong，用来执行加密、解密等功能。1from Encryptiong import Encryptiong接下来将按钮的单击属性打开。一共需要打开三个按钮的属性,pushButton是按钮的自定义名称，根据命名进行修改。12self.pushButton.setCheckable(True)self.pushButton.setChecked(True)然后在UI类中，编写工作的函数。1234567891011121314151617def work(self, Ctype): try: if Ctype == 1: Encryptiong().encryp() QtGui.QMessageBox.about(self, u'提醒', u"成功生成公、私钥文件！") # 设置提醒消息框 elif Ctype == 2: public = str(self.lineEdit.text()) # 获取line的文本 filepath = str(self.lineEdit_2.text()) # 获取line2的文本 Encryptiong(public=public, filepath=filepath).encryption() QtGui.QMessageBox.about(self, u'提醒', u"完成加密！") elif Ctype == 3: private = str(self.lineEdit.text()) filepath = str(self.lineEdit_2.text()) Encryptiong(private=private,decrypt=filepath).decrypted() QtGui.QMessageBox.about(self, u'提醒', u"完成解密！") except: QtGui.QMessageBox.about(self, u'警告', u"输入有误,请重新输入！")回到Ui类的setupUi函数，设置按钮单击执行工作函数。123self.pushButton.clicked.connect(lambda : self.work(1)) # 单击调用work函数self.pushButton_2.clicked.connect(lambda : self.work(2))self.pushButton_3.clicked.connect(lambda : self.work(3))现在已经成功让Encryotiong脚本的功能通过GUI界面来执行、实现。最后通过pyinstaller进行打包成exe。1pyinstaller -F -w -i ico.ico --upx-dir D:\Code\Python27\upx394w Encryptiong.py总结在编写使用pyinstaller、PyQt4生成GUI界面的exe时，遇到几个问题，在此记录一下。pyinstaller -i加载图标的时候，图标需要是多种尺寸的图标。要不然某些情况是无法显示的;pyinstaller -w生成无终端窗口需要脚本有GUI界面;PyQt4的Button执行函数，需要使用lambda生成匿名函数;PyQt4的QMessageBox进行弹框提示需要将字符串转成Unicode编码，要不然会乱码。完整代码完整代码已经上传到我的GiHub。如果有兴趣，不妨移步到Github上一观！Code。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>Code</tag>
-        <tag>Python27</tag>
+        <tag>Python2</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python-RSA加密文件]]></title>
+    <title><![CDATA[Python2-RSA加密文件]]></title>
     <url>%2Farchives%2Ffb3e56b9.html</url>
     <content type="text"><![CDATA[每个人都有自己的小秘密，如何保护好它是非常重要的。我通过Python27结合RSA算法保护我的”小秘密”。准备使用pycrypto库就可以完成RSA加、解密。Pycrypto使用pip快捷安装pycrypto。如果对pycrypto感兴趣，可以参考文档。1pip install pycrypto如果无法使用pip安装，可以在这里下载编译好的源文件进行安装。终端处理终端信息获取可以通过sys.argv或者使用getopt库。syssys.argv是一个列表对象。用来获取终端信息。终端格式示例。1python getinfo.py info1 info2 info3sys.argv[0]是getinfo.py，sys.argv[1]是info1，sys.argv[2]是info2，sys.argv[3]是info3。Getoptgetopt可以用来获取终端参数，实际使用的时候效果比sys.argv好很多。如果对getopt感兴趣，可以参考文档getopt有短格式、长格式。”-h-f:”为短格式，如果后面带冒号说明该参数需要加参数值，不加冒号说明该参数不需要加参数值。”[‘help’, ‘file=’]”为长格式，如果后面带等号说明该参数需要加参数值，如果后面不带等号说明该参数不需要参数值。终端格式示例。1python getinfo.py -h -f=info.txt代码示例。1234567import getoptopt, args = getopt.getopt(sys.argv[1:], "-h-f:",['help', 'file='])for opt_name, opt_value in opts: if opt_name in ('-h', '--help'): print "This is help!" if opt_name in ('-f', '--file'): print opt_valuepycrypto使用pycrypto包含许多加密方式：AES、SHA256、RSA等。出于安全性考虑，我使用RSA来加密文件。生成公、私钥文件RSA加密需要使用到公钥文件、RSA解密需要使用到私钥文件。如果大家对RSA算法不了解的话，可以参考Wiki)。通过上文可以得知，生成自己的公钥、私钥文件是十分重要的。pycrypto支持生成公钥、私钥文件。代码示例。12345678910111213from Crypto import Randomfrom Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5from Crypto.PublicKey import RSArandom_generator = Random.new().read # 伪随机数生成器rsa = RSA.generate(self.generateNum, random_generator) # rsa算法生成private_pem = rsa.exportKey() # 私钥生成with open('private.pem', 'w') as f: # 生成私钥文件 f.write(private_pem)public_pem = rsa.publickey().exportKey() # 公钥生成with open('public.pem', 'w') as f: # 生成公钥文件 f.write(public_pem)RSA加密RSA加密需要使用到公钥文件。代码示例。1234567891011from Crypto import Randomfrom Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5from Crypto.PublicKey import RSAmessage = "My name is Hywell!"with open('public.pem') as f: # 读取公钥文件 key = f.read()rsakey = RSA.importKey(key) # 加载公钥cipher = Cipher_pkcs1_v1_5.new(rsakey)cipher_text = cipher.encrypt(message) # 加密messageRSA解密RSA解密需要使用到私钥文件。代码示例。123456789101112from Crypto import Randomfrom Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5from Crypto.PublicKey import RSAcipher_text = "This is cryptoStr!"random_generator = Random.new().read # 伪随机数生成器with open('ghost-private.pem') as f: # 读取私钥文件 key = f.read()rsakey = RSA.importKey(key) # 加载私钥cipher = Cipher_pkcs1_v1_5.new(rsakey)result = cipher.decrypt(base64.b64decode(encrypt_text), random_generator) # 解密cipher_text总结在编写使用RSA加密文件时，遇到了几个问题，在此记录一下。使用getopt库作为命令行参数获取，使用for获取对应参数的值的时候，获取得到值是以=开头。因此，实际需要使用value[1:]来获取;RSA加密常见的key_size有1024bit、2048bit两种，解密的时候需要选择跟加密时一样的bit;RSA加密单次加密字符的长度有限制，最大为(key_size/8)-11;使用1024bitRSA加密100长度的字符会生成128长度的加密过的字符;使用2048bitRSA加密200长度的字符会生成256长度的加密过的字符。完整代码完整代码支持终端获取参数、文件夹所有文件RSA加密、文件夹所有文件RSA解密。完整代码已经上传到我的GiHub。如果有兴趣，不妨移步到Github上一观！Code。]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>Code</tag>
-        <tag>Python27</tag>
+        <tag>Python2</tag>
         <tag>小工具</tag>
       </tags>
   </entry>
@@ -340,16 +357,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python-并发爬虫]]></title>
+    <title><![CDATA[Python2-并发爬虫]]></title>
     <url>%2Farchives%2F426443e5.html</url>
     <content type="text"><![CDATA[现在数据就是王道，而爬虫就是获取数据的快速途径之一！准备看标题，咱们就应该知道需要用到Python27。本文通过Python 结合 requests库进行爬取操作，BeautifulSoup4使用lxml进行解析操作，gevent进行并发操作。Python27选择对应的操作系统的Python27进行下载。下载完成进行安装，之后配置环境变量即可。环境变量需要配置两处，一处是Python27的安装目录，一处是Python27安装目录下的Scripts目录。环境变量配置右键【我的电脑】→【属性】，点击【高级系统设置】中的【高级】选项卡中【环境变量】，在【系统变量】窗口中找到【Path】变量。点击【编辑】，加入对应的环境变量（例如D:\Code\Python27、D:\Code\Python27\Scripts）。如果是Win10系统，新建两条即可。如果是Win10等系统，点击编辑之后在后面加入;D:\Code\Python27;D:\Code\Python27\Scripts即可。1python --version1pip --versionRequests使用pip快捷安装requests。1pip install requestsBeautifulSoup使用pip快捷安装BeautifulSoup4。1pip install beautifulsoup4lxml使用pip快捷安装lxml。1pip install lxmlGevent使用pip快捷安装gevent。1pip install gevent爬取流程在准备阶段，咱们已经将“斧柄”、“斧刃”准备好了，到时候把两个组装起来，选一棵树，进行“伐木”工作。爬取流程分为：获得url、访问url、解析页面、获取页面url。入口url由于本文只爬取站点中存在的url，并不取特殊数据。因此，入口url可以自定义输入。1entry_url = raw_input('Place enter the entry url:')请求页面请求页面操作通过使用requests库来完成。如果对requests库感兴趣，可以参考官方文档。想要使用requests库，需要先导入requests库。这步操作就是将斧柄(Pythnon27)、斧刃(requests)组装起来。1import requests接下来就需要使用requests库的get方法。1r = requests.get(entry_url)解析页面通过上面的操作，咱们已经获取了页面的信息。然后就是BeautifulSoup4发挥的时候了。如果对BeautifulSoup4库感兴趣，可以参考官方文档1from bs4 import BeautifulSoup本文爬虫只需要获取站点url即可，不需要获取站点特殊数据。因此，获取a标签的href方法的值即可。123soup = BeautifulSoup(r.text, 'lxml')for i in soup.find('a'): get_url = i.get('href')异步爬取异步爬取可以让程序执行更快，时间既是生命。如果对gevent库感兴趣，可以参考官方文档。队列队列(Queue)适用于多线程编程，让数据安全地在生产者与消费者之间进行信息传递。让url放在队列数据结构中，可以让队列自动帮我们销毁已经被调用的url。123from gevent.queue import QueueurlQueue = Queue()异步工作将工作流程制作成函数，调用gevent.spawn形成工作队列。当适当的时候执行。12345import geventthreads=[]threads.append(gevent.spawn(work, **keyword))gevent.joinall(threads)总结在编写并发爬虫的时候，遇到了几个问题，在此记录一下。url请求是http还是https，如果是https的话，需要将requests的verify设置为False;并发的时候如何判断任务是否已经结束？我是通过判断队列为空并且无待工作的任务，不知道这种判断方式是否可取。有没有好心人告诉我有什么优雅的方式么;如果对并发量不进行设置的话，有可能导致内存飙高。我通过对线程列表进行设置，当线程列表到100时就运行一次。同求优雅的方式;href方法里面存在两种情况：包含域名(href=”http://xxx.com/index.html&quot;)，不包含域名(href=&quot;/index.html“);用户输入与href方法内情况不同。例如用户输入https://www.iassas.com，页面href标签是https://iassas.com（或者两者反一下）。现在就按照用户输入为准;子域名链接爬取，现在判断逻辑不爬取子域名;href方法中的url有可能会带有#(跳转对应页面位置)，模拟浏览器是将#后面所有字符不当成url考虑;url会被url编码，调用urllib.unquote来解码。完整代码完整代码已经上传到我的GiHub。如果有兴趣，不妨移步到Github上一观！Code。由于Web环境千奇百怪，程序出错在所难免。请体谅！]]></content>
       <categories>
         <category>Code</category>
-        <category>Python27</category>
+        <category>Python2</category>
       </categories>
       <tags>
         <tag>Code</tag>
-        <tag>Python27</tag>
+        <tag>Python2</tag>
         <tag>爬虫</tag>
       </tags>
   </entry>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2018-11-23T11:06:48.548Z</updated>
+  <updated>2018-11-29T06:29:21.012Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -17,24 +17,52 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Python27-Scrapy学习(三)</title>
-    <link href="https://iassas.com/archives/80b032ee.html"/>
-    <id>https://iassas.com/archives/80b032ee.html</id>
-    <published>2018-11-23T10:57:26.000Z</published>
-    <updated>2018-11-23T11:06:48.548Z</updated>
+    <title>BurpSuite抓取非HTTP协议流量</title>
+    <link href="https://iassas.com/archives/ffc80a19.html"/>
+    <id>https://iassas.com/archives/ffc80a19.html</id>
+    <published>2018-11-29T06:28:23.000Z</published>
+    <updated>2018-11-29T06:29:21.012Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何将数据进行存储。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; alt=&quot;mongo数据.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/11/29/5bff79c9eb463.png&quot; alt=&quot;&quot; title=&quot;NoPE界面&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="渗透" scheme="https://iassas.com/tags/%E6%B8%97%E9%80%8F/"/>
+    
+      <category term="BurpSuite" scheme="https://iassas.com/tags/BurpSuite/"/>
+    
+      <category term="代理" scheme="https://iassas.com/tags/%E4%BB%A3%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python2-Scrapy学习(三)</title>
+    <link href="https://iassas.com/archives/80b032ee.html"/>
+    <id>https://iassas.com/archives/80b032ee.html</id>
+    <published>2018-11-23T10:57:26.000Z</published>
+    <updated>2018-11-29T06:39:59.132Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何将数据进行存储。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; alt=&quot;mongo数据.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
       <category term="Code" scheme="https://iassas.com/categories/Code/"/>
     
-      <category term="Python27" scheme="https://iassas.com/categories/Code/Python27/"/>
+      <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
     
     
       <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
+    
+      <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
     
   </entry>
   
@@ -47,7 +75,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息，。最后使用SQLMap加载tamper进行自动注入。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; alt=&quot;sqlmap.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息，。最后使用SQLMap加载tamper进行自动注入。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; alt=&quot;sqlmap.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -63,46 +91,50 @@
   </entry>
   
   <entry>
-    <title>Python27-Scrapy学习(二)</title>
+    <title>Python2-Scrapy学习(二)</title>
     <link href="https://iassas.com/archives/2ba6ae11.html"/>
     <id>https://iassas.com/archives/2ba6ae11.html</id>
     <published>2018-08-28T07:01:25.000Z</published>
-    <updated>2018-11-23T11:03:35.028Z</updated>
+    <updated>2018-11-27T08:35:11.795Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何进行数据爬取。&lt;br&gt;[&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;]&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何进行数据爬取。&lt;br&gt;[&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;]&lt;br&gt;
     
     </summary>
     
       <category term="Code" scheme="https://iassas.com/categories/Code/"/>
     
-      <category term="Python27" scheme="https://iassas.com/categories/Code/Python27/"/>
+      <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
     
     
       <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
+    
+      <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
     
   </entry>
   
   <entry>
-    <title>Python27-Scrapy学习(一)</title>
+    <title>Python2-Scrapy学习(一)</title>
     <link href="https://iassas.com/archives/84973573.html"/>
     <id>https://iassas.com/archives/84973573.html</id>
     <published>2018-08-27T07:01:25.000Z</published>
-    <updated>2018-11-22T07:18:54.064Z</updated>
+    <updated>2018-11-27T08:35:11.795Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; alt=&quot;scrapy crawl.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/24/5b7fc660b4c28.png&quot; alt=&quot;scrapy crawl.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
       <category term="Code" scheme="https://iassas.com/categories/Code/"/>
     
-      <category term="Python27" scheme="https://iassas.com/categories/Code/Python27/"/>
+      <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
     
     
       <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
+    
+      <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
     
   </entry>
   
@@ -115,7 +147,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行electron框架程序（例如Antsword、CaptfEncoder等）每次都需要&lt;code&gt;npm start&lt;/code&gt;，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg。&lt;br&gt;Antsword链接:&lt;a href=&quot;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&lt;/a&gt; 密码:eokx&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; alt=&quot;antsword-success.png&quot;&gt;&lt;/a&gt;&lt;br&gt;CaptfEncoder链接:&lt;a href=&quot;https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw&lt;/a&gt; 密码:659d&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/14/5beb8abf3a945.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/14/5beb8abf3a945.png&quot; alt=&quot;CaptfEncoder.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行electron框架程序（例如Antsword、CaptfEncoder等）每次都需要&lt;code&gt;npm start&lt;/code&gt;，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg。&lt;br&gt;Antsword链接:&lt;a href=&quot;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA&lt;/a&gt; 密码:eokx&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png&quot; alt=&quot;antsword-success.png&quot;&gt;&lt;/a&gt;&lt;br&gt;CaptfEncoder链接:&lt;a href=&quot;https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw&lt;/a&gt; 密码:659d&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/14/5beb8abf3a945.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/14/5beb8abf3a945.png&quot; alt=&quot;CaptfEncoder.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -131,21 +163,21 @@
   </entry>
   
   <entry>
-    <title>MacOS python27 pycurl安装</title>
+    <title>MacOS python2 pycurl安装</title>
     <link href="https://iassas.com/archives/366a0bef.html"/>
     <id>https://iassas.com/archives/366a0bef.html</id>
     <published>2018-08-20T10:13:59.000Z</published>
-    <updated>2018-08-24T08:10:44.750Z</updated>
+    <updated>2018-11-27T08:35:11.795Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;MacOS安装pycurl的时候出了一堆问题：SSL、Permitted等，用网上的一堆方法都无法成功安装。最后，通过查看pycurl官网文档、网上资料结合，终于安装成功！&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/20/5b7a9015e7522.png&quot; alt=&quot;python pycurl.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;MacOS安装pycurl的时候出了一堆问题：SSL、Permitted等，用网上的一堆方法都无法成功安装。最后，通过查看pycurl官网文档、网上资料结合，终于安装成功！&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/20/5b7a9015e7522.png&quot; alt=&quot;python pycurl.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
       <category term="Code" scheme="https://iassas.com/categories/Code/"/>
     
-      <category term="Python27" scheme="https://iassas.com/categories/Code/Python27/"/>
+      <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
     
     
       <category term="pycurl" scheme="https://iassas.com/tags/pycurl/"/>
@@ -161,7 +193,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Content Injection Vulnerability in WordPress进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/31/5b0f887805634.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Content Injection Vulnerability in WordPress进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/31/5b0f887805634.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -185,7 +217,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对CVE-2016-8735复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/30/5b0e433658076.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对CVE-2016-8735复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/30/5b0e433658076.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -209,31 +241,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/29/5b0d484a0d66a.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="安全研究" scheme="https://iassas.com/tags/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CVE-2016-6662分析</title>
-    <link href="https://iassas.com/archives/438a17c4.html"/>
-    <id>https://iassas.com/archives/438a17c4.html</id>
-    <published>2018-05-28T12:34:15.000Z</published>
-    <updated>2018-05-29T12:33:05.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Fri Nov 23 2018 19:07:06 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL Code Execution Privilege Escalation进行漏洞复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/28/5b0bf1a7cd28e.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Nov 29 2018 14:40:05 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/05/29/5b0d484a0d66a.png&quot; alt=&quot;success.png&quot;&gt;&lt;br&gt;
     
     </summary>
     

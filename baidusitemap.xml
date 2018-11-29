@@ -5,13 +5,15 @@
     
   <url>
     <loc>https://iassas.com/archives/80b032ee.html</loc>
-    <lastmod>2018-11-23T11:06:48.548Z</lastmod>
+    <lastmod>2018-11-29T06:39:59.132Z</lastmod>
     <data>
         <display>
-        <title>Python27-Scrapy学习(三)</title>
+        <title>Python2-Scrapy学习(三)</title>
         <pubTime>2018-11-23T10:57:26.000Z</pubTime>
         
         <tag>scrapy</tag>
+         
+        <tag>Python2</tag>
          
          
            
@@ -19,7 +21,7 @@
               <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
           
              
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
           
         </display>
     </data>
@@ -27,14 +29,41 @@
 
     
   <url>
-    <loc>https://iassas.com/archives/2ba6ae11.html</loc>
-    <lastmod>2018-11-23T11:03:35.028Z</lastmod>
+    <loc>https://iassas.com/archives/ffc80a19.html</loc>
+    <lastmod>2018-11-29T06:29:21.012Z</lastmod>
     <data>
         <display>
-        <title>Python27-Scrapy学习(二)</title>
-        <pubTime>2018-08-28T07:01:25.000Z</pubTime>
+        <title>BurpSuite抓取非HTTP协议流量</title>
+        <pubTime>2018-11-29T06:28:23.000Z</pubTime>
         
-        <tag>scrapy</tag>
+        <tag>渗透</tag>
+         
+        <tag>BurpSuite</tag>
+         
+        <tag>代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="安全研究" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+          
+             
+              <breadCrumb title="渗透测试" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/366a0bef.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>MacOS python2 pycurl安装</title>
+        <pubTime>2018-08-20T10:13:59.000Z</pubTime>
+        
+        <tag>pycurl</tag>
          
          
            
@@ -42,7 +71,113 @@
               <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
           
              
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/209eed3d.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-Oracle爆破</title>
+        <pubTime>2017-09-27T08:13:07.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>Python2</tag>
+         
+        <tag>Oracle</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/40673788.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-Pymysql中文写入</title>
+        <pubTime>2018-01-11T07:24:42.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>Python2</tag>
+         
+        <tag>MySQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/2329ebda.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-py转exe(附GUI界面)</title>
+        <pubTime>2017-08-19T01:41:30.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>Python2</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/fb3e56b9.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-RSA加密文件</title>
+        <pubTime>2017-08-15T07:25:08.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>Python2</tag>
+         
+        <tag>小工具</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
           
         </display>
     </data>
@@ -51,13 +186,15 @@
     
   <url>
     <loc>https://iassas.com/archives/84973573.html</loc>
-    <lastmod>2018-11-22T07:18:54.064Z</lastmod>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
     <data>
         <display>
-        <title>Python27-Scrapy学习(一)</title>
+        <title>Python2-Scrapy学习(一)</title>
         <pubTime>2018-08-27T07:01:25.000Z</pubTime>
         
         <tag>scrapy</tag>
+         
+        <tag>Python2</tag>
          
          
            
@@ -65,7 +202,59 @@
               <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
           
              
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/2ba6ae11.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-Scrapy学习(二)</title>
+        <pubTime>2018-08-28T07:01:25.000Z</pubTime>
+        
+        <tag>scrapy</tag>
+         
+        <tag>Python2</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://iassas.com/archives/426443e5.html</loc>
+    <lastmod>2018-11-27T08:35:11.795Z</lastmod>
+    <data>
+        <display>
+        <title>Python2-并发爬虫</title>
+        <pubTime>2017-08-12T00:50:48.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>Python2</tag>
+         
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
+          
+             
+              <breadCrumb title="Python2" url="https://iassas.com/categories/Code/Python2/"/>
           
         </display>
     </data>
@@ -116,29 +305,6 @@
           
              
               <breadCrumb title="渗透测试" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/366a0bef.html</loc>
-    <lastmod>2018-08-24T08:10:44.750Z</lastmod>
-    <data>
-        <display>
-        <title>MacOS python27 pycurl安装</title>
-        <pubTime>2018-08-20T10:13:59.000Z</pubTime>
-        
-        <tag>pycurl</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
           
         </display>
     </data>
@@ -214,31 +380,6 @@
           
              
               <breadCrumb title="漏洞分析" url="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/2329ebda.html</loc>
-    <lastmod>2018-05-30T14:28:53.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python-py转exe(附GUI界面)</title>
-        <pubTime>2017-08-19T01:41:30.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>Python27</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
           
         </display>
     </data>
@@ -412,114 +553,6 @@
           
              
               <breadCrumb title="Python36" url="https://iassas.com/categories/Code/Python36/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/209eed3d.html</loc>
-    <lastmod>2018-05-23T11:21:37.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python-Oracle爆破</title>
-        <pubTime>2017-09-27T08:13:07.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>Python27</tag>
-         
-        <tag>Oracle</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/426443e5.html</loc>
-    <lastmod>2018-05-23T11:21:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python-并发爬虫</title>
-        <pubTime>2017-08-12T00:50:48.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>Python27</tag>
-         
-        <tag>爬虫</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/fb3e56b9.html</loc>
-    <lastmod>2018-05-23T11:21:07.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python-RSA加密文件</title>
-        <pubTime>2017-08-15T07:25:08.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>Python27</tag>
-         
-        <tag>小工具</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://iassas.com/archives/40673788.html</loc>
-    <lastmod>2018-05-23T11:21:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python-Pymysql中文写入</title>
-        <pubTime>2018-01-11T07:24:42.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>Python</tag>
-         
-        <tag>MySQL</tag>
-         
-         
-           
-             
-              <breadCrumb title="Code" url="https://iassas.com/categories/Code/"/>
-          
-             
-              <breadCrumb title="Python27" url="https://iassas.com/categories/Code/Python27/"/>
           
         </display>
     </data>
