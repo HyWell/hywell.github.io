@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[jar文件打包成app]]></title>
+    <url>%2Farchives%2F4afab831.html</url>
+    <content type="text"><![CDATA[在Mac上运行jar文件（例如Behinder）每次都需要1java -XstartOnFirstThread -jar Behinder.jar，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的app。链接:https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA 密码:f9vm使用工具可方便的将jar文件打包成app，本文以Behinder为例，记录所遇到的问题以及如何处理。前期准备下载jar2app之后，将其安装。12345678910# Installgit clone https://github.com/Jorl17/jar2appcd jar2appchmod +x install.sh uninstall.shsudo ./install.sh# Install to /usr/local/bingit clone https://github.com/Jorl17/jar2appcd jar2appchmod +x install.sh uninstall.shsudo ./install.sh /usr/local/bin生成APP通过jar2app的命令我们可以得知，直接使用对应命令即可生成。其中需要注意以下两点：Behinder需要通过-XstartOnFirstThread命令启动；Behinder需要jre6~jre8版本才可以运行。因此我在使用jar2app时，指定了JVM设置和JDK版本。1jar2app Behinder.jar -j "-XstartOnFirstThread" -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk使用上面的命令可以成功生成一个app，但是直接运行无法打开。问题排查直接打开Behinder.app/Contents/MacOS/JavaAppLauncher启动脚本，提示数据库文件丢失，无法启动。数据库文件丢失根据报错信息提示以及Behinder本身的文件结构，我将data.db移动到Behinder.app/Contents和其他杂七杂八的位置都不行。123456Contents/data.dbContents/Java/data.dbContents/MacOS/data.dbContents/Plugins/jdk1.8.0_181.jdk/Contents/data.dbContents/Plugins/jdk1.8.0_181.jdk/Contents/MacOS/data.dbContents/Resources/data.db重构class文件根据报错信息（数据库文件丢失）以及上述所进行的测试方法，基于当前的情况，只能通过将jar包文件反编译成class文件进行查看，判断本身源码逻辑。这里我采用JD进行反编译，直接加载Behinder的jar包文件。根据关键字：data.db进行搜索。根据上图可以看到对应判断的逻辑在：net/rebeyond/behinder/core/ShellManager.class文件中：123if (!new File("data.db").exists()) &#123; throw new Exception("数据库文件丢失，无法启动。"); &#125;通过File().exists()进行判断文件是否存在，根据大佬的提示得知File().exists()使用的user.home作为路径，将其修改成File.getAbsoluteFile()即可成功。在JD将ShellManager.class保存成java代码，使用Intellij创建一个项目。Ps:也可以用eclipse等。这里我新建了一个Maven项目，Project SDK选择1.8.0下面有关字段全部设置成Behinder将ShellManager.java文件拖入到src/main/java目录下，并将File().exists()修改成File().getAbsoluteFile().exists()。新建一个package，右键java目录new即可创建，目录名称为net.rebeyond.behinder.core。该名称来源为ShellManager在Behinder.jar文件中的路径。将ShellManager.java文件移动到net.rebeyond.behinder.core中。此时还有一系列包引入问题待解决，这时候点击【File】选项中的【Project Structure】功能，在【Project Settings】中的【Modules】的【Dependencies】中引入Behinder.jar文件。这时候还存在模块无法import的问题，根据查看发现是json模块无法引入，查看JD中json包是20180130的。在jar-download页面进行下载即可，下载完成之后，按照刚刚的流程导入。导入完成之后，这时候已经所有包都正常import。使用【Build Project】将java文件编译成class文件。解压Behinder.jar文件，将解压出来的ShellManager.class文件替换成新编译出来的ShellManager.class文件。替换完成之后，使用压缩软件将其压缩成zip。将文件后缀修改成jar，在终端下运行，看能否成功运行。Ps：记得在Behinder.jar文件同级目录需要有一个data.db；这里有个问题，我用BetterZip将其压缩成zip之后，修改后缀无法运行，使用BandiZip（Windows）压缩可以，猜测有可能是软件压缩机制或者操作系统的问题。1java -XstartOnFirstThread -jar Behinder.jar可以成功运行，在使用jar2app命令将其打包成app1jar2app Behinder.jar -j "-XstartOnFirstThread" -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk将data.db文件移动到Behinder.app/Contents即可成功运行。生成带有图标的APP上面生成的app是没有图标的，jar2app有-i参数支持图标生成。直接将Behinder.jar文件的net/rebeyond/behinder/resource目录下的logo.jpg拿出来。使用ICON在线转换，这里需要注意的是下载的文件格式应该为icns，并非是icon。使用如下命令即可生成一个带有logo图标的Behinder.app文件。1jar2app Behinder.jar -j "-XstartOnFirstThread" -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk -i logo.icns总结这里面踩了无数个坑，反反复复好长一段时间才解决。工具记得多读手册，例如在这里用的jar2app直接在GitHub上面多读手册，基本问题都能解决；实现同样功能的不同函数，在使用时需要按照需求进行使用。例如这里的File().exists()与File.getAbsoluteFile()，不同函数名总有会不一样的地方，直接平时只是为了实现功能而忽略其本质，有时候出现问题的时候需要深入了解其本质；在处理问题过程中使用到软件工具出现问题时，可不进行任何修改重复使用软件进行问题定位。例如这里的BetterZip压缩之后无法运行，我是通过直接解压缩➡️压缩➡️运行将这个问题定位出来的。]]></content>
+      <categories>
+        <category>安全研究</category>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[BurpSuite抓取非HTTP协议流量]]></title>
     <url>%2Farchives%2Fffc80a19.html</url>
     <content type="text"><![CDATA[在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。NoPE安装NoPE安装很简单，直接下载对应的jar文件，然后在BurpSuite的【Extender】选项卡中添加即可。Ps：记得要配置Java Environment环境。NoPE使用安装完成之后，需要对NoPE进行配置：DNS配置、HTTP代理设置等。Server设置在NoPE工具的【Server Config】选项卡进行配置，猜测设置DNS是为了获取请求包的domain。设置【DNS Response IP】和【DNS Listener Port】，将这个ip设置为代理服务器的ip地址，port设置为DNS常用端口：53；设置【Interface】，这个是设置网卡，可通过ifconfig查看 ；点击【Add 80 &amp; 443 to Burp】，将80、443端口添加到Burp。设置完之后回到【Proxy】选项卡的【Options】看一下，并且将Invisible设置为勾选（如果没勾选）。Ps：这时候可以使用手机进行操作，看看BurpSuite能不能拦截到HTTP的包。HTTP Proxy设置设置完Server之后，在【NoPE Proxy】选项卡的【Server Config】中启动DNS服务，直接点击那个大大的绿色箭头就可以了，显示红色为已经运行。查看【DNS History】选项卡中的DNS记录，获取Domain、Port等信息。开启Port Monitor；在手机上进行操作；获取Domain和与其对应的Port。在获取对应Port有可能会有点烦，我在获取Port的时候每次会有一堆的信息冒出来，导致并不知道那个Port跟domain是对应上的，所以点了好多次。获取到Domain与Port之后，回到【Server Config】选项卡中，将信息填入到【Non HTTP Proxy Settings】中，例如我现在有了一个domain为xxxx.com，端口为8020，将其填入对应的地方进行添加，添加之后勾选Enable即可。拦截TCP流量通过上面的配置，现在已经可以通过NoPE拦截非HTTP协议的流量。在【TCP intercept】选项卡开启【Intercept is ON】，在手机上进行操作，就可以在下面看到对应的请求包。由于我这边已经把包放过了，给大家看下历史记录的包。总结通过这种方式已经可以拦截到TCP的流量，但是通过NoPE感觉操作很繁琐。不知道有没有比的简单、优雅的方式？]]></content>
@@ -72,11 +85,11 @@
     <content type="text"><![CDATA[在Mac上运行electron框架程序（例如Antsword、CaptfEncoder等）每次都需要npm start，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg。Antsword链接:https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA 密码:eokxCaptfEncoder链接:https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw 密码:659d本文以Antsword为例。前期准备安装brew12/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"brew --version安装node123brew install nodenode --versionnpm --version安装yarn12brew install yarnyarn --version安装electron-builder，安装成功之后需要建立软连接1234yarn add electron-builder -devsudo find / -name electron-builderln -s /Users/hywell/node_modules/.bin/electron-builder /usr/local/bin/electron-builderelecctron-builder --version下载蚁剑，安装依赖并启动1234git clone https://github.com/AntSwordProject/antSword.git'cd antSwordnpm installnpm start打包修改antSword目录下的package.json，结构如下：1234567891011121314151617181920212223242526272829303132333435363738394041&#123; "name": "antsword", "version": "1.3.0", "description": "中国蚁剑是一款跨平台的开源网站管理工具", "main": "app.js", "build": &#123; "appId": "1.0", "mac": &#123; // 添加设置mac下的配置 "category": "public.app-category.developer-tools", "target": [ "dmg" ] &#125; &#125;, "scripts": &#123; "start": "electron app.js", "build": "npm start", "pack": "electron-builder --dir", "dist": "electron-builder" // 添加用于执行dist命令 &#125;, "author": "antoor &lt;u@uyu.us&gt;", "license": "MIT", "repository": &#123; "type": "git", "url": "https://github.com/antoor/antSword" &#125;, "debug": true, "update": &#123; "md5": "184c9217b01513647ccfaad49e795cfe", "logs": "移除webpack以及其他不必要的依赖，直接无需编译即可执行ES6代码\n更新美化关于页面\n重构modules/request.js后端数据请求模块\n添加 aspx hex encoder 支持\n修正custom shell 读取自身时数据被截断的 bug\n增加php中的mysql数据库模板，用于不支持使用mysqli的服务器\n以及其他小部分的代码重构优化", "sources": &#123; "coding.net": "https://coding.net/api/share/download/c405db5d-6fdb-4078-9326-32cd86c392a3", "github": "https://github.com/antoor/antSword/releases/download/1.3.0/update.zip" &#125; &#125;, "bugs": &#123; "url": "https://github.com/antoor/antSword/issues" &#125;, "homepage": "http://uyu.us", "postinstall": "electron-builder install-app-deps"&#125;在antSword目录下新建一个app文件夹，将antSword目录下所有文件迁移到app文件夹下(保证原有结构不变)。结构如下:在里面新建一个package.json文件，结构如下:12345678910111213141516171819202122&#123; "name": "antsword", "version": "1.3.0", "main": "app.js", "description": "antsword-MacOS", "author": "antoor &lt;u@uyu.us&gt;", "dependencies": &#123; // 将上个文件的依赖迁移 "babel": "^5.2.17", "extract-zip": "^1.5.0", "geoips": "0.0.1", "iconv-lite": "^0.4.13", "log4js": "^0.6.29", "nedb": "^1.5.1", "nugget": "^2.0.0", "superagent": "^3.8.3", "superagent-proxy": "^1.0.0", "through": "^2.3.8" &#125;, "devDependencies": &#123; "electron-prebuilt": "^0.37.2" &#125;&#125;在antSword目录下，执行命令将其打包。1yarn dist完成之后会生成一个dist目录，在目录中就有成功打包的antSword。总结这次耗费了大半天的时间，查阅了无数资料，发现还是官方的文档最好！elecctron-builder打包程序时，需要建立一个app文件夹&amp;两个package.json（一个作为打包使用，一个作为项目使用）;elecctron-builder打包程序时，把所有程序的资源文件、代码文件等都放到app文件夹下；遇到cannot unpack electron zip file, will be re-downloaded error=zip: not a valid zip file，请删除缓存rm -rf ~/Library/Caches/electron/编译出来的程序无法正常运行，可通过运行dist(release)/mac/xxxx.app/Contents/MacOS/xxxx，查看错误信息以便定位问题；两个package.json的区别，根据我的理解（不一定正确，大家可以看官方文档），最外层的package.json是打包的配置信息，里层的package.json为项目的配置信息。因此依赖（dependencies、devDependencies）写在里面package.json。]]></content>
       <categories>
         <category>安全研究</category>
-        <category>渗透测试</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>工具</tag>
         <tag>渗透</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -299,8 +312,8 @@
         <category>渗透测试</category>
       </categories>
       <tags>
-        <tag>渗透</tag>
         <tag>内网</tag>
+        <tag>渗透</tag>
       </tags>
   </entry>
   <entry>
