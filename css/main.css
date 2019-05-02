@@ -2049,7 +2049,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffb8fb;
+  background: #b63b2f;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2824,9 +2824,6 @@ hr {
 .posts-expand .post-eof {
   display: none;
 }
-.posts-expand .post {
-  margin-top: 120px;
-}
 .posts-expand .post:first-child {
   margin-top: 0;
 }
@@ -3093,9 +3090,6 @@ table>tbody>tr:nth-of-type(odd) {
 }
 .gitment-comment-header {
   background: rgba(241,241,241,0.1);
-}
-.posts-expand .post-meta {
-  margin: 10px 0 5px 0;
 }
 p {
   margin: 0 0 10px 0;
