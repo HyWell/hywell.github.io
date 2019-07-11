@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2019-07-11T03:11:55.255Z</updated>
+  <updated>2019-07-11T07:26:50.371Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://iassas.com/archives/8592a171.html"/>
     <id>https://iassas.com/archives/8592a171.html</id>
     <published>2019-07-11T03:06:07.000Z</published>
-    <updated>2019-07-11T03:11:55.255Z</updated>
+    <updated>2019-07-11T07:26:50.371Z</updated>
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/07/11/5d26a759ad31f57825.png&quot; alt=&quot;sqlmap-result.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -45,7 +45,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;
     
     </summary>
     
@@ -65,7 +65,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;记得好久以前看过SQLMap的原理分析，但是那时候仅仅只是看过并没有自己去研究。因此，这次想深入研究一下SQLMap的原理。大概会从网络请求、运行流程、源码这些角度进行分析。&lt;/p&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;记得好久以前看过SQLMap的原理分析，但是那时候仅仅只是看过并没有自己去研究。因此，这次想深入研究一下SQLMap的原理。大概会从网络请求、运行流程、源码这些角度进行分析。&lt;/p&gt;
     
     </summary>
     
@@ -85,7 +85,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png&quot; alt=&quot;success.png&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1f59bf8.png&quot; alt=&quot;webshell&quot;&gt;&lt;/p&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png&quot; alt=&quot;success.png&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1f59bf8.png&quot; alt=&quot;webshell&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -105,7 +105,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;scrapy学习到此告一段落，下图为一个项目的框架图。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/03/5c04c4f799a40.png&quot; alt=&quot;项目框架图&quot;&gt;&lt;/p&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;scrapy学习到此告一段落，下图为一个项目的框架图。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/03/5c04c4f799a40.png&quot; alt=&quot;项目框架图&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -129,7 +129,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行jar文件（例如Behinder）每次都需要&lt;/p&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -XstartOnFirstThread -jar Behinder.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的app。&lt;/p&gt;&lt;p&gt;链接:&lt;a href=&quot;https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA&lt;/a&gt; 密码:f9vm&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/01/5c0170f62716b.png&quot; alt=&quot;成功效果图&quot;&gt;&lt;/p&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在Mac上运行jar文件（例如Behinder）每次都需要&lt;/p&gt;&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -XstartOnFirstThread -jar Behinder.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的app。&lt;/p&gt;&lt;p&gt;链接:&lt;a href=&quot;https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA&lt;/a&gt; 密码:f9vm&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/01/5c0170f62716b.png&quot; alt=&quot;成功效果图&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -149,7 +149,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/11/29/5bff79c9eb463.png&quot; alt title=&quot;NoPE界面&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/11/29/5bff79c9eb463.png&quot; alt title=&quot;NoPE界面&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -169,7 +169,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何将数据进行存储。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; alt=&quot;mongo数据.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何将数据进行存储。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/23/5bf7b1e887464.png&quot; alt=&quot;mongo数据.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -193,7 +193,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息。最后使用SQLMap加载tamper进行自动注入。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; alt=&quot;sqlmap.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;在日站的时候，发现一处注入。但是注入语句被AES加密。通过Chrome进行单步debug，拿到了key、iv等信息。最后使用SQLMap加载tamper进行自动注入。&lt;br&gt;&lt;a href=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://i.loli.net/2018/11/06/5be139214993c.png&quot; alt=&quot;sqlmap.png&quot;&gt;&lt;/a&gt;&lt;br&gt;
     
     </summary>
     
@@ -213,7 +213,7 @@
     
     <summary type="html">
     
-      &lt;!-- build time:Thu Jul 11 2019 14:33:54 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何进行数据爬取。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;&lt;br&gt;
+      &lt;!-- build time:Thu Jul 11 2019 15:27:08 GMT+0800 (中国标准时间) --&gt;&lt;p&gt;继续学习scrapy,这次学习如何进行数据爬取。&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/08/28/5b84f81f600a4.png&quot; alt=&quot;scrapy -o result.json.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
