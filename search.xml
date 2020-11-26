@@ -1529,25 +1529,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2016-5734分析</title>
-    <url>/archives/94f683da.html</url>
-    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace /触发的callback导致命令执行。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
-<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进/libraries/controllers/table/TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上/。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在/tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
-<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在/libraries/controllers/TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进/libraries/di/Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0/e0，preg_replace将$find变成/0/e0/，在php5.5以下发生截断，变成preg_replace(/0/e, command,0/e)。由此代码执行产生。</p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CVE-2016-1247分析</title>
     <url>/archives/eca7756b.html</url>
     <content><![CDATA[<p>针对CVE-2016-1247漏洞进行复现、研究分析原理。<br><img data-src="https://i.loli.net/2018/05/27/5b0a99128c972.png" alt="success.png"></p>
@@ -1562,6 +1543,25 @@
 <h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>查看Nginx日志目录权限，发现为www-data，因此该漏洞需要使用www-data用户进行<br><img data-src="https://i.loli.net/2018/02/01/5a72c0782bbd3.png" alt="www-data.png"><br>查看Nginx日志目录下的文件权限，发现为root权限，通过符号链接将替换日志文件实现提权目的<br><img data-src="https://i.loli.net/2018/02/01/5a72c08966ad5.png" alt="root.png"><br>根据POC进行利用分析，在145行使用dlsym获取euid<br>在147、148行修改/tmp/nginxrootsh文件的所有者和权限<br>在149行删除/etc/ld.so.preload文件<br><img data-src="https://i.loli.net/2018/02/01/5a72c0a10d21f.png" alt="code.png"><br>在154行编译生成的c文件，在其后判断是否编译成功<br><img data-src="https://i.loli.net/2018/02/01/5a72c0b003134.png" alt="make.png"><br>在162行将/bin/bash拷贝到/tmp/nginxrootsh<br><img data-src="https://i.loli.net/2018/02/01/5a72c0c48ba68.png" alt="copy.png"><br>在172行删除nginx的错误日志文件并进行符号链接，将/etc/ld.so.preload（目标）软链接到nginx的错误日志（这步骤实现了提权）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0d7d17c2.png" alt="delete.png"><br>在187行将/etc/ld.so.preload内容覆盖为/tmp/privesclib.so（加载/tmp/privesclib.so共享库）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0f12d27a.png" alt="copy.png"><br>在199行将/etc/ld.so.preload权限设置为755<br><img data-src="https://i.loli.net/2018/02/01/5a72c0ff840bc.png" alt="chmod.png"></p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>root用户执行logrotate -f /etc/logrotate.d/nginx，未获取到root权限情况下重启nginx服务并删除相关文件。<br><img data-src="https://i.loli.net/2018/05/27/5b0a9c0b508d9.png" alt="root command.png"></p>
 <h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Nginx版本。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-5734分析</title>
+    <url>/archives/94f683da.html</url>
+    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace /触发的callback导致命令执行。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
+<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进/libraries/controllers/table/TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上/。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在/tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
+<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在/libraries/controllers/TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进/libraries/di/Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0/e0，preg_replace将$find变成/0/e0/，在php5.5以下发生截断，变成preg_replace(/0/e, command,0/e)。由此代码执行产生。</p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
 ]]></content>
       <categories>
         <category>安全研究</category>
