@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2020-05-26T05:48:15.000Z</updated>
+  <updated>2020-11-28T12:09:35.756Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Fastjson漏洞复现</title>
+    <link href="https://iassas.com/archives/87c00e88.html"/>
+    <id>https://iassas.com/archives/87c00e88.html</id>
+    <published>2020-11-26T16:06:56.690Z</published>
+    <updated>2020-11-28T12:09:35.756Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前些日子遇到了Fastjson1.2.35，该版本存在反序列化漏洞。但由于服务器不出网，只能验证dnslog。通过网上搜索发现bytecode的方式，但是payload无法成功将命令执行从异常带回来。因此，尝试自己复现了解一下是何情况。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/11/28/PiB82h3X1qLUtA6.jpg&quot; alt=&quot;fastjson-error&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+    <category term="fastjson" scheme="https://iassas.com/tags/fastjson/"/>
+    
+  </entry>
   
   <entry>
     <title>IDA动态调试-ELF</title>
@@ -192,30 +214,6 @@
     
     
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python-scrapy学习(四)</title>
-    <link href="https://iassas.com/archives/8c2656f.html"/>
-    <id>https://iassas.com/archives/8c2656f.html</id>
-    <published>2018-12-02T06:51:51.000Z</published>
-    <updated>2019-04-23T07:41:43.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;scrapy学习到此告一段落，下图为一个项目的框架图。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/03/5c04c4f799a40.png&quot; alt=&quot;项目框架图&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Python基础" scheme="https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
-    
-    <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
-    
-    <category term="爬虫" scheme="https://iassas.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
