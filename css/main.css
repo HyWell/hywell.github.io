@@ -225,6 +225,14 @@ body {
   min-height: 100%;
   position: relative;
   transition: padding 0.2s ease-in-out;
+  overflow-x: hidden;
+  width: 100vw;
+  overflow-y: scroll;
+}
+@supports (overflow-x: clip) {
+  body {
+    overflow-x: clip;
+  }
 }
 h1,
 h2,
@@ -3146,7 +3154,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #0a6f53;
+  background: #f5e4a7;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

@@ -456,28 +456,18 @@
       </tags>
   </entry>
   <entry>
-    <title>Go-VSCode环境搭建</title>
-    <url>/archives/c70ca2a9.html</url>
-    <content><![CDATA[<p>最近项目上用到了Go，因此对VSCode进行Go环境搭建。效果图如下：<br><img data-src="https://i.loli.net/2018/05/20/5b00d3916250e.png" alt="GO debug.png"></p>
+    <title>python3 pip缺失VC++</title>
+    <url>/archives/f62064af.html</url>
+    <content><![CDATA[<p>最近使用python3的pip安装scrapy、mysql-python等库出错，需要安装Microsoft Visual C++。网上资料大部分通过源码方式解决，不能一劳永逸解决。这里我从根源解决。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
 <span id="more"></span>
-<h1 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h1><h2 id="Go安装"><a href="#Go安装" class="headerlink" title="Go安装"></a>Go安装</h2><p>去<span class="exturl" data-url="aHR0cHM6Ly9nb2xhbmcub3JnLw==">Golang官网<i class="fa fa-external-link-alt"></i></span>下载对应版本的安装包，我这里是Windows操作系统，因此下载<span class="exturl" data-url="aHR0cHM6Ly9kbC5nb29nbGUuY29tL2dvL2dvMS4xMC4yLndpbmRvd3MtYW1kNjQubXNp">go1.10.2.windows-amd64.msi<i class="fa fa-external-link-alt"></i></span>。由于Golang官网需要科学上网，如果没有翻墙的软件，可以去<span class="exturl" data-url="aHR0cHM6Ly9zdHVkeWdvbGFuZy5jb20v">Go语言中文网<i class="fa fa-external-link-alt"></i></span>下载，<span class="exturl" data-url="aHR0cHM6Ly9zdHVkeWdvbGFuZy5jb20vZGw=">下载页面<i class="fa fa-external-link-alt"></i></span>。<br>安装过程直接Next过去即可。<br><img data-src="https://i.loli.net/2018/05/20/5b00da8e4989c.png" alt="go install.png"><br>安装完成之后，打开CMD输入go version查看go 版本信息。<br><img data-src="https://i.loli.net/2018/05/20/5b00dbbc39baf.png" alt="go version.png"></p>
-<h2 id="Go环境配置"><a href="#Go环境配置" class="headerlink" title="Go环境配置"></a>Go环境配置</h2><p>Go安装完成之后，在CMD下输入go env查看go的环境变量。<br><img data-src="https://i.loli.net/2018/05/20/5b00dc06a590d.png" alt="go env.png"><br>有两个关键的变量：GOROOT、GOPATH。GOROOT为Go安装目录不需要进行修改，GOPATH为Go项目地址可以进行修改。在喜欢的地方建立一个Go项目目录。这里我在C盘根目录下建立一个文件夹，名称为GoWork。然后将其配置到系统环境变量中。<br><img data-src="https://i.loli.net/2018/05/20/5b00dc9760002.png" alt="sys env.png"><br>配置完成之后，重新打开一个CMD输入go env查看是否生效。<br><img data-src="https://i.loli.net/2018/05/20/5b00dcd52d8c5.png" alt="go path env.png"><br>到此Go的配置告一段落。</p>
-<h1 id="VSCode"><a href="#VSCode" class="headerlink" title="VSCode"></a>VSCode</h1><h2 id="VSCode安装"><a href="#VSCode安装" class="headerlink" title="VSCode安装"></a>VSCode安装</h2><p>去<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpc3VhbHN0dWRpby5jb20v">Visual Studio Code官网<i class="fa fa-external-link-alt"></i></span>下载对应版本的安装包安装即可。安装过程直接Next过去即可。<br><img data-src="https://i.loli.net/2018/05/20/5b00dd3f6b8dd.png" alt="VSCode.png"><br>VSCode安装完成之后需要配置Git，可以查看这篇文章<a href="#">Post not found: Blog/build-blog</a>，这里就不展开了。<br><img data-src="https://i.loli.net/2018/05/20/5b00e068e3f6f.png" alt="vscode gui.png"></p>
-<h2 id="VSCode环境配置"><a href="#VSCode环境配置" class="headerlink" title="VSCode环境配置"></a>VSCode环境配置</h2><h3 id="Go插件安装"><a href="#Go插件安装" class="headerlink" title="Go插件安装"></a>Go插件安装</h3><p>在VSCode商店里面安装对应Go插件。可以直接通过VSCode欢迎使用页面的自定义→工具和语言→更多进行跳转。<br><img data-src="https://i.loli.net/2018/05/20/5b00e09ab3585.png" alt="vscode go install.png"><br>安装完成之后打开Go项目文件夹，新建一个hello.go，打开hello.go，在右小角进行点击Install All安装所依赖的库（该步骤需要翻墙）。<br><img data-src="https://i.loli.net/2018/05/20/5b00e2ab752db.png" alt="vscode go install all.png"><br>安装完成之后，在工作目录下会多出一个bin子目录里面会放所需要的exe文件。如果翻不了墙，那么可以直接下载这个，放到Go项目文件夹下的bin目录即可。<br><code>链接：https://pan.baidu.com/s/19w01LlfY8iEsLm5gJmP5Lw 密码：umao</code></p>
-<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><p>完成以上操作之后，可以通过F5进行Debug。<br><img data-src="https://i.loli.net/2018/05/20/5b00e5add6cd9.png" alt="vscode go debug.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在进行VSCode进行Go Debug时，遇到了几个需要注意点，在此记录一下供诸君参考：</p>
-<ol>
-<li>完成Go安装之后，需要进行GOPATH环境变量配置，便于项目目录查找；</li>
-<li>完成VSCode安装之后，在VSCode的终端里面输入go命令查看VSCode是否能调用系统环境变量。如果在VSCode终端找不到go命令，在用户环境变量里面进行添加可以解决该问题。假设还解决不了，直接在终端进行path环境变量追加<code>set path=%path%;C:\go\bin</code>；</li>
-<li>如果VSCode依赖的库安装失败，直接把src、bin、pkg目录都删除，然后重新安装。<h1 id="Go代码"><a href="#Go代码" class="headerlink" title="Go代码"></a>Go代码</h1><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello, Hywell&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ol>
+<h1 id="VC-缺失"><a href="#VC-缺失" class="headerlink" title="VC++缺失"></a>VC++缺失</h1><p>使用<code>pip install scrapy</code>安装scrapy出现缺失VC++。<br><img data-src="https://i.loli.net/2018/05/23/5b054a41e5f7d.png" alt="pip install scrapy.png"><br>根据报错信息打开<span class="exturl" data-url="aHR0cDovL2xhbmRpbmdodWIudmlzdWFsc3R1ZGlvLmNvbS92aXN1YWwtY3BwLWJ1aWxkLXRvb2xz">VC Build Tools站点<i class="fa fa-external-link-alt"></i></span><br><img data-src="https://i.loli.net/2018/05/23/5b054a8bcc27d.png" alt="web vc.png"><br>点击红框中的链接，找到Visual Studio 2017 生成工具下载对应文件。<br><img data-src="https://i.loli.net/2018/05/23/5b054ac26425e.png" alt="vc build.png"><br>打开下载下来的vs_buildtools程序，勾选Visual C++生成工具，进行安装。<br><img data-src="https://i.loli.net/2018/05/23/5b054b2ecdc28.png" alt="VC++.png"><br>接下来安静等待安装完成。<br><img data-src="https://i.loli.net/2018/05/23/5b054b5ccd253.png" alt="SDK install.png"><br><img data-src="https://i.loli.net/2018/05/23/5b054b5d01b22.png" alt="install success.png"><br>安装完成之后，再使用<code>pip install scrapy</code>即可成功安装。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
 ]]></content>
       <categories>
-        <category>代码基础</category>
+        <category>Python基础</category>
       </categories>
       <tags>
-        <tag>环境搭建</tag>
-        <tag>Go</tag>
+        <tag>Code</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -726,6 +716,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Python2-Scrapy学习(二)</title>
+    <url>/archives/2ba6ae11.html</url>
+    <content><![CDATA[<p>继续学习scrapy,这次学习如何进行数据爬取。<br><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></p>
+<span id="more"></span>
+<p>在<a href="#">Post not found: Code/Python/Python27/Python-scrapy学习01</a>大致了解了scrapy的基础使用方式，接下来开始使用scrapy结合xpath爬取所需的信息。</p>
+<h1 id="freebuf资讯爬取"><a href="#freebuf资讯爬取" class="headerlink" title="freebuf资讯爬取"></a>freebuf资讯爬取</h1><p>假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在<code>class=news_inner news-list</code>的div中。<br><a href="https://i.loli.net/2018/08/28/5b84f1db7b7de.png"><img data-src="https://i.loli.net/2018/08/28/5b84f1db7b7de.png" alt="freebuf div.png"></a><br>使用scrapy shell命令进行调试。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scrapy</span> shell -s USER_AGENT=&#x27;Mozilla/<span class="number">5</span>.<span class="number">0</span> (Macintosh; Intel Mac OS X <span class="number">10</span>_<span class="number">13</span>_<span class="number">6</span>) AppleWebKit/<span class="number">537</span>.<span class="number">36</span> (KHTML, like Gecko) Chrome/<span class="number">68</span>.<span class="number">0</span>.<span class="number">3440</span>.<span class="number">106</span> Safari/<span class="number">537</span>.<span class="number">36</span>&#x27; &#x27;http://www.freebuf.com</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/28/5b84f2795f37e.png"><img data-src="https://i.loli.net/2018/08/28/5b84f2795f37e.png" alt="scrapy shell debug.png"></a><br>使用<span class="exturl" data-url="aHR0cHM6Ly93d3cudzMub3JnL1RSL3hwYXRoL2FsbC8=">xpath<i class="fa fa-external-link-alt"></i></span>选择器来筛选需要的数据。<br><a href="https://i.loli.net/2018/08/28/5b84f42788808.png"><img data-src="https://i.loli.net/2018/08/28/5b84f42788808.png" alt="scrapy shell get.png"></a><br>最后使用<code>scrapy crawl freebufSprider -o result.json</code>可将结果保存至result.json中。<br><a href="https://i.loli.net/2018/08/28/5b84f81f600a4.png"><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>爬虫的步骤：访问站点、解析数据、获取数据。</li>
+<li>scrapy支出css、xpath，大家看哪个顺手就用那个好了。</li>
+</ol>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！**<a href="https://github.com/HyWell/Python/tree/master/Crawler/freebuf"><font color=blue>Code</font></a>**。</p>
+]]></content>
+      <categories>
+        <category>Python基础</category>
+      </categories>
+      <tags>
+        <tag>Python2</tag>
+        <tag>scrapy</tag>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python2-Scrapy学习(三)</title>
     <url>/archives/80b032ee.html</url>
     <content><![CDATA[<p>继续学习scrapy,这次学习如何将数据进行存储。<br><a href="https://i.loli.net/2018/11/23/5bf7b1e887464.png"><img data-src="https://i.loli.net/2018/11/23/5bf7b1e887464.png" alt="mongo数据.png"></a></p>
@@ -809,30 +823,6 @@
 <li>scrapy函数大部分都可以通过callback进行回调，yield进行资源控制超级棒；</li>
 <li>感觉item.py文件利用的较少，应该还有我不知道的用途。</li>
 </ol>
-]]></content>
-      <categories>
-        <category>Python基础</category>
-      </categories>
-      <tags>
-        <tag>Python2</tag>
-        <tag>scrapy</tag>
-        <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python2-Scrapy学习(二)</title>
-    <url>/archives/2ba6ae11.html</url>
-    <content><![CDATA[<p>继续学习scrapy,这次学习如何进行数据爬取。<br><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></p>
-<span id="more"></span>
-<p>在<a href="#">Post not found: Code/Python/Python27/Python-scrapy学习01</a>大致了解了scrapy的基础使用方式，接下来开始使用scrapy结合xpath爬取所需的信息。</p>
-<h1 id="freebuf资讯爬取"><a href="#freebuf资讯爬取" class="headerlink" title="freebuf资讯爬取"></a>freebuf资讯爬取</h1><p>假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在<code>class=news_inner news-list</code>的div中。<br><a href="https://i.loli.net/2018/08/28/5b84f1db7b7de.png"><img data-src="https://i.loli.net/2018/08/28/5b84f1db7b7de.png" alt="freebuf div.png"></a><br>使用scrapy shell命令进行调试。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scrapy</span> shell -s USER_AGENT=&#x27;Mozilla/<span class="number">5</span>.<span class="number">0</span> (Macintosh; Intel Mac OS X <span class="number">10</span>_<span class="number">13</span>_<span class="number">6</span>) AppleWebKit/<span class="number">537</span>.<span class="number">36</span> (KHTML, like Gecko) Chrome/<span class="number">68</span>.<span class="number">0</span>.<span class="number">3440</span>.<span class="number">106</span> Safari/<span class="number">537</span>.<span class="number">36</span>&#x27; &#x27;http://www.freebuf.com</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/28/5b84f2795f37e.png"><img data-src="https://i.loli.net/2018/08/28/5b84f2795f37e.png" alt="scrapy shell debug.png"></a><br>使用<span class="exturl" data-url="aHR0cHM6Ly93d3cudzMub3JnL1RSL3hwYXRoL2FsbC8=">xpath<i class="fa fa-external-link-alt"></i></span>选择器来筛选需要的数据。<br><a href="https://i.loli.net/2018/08/28/5b84f42788808.png"><img data-src="https://i.loli.net/2018/08/28/5b84f42788808.png" alt="scrapy shell get.png"></a><br>最后使用<code>scrapy crawl freebufSprider -o result.json</code>可将结果保存至result.json中。<br><a href="https://i.loli.net/2018/08/28/5b84f81f600a4.png"><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>爬虫的步骤：访问站点、解析数据、获取数据。</li>
-<li>scrapy支出css、xpath，大家看哪个顺手就用那个好了。</li>
-</ol>
-<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！**<a href="https://github.com/HyWell/Python/tree/master/Crawler/freebuf"><font color=blue>Code</font></a>**。</p>
 ]]></content>
       <categories>
         <category>Python基础</category>
@@ -952,18 +942,308 @@
       </tags>
   </entry>
   <entry>
-    <title>python3 pip缺失VC++</title>
-    <url>/archives/f62064af.html</url>
-    <content><![CDATA[<p>最近使用python3的pip安装scrapy、mysql-python等库出错，需要安装Microsoft Visual C++。网上资料大部分通过源码方式解决，不能一劳永逸解决。这里我从根源解决。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
+    <title>Go-VSCode环境搭建</title>
+    <url>/archives/c70ca2a9.html</url>
+    <content><![CDATA[<p>最近项目上用到了Go，因此对VSCode进行Go环境搭建。效果图如下：<br><img data-src="https://i.loli.net/2018/05/20/5b00d3916250e.png" alt="GO debug.png"></p>
 <span id="more"></span>
-<h1 id="VC-缺失"><a href="#VC-缺失" class="headerlink" title="VC++缺失"></a>VC++缺失</h1><p>使用<code>pip install scrapy</code>安装scrapy出现缺失VC++。<br><img data-src="https://i.loli.net/2018/05/23/5b054a41e5f7d.png" alt="pip install scrapy.png"><br>根据报错信息打开<span class="exturl" data-url="aHR0cDovL2xhbmRpbmdodWIudmlzdWFsc3R1ZGlvLmNvbS92aXN1YWwtY3BwLWJ1aWxkLXRvb2xz">VC Build Tools站点<i class="fa fa-external-link-alt"></i></span><br><img data-src="https://i.loli.net/2018/05/23/5b054a8bcc27d.png" alt="web vc.png"><br>点击红框中的链接，找到Visual Studio 2017 生成工具下载对应文件。<br><img data-src="https://i.loli.net/2018/05/23/5b054ac26425e.png" alt="vc build.png"><br>打开下载下来的vs_buildtools程序，勾选Visual C++生成工具，进行安装。<br><img data-src="https://i.loli.net/2018/05/23/5b054b2ecdc28.png" alt="VC++.png"><br>接下来安静等待安装完成。<br><img data-src="https://i.loli.net/2018/05/23/5b054b5ccd253.png" alt="SDK install.png"><br><img data-src="https://i.loli.net/2018/05/23/5b054b5d01b22.png" alt="install success.png"><br>安装完成之后，再使用<code>pip install scrapy</code>即可成功安装。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
+<h1 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h1><h2 id="Go安装"><a href="#Go安装" class="headerlink" title="Go安装"></a>Go安装</h2><p>去<span class="exturl" data-url="aHR0cHM6Ly9nb2xhbmcub3JnLw==">Golang官网<i class="fa fa-external-link-alt"></i></span>下载对应版本的安装包，我这里是Windows操作系统，因此下载<span class="exturl" data-url="aHR0cHM6Ly9kbC5nb29nbGUuY29tL2dvL2dvMS4xMC4yLndpbmRvd3MtYW1kNjQubXNp">go1.10.2.windows-amd64.msi<i class="fa fa-external-link-alt"></i></span>。由于Golang官网需要科学上网，如果没有翻墙的软件，可以去<span class="exturl" data-url="aHR0cHM6Ly9zdHVkeWdvbGFuZy5jb20v">Go语言中文网<i class="fa fa-external-link-alt"></i></span>下载，<span class="exturl" data-url="aHR0cHM6Ly9zdHVkeWdvbGFuZy5jb20vZGw=">下载页面<i class="fa fa-external-link-alt"></i></span>。<br>安装过程直接Next过去即可。<br><img data-src="https://i.loli.net/2018/05/20/5b00da8e4989c.png" alt="go install.png"><br>安装完成之后，打开CMD输入go version查看go 版本信息。<br><img data-src="https://i.loli.net/2018/05/20/5b00dbbc39baf.png" alt="go version.png"></p>
+<h2 id="Go环境配置"><a href="#Go环境配置" class="headerlink" title="Go环境配置"></a>Go环境配置</h2><p>Go安装完成之后，在CMD下输入go env查看go的环境变量。<br><img data-src="https://i.loli.net/2018/05/20/5b00dc06a590d.png" alt="go env.png"><br>有两个关键的变量：GOROOT、GOPATH。GOROOT为Go安装目录不需要进行修改，GOPATH为Go项目地址可以进行修改。在喜欢的地方建立一个Go项目目录。这里我在C盘根目录下建立一个文件夹，名称为GoWork。然后将其配置到系统环境变量中。<br><img data-src="https://i.loli.net/2018/05/20/5b00dc9760002.png" alt="sys env.png"><br>配置完成之后，重新打开一个CMD输入go env查看是否生效。<br><img data-src="https://i.loli.net/2018/05/20/5b00dcd52d8c5.png" alt="go path env.png"><br>到此Go的配置告一段落。</p>
+<h1 id="VSCode"><a href="#VSCode" class="headerlink" title="VSCode"></a>VSCode</h1><h2 id="VSCode安装"><a href="#VSCode安装" class="headerlink" title="VSCode安装"></a>VSCode安装</h2><p>去<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpc3VhbHN0dWRpby5jb20v">Visual Studio Code官网<i class="fa fa-external-link-alt"></i></span>下载对应版本的安装包安装即可。安装过程直接Next过去即可。<br><img data-src="https://i.loli.net/2018/05/20/5b00dd3f6b8dd.png" alt="VSCode.png"><br>VSCode安装完成之后需要配置Git，可以查看这篇文章<a href="#">Post not found: Blog/build-blog</a>，这里就不展开了。<br><img data-src="https://i.loli.net/2018/05/20/5b00e068e3f6f.png" alt="vscode gui.png"></p>
+<h2 id="VSCode环境配置"><a href="#VSCode环境配置" class="headerlink" title="VSCode环境配置"></a>VSCode环境配置</h2><h3 id="Go插件安装"><a href="#Go插件安装" class="headerlink" title="Go插件安装"></a>Go插件安装</h3><p>在VSCode商店里面安装对应Go插件。可以直接通过VSCode欢迎使用页面的自定义→工具和语言→更多进行跳转。<br><img data-src="https://i.loli.net/2018/05/20/5b00e09ab3585.png" alt="vscode go install.png"><br>安装完成之后打开Go项目文件夹，新建一个hello.go，打开hello.go，在右小角进行点击Install All安装所依赖的库（该步骤需要翻墙）。<br><img data-src="https://i.loli.net/2018/05/20/5b00e2ab752db.png" alt="vscode go install all.png"><br>安装完成之后，在工作目录下会多出一个bin子目录里面会放所需要的exe文件。如果翻不了墙，那么可以直接下载这个，放到Go项目文件夹下的bin目录即可。<br><code>链接：https://pan.baidu.com/s/19w01LlfY8iEsLm5gJmP5Lw 密码：umao</code></p>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><p>完成以上操作之后，可以通过F5进行Debug。<br><img data-src="https://i.loli.net/2018/05/20/5b00e5add6cd9.png" alt="vscode go debug.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在进行VSCode进行Go Debug时，遇到了几个需要注意点，在此记录一下供诸君参考：</p>
+<ol>
+<li>完成Go安装之后，需要进行GOPATH环境变量配置，便于项目目录查找；</li>
+<li>完成VSCode安装之后，在VSCode的终端里面输入go命令查看VSCode是否能调用系统环境变量。如果在VSCode终端找不到go命令，在用户环境变量里面进行添加可以解决该问题。假设还解决不了，直接在终端进行path环境变量追加<code>set path=%path%;C:\go\bin</code>；</li>
+<li>如果VSCode依赖的库安装失败，直接把src、bin、pkg目录都删除，然后重新安装。<h1 id="Go代码"><a href="#Go代码" class="headerlink" title="Go代码"></a>Go代码</h1><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello, Hywell&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
 ]]></content>
       <categories>
-        <category>Python基础</category>
+        <category>代码基础</category>
       </categories>
       <tags>
-        <tag>Code</tag>
-        <tag>Python3</tag>
+        <tag>环境搭建</tag>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AWIScan编写之路</title>
+    <url>/archives/84cd09d9.html</url>
+    <content><![CDATA[<p>红队评估、渗透测试等安全工作最为重要的就是信息收集，信息收集工作需要对目标多方面、多维度进行收集、梳理。相信大家也用过许多信息收集的工具，例如：nmap、msscan、subdomainBrute、whatweb、dirscan、dirsearch、wydomain等等。当对一个目标群体（多ip段 or 多域名）进行信息收集时，往往需要不断在各个工具之间来回切换。通过寻找发现了一款工具：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpZGVTZWMvRnV6elNjYW5uZXI=">FuzzScaner<i class="fa fa-external-link-alt"></i></span>，该工具整合了子域名、端口、指纹、c段等信息收集。但FuzzScaner存在几点问题：1.长期不维护&amp;更新，上次提交为2019.04；2.使用python2，python2马上不被官方支持；3.只做了简单整合，多工具调度之间容易出问题。因此，自己动手造了一个轮子：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0h5V2VsbC9BV0lTY2Fu">AWIScan<i class="fa fa-external-link-alt"></i></span>——All Web Info Scan。</p>
+<p><img data-src="https://i.loli.net/2019/10/23/lLGJKfo2j1Wdvyk.png" alt="AWIScan.png"></p>
+<span id="more"></span>
+
+<h1 id="功能构思"><a href="#功能构思" class="headerlink" title="功能构思"></a>功能构思</h1><p>根据上面所述，新开发的工具需要具备如下特性：</p>
+<ul>
+<li>尽可能快的完成任务</li>
+<li>尽可能多的收集信息</li>
+<li>尽可能少的参数输入</li>
+<li>最好支持插件或模块拓展</li>
+</ul>
+<p>根据上述特性，采用了</p>
+<ul>
+<li>Python3 asyncio协程</li>
+<li>支持端口扫描（调用nmap）、子域名爆破、目录爆破</li>
+<li>总共三个参数，可直接使用单个参数即可执行 任务，其中level参数可不输入，默认为1</li>
+<li>需要修改的配置信息都在setting.py文件中</li>
+</ul>
+<h1 id="框架流程"><a href="#框架流程" class="headerlink" title="框架流程"></a>框架流程</h1><p>这里借鉴了许多项目：SQLMap、PocSuite3、subdomainBrute、Dirscmap、Dirsearch、FuzzScaner等等。最终结构如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── AWIScan.py</span><br><span class="line">├── README.md</span><br><span class="line">├── data</span><br><span class="line">│   ├── subDomain</span><br><span class="line">│   │   ├── dns_server.txt</span><br><span class="line">│   │   ├── next_sub_full.txt</span><br><span class="line">│   │   └── subnames_full.txt</span><br><span class="line">│   └── webScan</span><br><span class="line">│       ├── dict.txt</span><br><span class="line">│       └── user-agents.txt</span><br><span class="line">├── lib</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── controller</span><br><span class="line">│   │   ├── aiodirscan.py</span><br><span class="line">│   │   ├── aionmap.py</span><br><span class="line">│   │   ├── aioportscan.py</span><br><span class="line">│   │   ├── aiosubdomainscan.py</span><br><span class="line">│   │   └── engine.py</span><br><span class="line">│   ├── core</span><br><span class="line">│   │   ├── common.py</span><br><span class="line">│   │   ├── convert.py</span><br><span class="line">│   │   ├── data.py</span><br><span class="line">│   │   ├── datatype.py</span><br><span class="line">│   │   ├── enums.py</span><br><span class="line">│   │   ├── log.py</span><br><span class="line">│   │   ├── options.py</span><br><span class="line">│   │   └── setting.py</span><br><span class="line">│   ├── parse</span><br><span class="line">│   │   ├── cmdline.py</span><br><span class="line">│   │   ├── ip.py</span><br><span class="line">│   │   ├── result.py</span><br><span class="line">│   │   └── url.py</span><br><span class="line">│   └── thirdparty</span><br><span class="line">│       ├── __init__.py</span><br><span class="line">│       ├── ansistrm</span><br><span class="line">│       │   ├── __init__.py</span><br><span class="line">│       │   └── ansistrm.py</span><br><span class="line">│       ├── colorama</span><br><span class="line">│       │   ├── __init__.py</span><br><span class="line">│       │   ├── ansi.py</span><br><span class="line">│       │   ├── ansitowin32.py</span><br><span class="line">│       │   ├── initialise.py</span><br><span class="line">│       │   ├── win32.py</span><br><span class="line">│       │   └── winterm.py</span><br><span class="line">│       └── termcolor</span><br><span class="line">│           └── termcolor.py</span><br><span class="line">├── output</span><br><span class="line">│   ├── AWIScan</span><br><span class="line">│   │   └── bad_dns_servers.txt</span><br><span class="line">│   └── result</span><br><span class="line">└── requirement.txt</span><br></pre></td></tr></table></figure>
+
+<p>流程为：参数解析——配置注册——任务分配——开始工作——输出结果。</p>
+<h1 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h1><p>初始目标支持以下几种格式：</p>
+<ul>
+<li>192.168.1.1</li>
+<li>192.168.1.1/24</li>
+<li>192.168.1.1-192.168.1.100</li>
+<li>192.168.1.1-254</li>
+<li>domain.com</li>
+<li>[http/https]://domain.com</li>
+</ul>
+<p><del>现版本根据不同的输入目标会执行相应的功能：</del></p>
+<ul>
+<li><del>纯ip地址执行端口扫描，e x 192.168.1.1…</del></li>
+<li><del>域名会执行子域名爆破，e x domain.com</del></li>
+<li><del>url会执行目录扫描，e x <span class="exturl" data-url="aHR0cDovL2RvbWFpbi5jb20v">http://domain.com<i class="fa fa-external-link-alt"></i></span> or <span class="exturl" data-url="aHR0cHM6Ly9kb21haW4uY29tLw==">https://domain.com<i class="fa fa-external-link-alt"></i></span></del></li>
+</ul>
+<p>所有初始目标都会执行端口扫描，如果没有协议会再执行子域名爆破、如果还有协议会再加上目录扫描。</p>
+<p><del>该版本只在OSX、python3.7下测试过，别的系统版本可以自己试试（估计问题不大）。</del></p>
+<p>Windows（10）、linux（Debian）、MacOS（10.15） &amp;&amp; python3.7皆测试通过。</p>
+<p>由于端口扫描是调用nmap的，本地机器需要安装nmap，并且执行脚本需要有对应权限，可在lib/core/setting.py中配置SUDO_PASSWORD。具体端口扫描速度并未进行测试。</p>
+<p>由于端口扫描是调用nmap的，本地机器需要安装nmap，并且执行脚本需要有对应权限，可在lib/core/setting.py中配置SUDO_PASSWORD。具体端口扫描速度并未进行测试。</p>
+<p>子域名爆破需要指定对应DNS服务器，整体速度子域名爆破一千三百多个，最快一次是三十多秒（估计有dns缓存的原因）。清理缓存，再次测试七分钟左右（协程数50）。</p>
+<p>目录扫描由于设计到网络、防护等关系，未进行测试。</p>
+<h1 id="问题难点"><a href="#问题难点" class="headerlink" title="问题难点"></a>问题难点</h1><p>在编写的时候遇到种种问题和难点：</p>
+<ul>
+<li>协程库的资料相对较少</li>
+<li>许多库在调用中会出现千奇百怪的问题</li>
+<li>慢速生产、快速消费模型，如何保持消费者数不减少</li>
+</ul>
+<p>针对第三个模型做一下记录：下面代码有可能导致最后只有一个协程在工作，但任务队列中还具备无数任务</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">target_queue, html</span>):</span></span><br><span class="line">  urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟页面解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">work</span>(<span class="params">url</span>):</span></span><br><span class="line">  resp = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟网络请求</span></span><br><span class="line">  <span class="keyword">if</span> resp.status == <span class="number">200</span>:</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">scan</span>(<span class="params">target_queue</span>):</span></span><br><span class="line">  <span class="keyword">while</span> target_queue.qsize() &gt; <span class="number">0</span>:</span><br><span class="line">    target = target_queue.get_nowait()</span><br><span class="line">    html = work(target)</span><br><span class="line">    result = <span class="keyword">await</span> parse(target_queue, html)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">control</span>(<span class="params">base_url</span>):</span></span><br><span class="line">  tasks = []</span><br><span class="line">	target_queue = asyncio.Queue()</span><br><span class="line">  base_urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟初始url解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> base_urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">50</span>):</span><br><span class="line">    tasks.append(asyncio.create_task(scan(target_queue)))</span><br><span class="line">  <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asyncio.run(contronl(base_url))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>后面在主协程中同归队列进行阻塞，子协程阻塞至任务获取，即可解决该问题。即所有子协程都不断运行，直至取不到任务时阻塞。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">target_queue, html</span>):</span></span><br><span class="line">  urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟页面解析</span></span><br><span class="line">  <span class="keyword">if</span> urls:</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">      target_queue.put_notwait(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">work</span>(<span class="params">url</span>):</span></span><br><span class="line">  resp = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟网络请求</span></span><br><span class="line">  <span class="keyword">if</span> resp.status == <span class="number">200</span>:</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">scan</span>(<span class="params">target_queue</span>):</span></span><br><span class="line">  <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">await</span> target_queue.get()</span><br><span class="line">    target = target_queue.get_nowait()</span><br><span class="line">    html = work(target)</span><br><span class="line">    result = <span class="keyword">await</span> parse(target_queue, html)</span><br><span class="line">    target_queue.task_done()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">control</span>(<span class="params">base_url</span>):</span></span><br><span class="line">  tasks = []</span><br><span class="line">	target_queue = asyncio.Queue()</span><br><span class="line">  base_urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟初始url解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> base_urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">50</span>):</span><br><span class="line">    tasks.append(asyncio.create_task(scan(target_queue)))</span><br><span class="line">  <span class="keyword">await</span> target_queue.join()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asyncio.run(contronl(base_url))</span><br></pre></td></tr></table></figure>
+
+<p>下面再记录一下小问题</p>
+<ul>
+<li><p>通过asyncio.queue设置队列最好在对应协程函数中建立：一开始将工作队列设置成全局，然后在各个文件进行加载，该方式会导致异常，大概含义是一个loop只能使用同一个队列。</p>
+</li>
+<li><p>由于协程概念，所以最好只使用一个loop：在进行dns服务器测试的时候通过get_event_loop建立了新的loop之后（完成任务之后loop.close），在后续再次通过get_event_loop是无法成功新建协程的：RuntimeError: Event loop is closed。可通过set_even_loop解决，但不建议。</p>
+</li>
+</ul>
+<ul>
+<li>异步DNS库还不够完善，在aiodns、async_dns、aiodnsresolver中来来回回切换，最后选择了aiodns。<ul>
+<li>aiodns未看到timeout参数，所以子域名爆破有可能超时导致速度不稳定</li>
+<li>async_dns在DNS服务器测试完成之后，再此调用返回的结果为空，估计是由于不同loop的原因导致？</li>
+<li>aiodnsresolver在进行dns服务器配置感觉不太好用，所以弃用。</li>
+</ul>
+</li>
+</ul>
+<h1 id="后续计划更新"><a href="#后续计划更新" class="headerlink" title="后续计划更新"></a>后续计划更新</h1><ul>
+<li><input checked="" disabled="" type="checkbox"> 目录爆破支持随机User-Agent</li>
+<li><input checked="" disabled="" type="checkbox"> 目录爆破支持代理</li>
+<li><input disabled="" type="checkbox"> 整合目标，将ip、domain这些统一整合</li>
+<li><input disabled="" type="checkbox"> 支持多进程扫描</li>
+<li><input disabled="" type="checkbox"> 支持自定义插件扫描</li>
+<li><input disabled="" type="checkbox"> 强化扫描能力</li>
+<li><input disabled="" type="checkbox"> 。。。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>感谢GitHub上这么多开源的工具</li>
+<li>写代码好难～～～</li>
+<li>在遇到问题查看官方文档如果无法解决，可以直接看对应源码</li>
+<li>AWIScan项目应该有很多面条式代码，后续看看能不能逐渐优化</li>
+<li>对变量进行命令真的太难了，所以很多地方用了同样的变量名。全局变量设置成全大写，局部变量是全小写，不同参数传递参数前面变量名相同（尽量）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具环境</category>
+      </categories>
+      <tags>
+        <tag>AWIScan</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BurpSuitePro 2.1及之后版本通杀加载器</title>
+    <url>/archives/c5863b38.html</url>
+    <content><![CDATA[<p>直接看图。</p>
+<p><img data-src="https://i.loli.net/2020/03/28/UQFCOg8EhKqejGo.gif" alt="BpLoad"></p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>工具环境</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jar文件打包成app</title>
+    <url>/archives/4afab831.html</url>
+    <content><![CDATA[<p>在Mac上运行jar文件（例如Behinder）每次都需要</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">java -XstartOnFirstThread -jar Behinder.jar </span><br></pre></td></tr></table></figure>
+
+<p>，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的app。</p>
+<p>链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMTQ3NENyZ2JiU2ZiWHhxSkdnOWNhckE=">https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA<i class="fa fa-external-link-alt"></i></span>  密码:f9vm</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c0170f62716b.png" alt="成功效果图"></p>
+<span id="more"></span>
+
+<p>使用工具可方便的将jar文件打包成app，本文以Behinder为例，记录所遇到的问题以及如何处理。</p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0pvcmwxNy9qYXIyYXBw">jar2app<i class="fa fa-external-link-alt"></i></span>之后，将其安装。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Jorl17/jar2app</span><br><span class="line"><span class="built_in">cd</span> jar2app</span><br><span class="line">chmod +x install.sh uninstall.sh</span><br><span class="line">sudo ./install.sh</span><br><span class="line"><span class="comment"># Install to /usr/local/bin</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Jorl17/jar2app</span><br><span class="line"><span class="built_in">cd</span> jar2app</span><br><span class="line">chmod +x install.sh uninstall.sh</span><br><span class="line">sudo ./install.sh /usr/<span class="built_in">local</span>/bin</span><br></pre></td></tr></table></figure>
+
+<h1 id="生成APP"><a href="#生成APP" class="headerlink" title="生成APP"></a>生成APP</h1><p>通过jar2app的命令我们可以得知，直接使用对应命令即可生成。其中需要注意以下两点：</p>
+<ol>
+<li>Behinder需要通过<code>-XstartOnFirstThread</code>命令启动；</li>
+<li>Behinder需要jre6~jre8版本才可以运行。</li>
+</ol>
+<p>因此我在使用jar2app时，指定了JVM设置和JDK版本。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jar2app Behinder.jar -j &quot;-XstartOnFirstThread&quot; -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk</span><br></pre></td></tr></table></figure>
+
+<p>使用上面的命令可以成功生成一个app，但是直接运行无法打开。</p>
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>直接打开Behinder.app/Contents/MacOS/JavaAppLauncher启动脚本，提示数据库文件丢失，无法启动。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c0170f5b1d5a.png" alt="数据库文件丢失"></p>
+<h3 id="数据库文件丢失"><a href="#数据库文件丢失" class="headerlink" title="数据库文件丢失"></a>数据库文件丢失</h3><p>根据报错信息提示以及Behinder本身的文件结构，我将data.db移动到Behinder.app/Contents和其他杂七杂八的位置都不行。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Contents/data.db</span><br><span class="line">Contents/Java/data.db</span><br><span class="line">Contents/MacOS/data.db</span><br><span class="line">Contents/Plugins/jdk1.8.0_181.jdk/Contents/data.db</span><br><span class="line">Contents/Plugins/jdk1.8.0_181.jdk/Contents/MacOS/data.db</span><br><span class="line">Contents/Resources/data.db</span><br></pre></td></tr></table></figure>
+
+<h3 id="重构class文件"><a href="#重构class文件" class="headerlink" title="重构class文件"></a>重构class文件</h3><p>根据报错信息（数据库文件丢失）以及上述所进行的测试方法，基于当前的情况，只能通过将jar包文件反编译成class文件进行查看，判断本身源码逻辑。这里我采用JD进行反编译，直接加载Behinder的jar包文件。根据关键字：data.db进行搜索。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c0170f5b2a6a.png" alt="源代码查询"></p>
+<p>根据上图可以看到对应判断的逻辑在：net/rebeyond/behinder/core/ShellManager.class文件中：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="keyword">new</span> File(<span class="string">&quot;data.db&quot;</span>).exists()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;数据库文件丢失，无法启动。&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过File().exists()进行判断文件是否存在，根据大佬的提示得知File().exists()使用的user.home作为路径，将其修改成File.getAbsoluteFile()即可成功。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c0170f607879.png" alt="测试代码"></p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c85be7.png" alt="测试结果"></p>
+<p>在JD将ShellManager.class保存成java代码，使用Intellij创建一个项目。Ps:也可以用eclipse等。</p>
+<p>这里我新建了一个Maven项目，Project SDK选择1.8.0</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c89823.png" alt="Project SDK"></p>
+<p>下面有关字段全部设置成Behinder</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6b75627.png" alt="GroupId"></p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6b739b1.png" alt="ProjectName"></p>
+<p>将ShellManager.java文件拖入到src/main/java目录下，并将File().exists()修改成File().getAbsoluteFile().exists()。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c5748e.png" alt="修改代码"></p>
+<p>新建一个package，右键java目录new即可创建，目录名称为net.rebeyond.behinder.core。该名称来源为ShellManager在Behinder.jar文件中的路径。将ShellManager.java文件移动到net.rebeyond.behinder.core中。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c5575f.png" alt="新目录结构"></p>
+<p>此时还有一系列包引入问题待解决，这时候点击【File】选项中的【Project Structure】功能，在【Project Settings】中的【Modules】的【Dependencies】中引入Behinder.jar文件。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6be64ec.png" alt="Project Structure"></p>
+<p>这时候还存在模块无法import的问题，根据查看发现是json模块无法引入，查看JD中json包是20180130的。在<span class="exturl" data-url="aHR0cHM6Ly9qYXItZG93bmxvYWQuY29tL2FydGlmYWN0cy9vcmcuanNvbi9qc29uLzIwMTgwMTMwL3NvdXJjZS1jb2Rl">jar-download<i class="fa fa-external-link-alt"></i></span>页面进行下载即可，下载完成之后，按照刚刚的流程导入。导入完成之后，这时候已经所有包都正常import。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c8f06f.png" alt="import success"></p>
+<p>使用【Build Project】将java文件编译成class文件。</p>
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c8c306.png" alt="BuildProject"></p>
+<p>解压Behinder.jar文件，将解压出来的ShellManager.class文件替换成新编译出来的ShellManager.class文件。替换完成之后，使用压缩软件将其压缩成zip。将文件后缀修改成jar，在终端下运行，看能否成功运行。Ps：记得在Behinder.jar文件同级目录需要有一个data.db；这里有个问题，我用BetterZip将其压缩成zip之后，修改后缀无法运行，使用BandiZip（Windows）压缩可以，猜测有可能是软件压缩机制或者操作系统的问题。也可以使用jar命令进行打包。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jar -cfm Behinder.jar ./META-INF/MANIFEST.MF .<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -XstartOnFirstThread -jar Behinder.jar</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c65434.png" alt="运行成功"></p>
+<p>可以成功运行，在使用jar2app命令将其打包成app</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jar2app Behinder.jar -j &quot;-XstartOnFirstThread&quot; -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk</span><br></pre></td></tr></table></figure>
+
+<p>将data.db文件移动到Behinder.app/Contents即可成功运行。</p>
+<h2 id="生成带有图标的APP"><a href="#生成带有图标的APP" class="headerlink" title="生成带有图标的APP"></a>生成带有图标的APP</h2><p>上面生成的app是没有图标的，jar2app有-i参数支持图标生成。直接将Behinder.jar文件的net/rebeyond/behinder/resource目录下的logo.jpg拿出来。使用<span class="exturl" data-url="aHR0cHM6Ly9pY29udmVydGljb25zLmNvbS9vbmxpbmUv">ICON在线转换<i class="fa fa-external-link-alt"></i></span>，这里需要注意的是下载的文件格式应该为icns，并非是icon。</p>
+<p>使用如下命令即可生成一个带有logo图标的Behinder.app文件。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">jar2app</span> Behinder.jar -j <span class="string">&quot;-XstartOnFirstThread&quot;</span> -r /Library/Java/JavaVirtualMachines/jdk<span class="number">1</span>.<span class="number">8</span>.<span class="number">0</span>_<span class="number">181</span>.jdk -i logo.icns</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这里面踩了无数个坑，反反复复好长一段时间才解决。</p>
+<ol>
+<li>工具记得多读手册，例如在这里用的jar2app直接在GitHub上面多读手册，基本问题都能解决；</li>
+<li>实现同样功能的不同函数，在使用时需要按照需求进行使用。例如这里的File().exists()与File.getAbsoluteFile()，不同函数名总有会不一样的地方，直接平时只是为了实现功能而忽略其本质，有时候出现问题的时候需要深入了解其本质；</li>
+<li>在处理问题过程中使用到软件工具出现问题时，可不进行任何修改重复使用软件进行问题定位。例如这里的BetterZip压缩之后无法运行，我是通过直接解压缩-压缩-运行将这个问题定位出来的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具环境</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用electron-build打包</title>
+    <url>/archives/221b42d4.html</url>
+    <content><![CDATA[<p>在Mac上运行electron框架程序（例如Antsword、CaptfEncoder等）每次都需要<code>npm start</code>，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg包。<br>Antsword链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVo0TndBTXdjT2Fkb2Y5M18xbmE4bUE=">https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA<i class="fa fa-external-link-alt"></i></span>  密码:eokx<br><a href="https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png"><img data-src="https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png" alt="antsword-success.png"></a><br>CaptfEncoder链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVA0Vl9Pc09Jc0t1MjU4WGJVQUUtWnc=">https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw<i class="fa fa-external-link-alt"></i></span>  密码:659d<br><a href="https://i.loli.net/2018/11/14/5beb8abf3a945.png"><img data-src="https://i.loli.net/2018/11/14/5beb8abf3a945.png" alt="CaptfEncoder.png"></a></p>
+<span id="more"></span>
+<p>本文以Antsword为例。</p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>安装<span class="exturl" data-url="aHR0cHM6Ly9icmV3LnNoLw==">brew<i class="fa fa-external-link-alt"></i></span></p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">/usr/bin/ruby</span> -e <span class="string">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span></span><br><span class="line">brew <span class="params">--version</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/22/5b7ce3753387f.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3753387f.png" alt="brew--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMub3JnL2VuLw==">node<i class="fa fa-external-link-alt"></i></span></p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="title"></span></span><br><span class="line"><span class="title">node</span> --<span class="keyword">version</span></span><br><span class="line">npm --<span class="keyword">version</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/22/5b7ce3769f69d.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3769f69d.png" alt="node--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly95YXJucGtnLmNvbS8=">yarn<i class="fa fa-external-link-alt"></i></span></p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>yarn</span><br><span class="line">yarn --version</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/22/5b7ce3c47b5c3.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3c47b5c3.png" alt="yarn--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsZWN0cm9uLXVzZXJsYW5kL2VsZWN0cm9uLWJ1aWxkZXIjaW4tc2hvcnQ=">electron-builder<i class="fa fa-external-link-alt"></i></span>，安装成功之后需要建立软连接</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">yarn add electron-builder -dev</span><br><span class="line">sudo <span class="keyword">find</span> / -name electron-builder</span><br><span class="line">ln -s <span class="regexp">/Users/</span>hywell<span class="regexp">/node_modules/</span>.bin<span class="regexp">/electron-builder /u</span>sr<span class="regexp">/local/</span>bin/electron-builder</span><br><span class="line">elecctron-builder --version</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/22/5b7ce3c47a28f.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3c47a28f.png" alt="electron-builder--version.png"></a><br>下载蚁剑，安装依赖并启动</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/AntSwordProject/</span>antSword.git</span><br><span class="line">cd antSword</span><br><span class="line">npm install</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/22/5b7ce408c330a.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce408c330a.png" alt="antSword.png"></a></p>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>修改antSword目录下的package.json，结构如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;antsword&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.3.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;中国蚁剑是一款跨平台的开源网站管理工具&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;app.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;build&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;appId&quot;</span>: <span class="string">&quot;1.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;mac&quot;</span>: &#123; <span class="comment">//添加设置mac下的配置</span></span><br><span class="line">      <span class="attr">&quot;category&quot;</span>: <span class="string">&quot;public.app-category.developer-tools&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;target&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;dmg&quot;</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;start&quot;</span>: <span class="string">&quot;electron app.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build&quot;</span>: <span class="string">&quot;npm start&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;pack&quot;</span>: <span class="string">&quot;electron-builder --dir&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dist&quot;</span>: <span class="string">&quot;electron-builder&quot;</span> <span class="comment">// 添加用于执行dist命令</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;antoor &lt;u@uyu.us&gt;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;MIT&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;repository&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;git&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;update&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;md5&quot;</span>: <span class="string">&quot;184c9217b01513647ccfaad49e795cfe&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;logs&quot;</span>: <span class="string">&quot;移除webpack以及其他不必要的依赖，直接无需编译即可执行ES6代码\n更新美化关于页面\n重构modules/request.js后端数据请求模块\n添加 aspx hex encoder 支持\n修正custom shell 读取自身时数据被截断的 bug\n增加php中的mysql数据库模板，用于不支持使用mysqli的服务器\n以及其他小部分的代码重构优化&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;sources&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;coding.net&quot;</span>: <span class="string">&quot;https://coding.net/api/share/download/c405db5d-6fdb-4078-9326-32cd86c392a3&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;github&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword/releases/download/1.3.0/update.zip&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;bugs&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword/issues&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;homepage&quot;</span>: <span class="string">&quot;http://uyu.us&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;postinstall&quot;</span>: <span class="string">&quot;electron-builder install-app-deps&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在antSword目录下新建一个app文件夹，将antSword目录下所有文件迁移到app文件夹下(<font color=red>保证原有结构不变</font>)。结构如下:<br><a href="https://i.loli.net/2018/08/22/5b7d0d736d8a4.png"><img data-src="https://i.loli.net/2018/08/22/5b7d0d736d8a4.png" alt="tree -L 2 -C.png"></a><br>在里面新建一个package.json文件，结构如下:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;antsword&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.3.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;app.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;antsword-MacOS&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;antoor &lt;u@uyu.us&gt;&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span>: &#123; <span class="comment">// 将上个文件的依赖迁移</span></span><br><span class="line">        <span class="attr">&quot;babel&quot;</span>: <span class="string">&quot;^5.2.17&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;extract-zip&quot;</span>: <span class="string">&quot;^1.5.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;geoips&quot;</span>: <span class="string">&quot;0.0.1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;iconv-lite&quot;</span>: <span class="string">&quot;^0.4.13&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;log4js&quot;</span>: <span class="string">&quot;^0.6.29&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;nedb&quot;</span>: <span class="string">&quot;^1.5.1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;nugget&quot;</span>: <span class="string">&quot;^2.0.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;superagent&quot;</span>: <span class="string">&quot;^3.8.3&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;superagent-proxy&quot;</span>: <span class="string">&quot;^1.0.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;through&quot;</span>: <span class="string">&quot;^2.3.8&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    <span class="attr">&quot;devDependencies&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;electron-prebuilt&quot;</span>: <span class="string">&quot;^0.37.2&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在antSword目录下,执行命令将其打包。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">yarn dist</span></span><br></pre></td></tr></table></figure>
+<p>完成之后会生成一个dist目录，在目录中就有成功打包的antSword。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次耗费了大半天的时间,查阅了无数资料,发现还是官方的文档最好!</p>
+<ol>
+<li>elecctron-builder打包程序时，需要建立一个app文件夹&amp;两个package.json（一个作为打包使用，一个作为项目使用）;</li>
+<li>elecctron-builder打包程序时，把所有程序的资源文件、代码文件等都放到app文件夹下；</li>
+<li>遇到<code>cannot unpack electron zip file, will be re-downloaded error=zip: not a valid zip file</code>，请删除缓存<code>rm -rf ~/Library/Caches/electron/</code></li>
+<li>编译出来的程序无法正常运行，可通过运行dist(release)/mac/xxxx.app/Contents/MacOS/xxxx，查看错误信息以便定位问题；</li>
+<li>两个package.json的区别，根据我的理解（不一定正确，大家可以看官方文档），最外层的package.json是打包的配置信息，里层的package.json为项目的配置信息。因此依赖（dependencies、devDependencies）写在里面package.json。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具环境</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>漏洞环境搭建</title>
+    <url>/archives/583f4516.html</url>
+    <content><![CDATA[<p>　在进行安全测试的时候，经常需要搭建各种各样、不同配置的漏洞环境。有时候一天不到就能搞定，有时候两三天都没成功。后来发现一个神器:Docer，结合GitHub上面的漏洞靶场可以通过几条命令就能成功”搭建”一个漏洞环境。</p>
+<span id="more"></span>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>　本文选用Debian作为操作环境。大家也可以根据自己的操作系统，安装对应Docker。大家可以去<span class="exturl" data-url="aHR0cHM6Ly93d3cuZG9ja2VyLmNvbS8=">Docker官网<i class="fa fa-external-link-alt"></i></span>查看如何安装，也可以去<span class="exturl" data-url="aHR0cDovL3d3dy5kb2NrZXIub3JnLmNuL2Jvb2svaW5zdGFsbC9zdXBwb3J0ZWQtcGxhdGZvcm0tMTcuaHRtbA==">Docker中文<i class="fa fa-external-link-alt"></i></span>看如何安装。</p>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>　安装Docker之前需要在/etc/apt/sources.list文件中添加backports源。使用Vim命令。(下面所有命令建议在root权限下执行，要不然请在命令前加sudo。)</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>apt/sources.list</span><br></pre></td></tr></table></figure>
+<p>　添加<code>deb http://http.debian.net/debian jessie-backports main</code>，执行更新操作。</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59910c63e2518.png" alt="apt-get update.png"><br>　成功更新之后，安装docker.io。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> install docker.io</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59910f677c8d5.png" alt="apt-get install docker.io.png"><br>　查看Docker版本信息。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">docker <span class="comment">--version</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/599117af1e74b.png" alt="docker version.png"></p>
+<h3 id="添加漏洞环境"><a href="#添加漏洞环境" class="headerlink" title="添加漏洞环境"></a>添加漏洞环境</h3><p>　接下来就可以使用Docer添加对应的漏洞环境，那么漏洞环境在哪里找勒？这里我推荐两个地址:<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3BoaXRoMG4vdnVsaHVi">phith0h<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01lZGljZWFuL1Z1bEFwcHM=">Medicean<i class="fa fa-external-link-alt"></i></span>。<br>　这里我以Struts2-S2-045为例：[S2-045][<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01lZGljZWFuL1Z1bEFwcHMvdHJlZS9tYXN0ZXIvcy9zdHJ1dHMyL3MyLTA0NV0lRTMlODAlODI=">https://github.com/Medicean/VulApps/tree/master/s/struts2/s2-045]。<i class="fa fa-external-link-alt"></i></span><br>　将环境下载到本地，如果使用命令无法成功下载，那么多下载几次或者设置一下代理(你懂的)。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/599119aa146fa.png" alt="docker pull.png"><br>　下载完成之后，启动环境。-p后面的参数是将容器的端口映射到本机的端口，-p 80:8080就是将容器的8080端口映射到本机的80端口，可以自定义修改。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d -p <span class="number">80</span>:<span class="number">8080</span> medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span></span><br></pre></td></tr></table></figure>
+<h3 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p>　使用Exploit工具复现S2-045漏洞。<br><img data-src="https://i.loli.net/2017/08/14/599118e97fa7c.png" alt="exploit.png"></p>
+<h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><p>　查看所有镜像。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker images</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/599119541645f.png" alt="docker images.png"><br>　拉取镜像。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker pull</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/599119aa146fa.png" alt="docker pull.png"><br>　保存镜像。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> save medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span> &gt; /tmp/s<span class="number">2</span>-<span class="number">045</span>.tar</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911a3e90e51.png" alt="docker save.png"><br>　加载镜像。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> load &lt; /tmp/s<span class="number">2</span>-<span class="number">045</span>.tar</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911aac6d77c.png" alt="docker load.png"><br>　查看正在运行的容器。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker ps</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911b3acb2c4.png" alt="docker ps.png"><br>　停止容器，使用docker ps查看的id来停止对应容器。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> stop ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911bea2acf5.png" alt="docker stop.png"><br>　启动容器。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> start ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>　关闭容器。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> kill ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911c355130b.png" alt="docker kill.png"><br>　删除镜像，如果不知道id可以使用Tab键来进行补全查看。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">docker rm <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2017/08/14/59911d4829cb9.png" alt="docker rm.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　使用Docker虽然可以快速的部署漏洞环境，但是这样不容易理解一些由于配置问题导致的漏洞。因此，建议在新漏洞出现之后使用Docker快速复现完成后，自己手工搭建一遍。</p>
+]]></content>
+      <categories>
+        <category>工具环境</category>
+      </categories>
+      <tags>
+        <tag>漏洞环境</tag>
       </tags>
   </entry>
   <entry>
@@ -1208,310 +1488,6 @@
       </tags>
   </entry>
   <entry>
-    <title>AWIScan编写之路</title>
-    <url>/archives/84cd09d9.html</url>
-    <content><![CDATA[<p>红队评估、渗透测试等安全工作最为重要的就是信息收集，信息收集工作需要对目标多方面、多维度进行收集、梳理。相信大家也用过许多信息收集的工具，例如：nmap、msscan、subdomainBrute、whatweb、dirscan、dirsearch、wydomain等等。当对一个目标群体（多ip段 or 多域名）进行信息收集时，往往需要不断在各个工具之间来回切换。通过寻找发现了一款工具：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpZGVTZWMvRnV6elNjYW5uZXI=">FuzzScaner<i class="fa fa-external-link-alt"></i></span>，该工具整合了子域名、端口、指纹、c段等信息收集。但FuzzScaner存在几点问题：1.长期不维护&amp;更新，上次提交为2019.04；2.使用python2，python2马上不被官方支持；3.只做了简单整合，多工具调度之间容易出问题。因此，自己动手造了一个轮子：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0h5V2VsbC9BV0lTY2Fu">AWIScan<i class="fa fa-external-link-alt"></i></span>——All Web Info Scan。</p>
-<p><img data-src="https://i.loli.net/2019/10/23/lLGJKfo2j1Wdvyk.png" alt="AWIScan.png"></p>
-<span id="more"></span>
-
-<h1 id="功能构思"><a href="#功能构思" class="headerlink" title="功能构思"></a>功能构思</h1><p>根据上面所述，新开发的工具需要具备如下特性：</p>
-<ul>
-<li>尽可能快的完成任务</li>
-<li>尽可能多的收集信息</li>
-<li>尽可能少的参数输入</li>
-<li>最好支持插件或模块拓展</li>
-</ul>
-<p>根据上述特性，采用了</p>
-<ul>
-<li>Python3 asyncio协程</li>
-<li>支持端口扫描（调用nmap）、子域名爆破、目录爆破</li>
-<li>总共三个参数，可直接使用单个参数即可执行 任务，其中level参数可不输入，默认为1</li>
-<li>需要修改的配置信息都在setting.py文件中</li>
-</ul>
-<h1 id="框架流程"><a href="#框架流程" class="headerlink" title="框架流程"></a>框架流程</h1><p>这里借鉴了许多项目：SQLMap、PocSuite3、subdomainBrute、Dirscmap、Dirsearch、FuzzScaner等等。最终结构如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── AWIScan.py</span><br><span class="line">├── README.md</span><br><span class="line">├── data</span><br><span class="line">│   ├── subDomain</span><br><span class="line">│   │   ├── dns_server.txt</span><br><span class="line">│   │   ├── next_sub_full.txt</span><br><span class="line">│   │   └── subnames_full.txt</span><br><span class="line">│   └── webScan</span><br><span class="line">│       ├── dict.txt</span><br><span class="line">│       └── user-agents.txt</span><br><span class="line">├── lib</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── controller</span><br><span class="line">│   │   ├── aiodirscan.py</span><br><span class="line">│   │   ├── aionmap.py</span><br><span class="line">│   │   ├── aioportscan.py</span><br><span class="line">│   │   ├── aiosubdomainscan.py</span><br><span class="line">│   │   └── engine.py</span><br><span class="line">│   ├── core</span><br><span class="line">│   │   ├── common.py</span><br><span class="line">│   │   ├── convert.py</span><br><span class="line">│   │   ├── data.py</span><br><span class="line">│   │   ├── datatype.py</span><br><span class="line">│   │   ├── enums.py</span><br><span class="line">│   │   ├── log.py</span><br><span class="line">│   │   ├── options.py</span><br><span class="line">│   │   └── setting.py</span><br><span class="line">│   ├── parse</span><br><span class="line">│   │   ├── cmdline.py</span><br><span class="line">│   │   ├── ip.py</span><br><span class="line">│   │   ├── result.py</span><br><span class="line">│   │   └── url.py</span><br><span class="line">│   └── thirdparty</span><br><span class="line">│       ├── __init__.py</span><br><span class="line">│       ├── ansistrm</span><br><span class="line">│       │   ├── __init__.py</span><br><span class="line">│       │   └── ansistrm.py</span><br><span class="line">│       ├── colorama</span><br><span class="line">│       │   ├── __init__.py</span><br><span class="line">│       │   ├── ansi.py</span><br><span class="line">│       │   ├── ansitowin32.py</span><br><span class="line">│       │   ├── initialise.py</span><br><span class="line">│       │   ├── win32.py</span><br><span class="line">│       │   └── winterm.py</span><br><span class="line">│       └── termcolor</span><br><span class="line">│           └── termcolor.py</span><br><span class="line">├── output</span><br><span class="line">│   ├── AWIScan</span><br><span class="line">│   │   └── bad_dns_servers.txt</span><br><span class="line">│   └── result</span><br><span class="line">└── requirement.txt</span><br></pre></td></tr></table></figure>
-
-<p>流程为：参数解析——配置注册——任务分配——开始工作——输出结果。</p>
-<h1 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h1><p>初始目标支持以下几种格式：</p>
-<ul>
-<li>192.168.1.1</li>
-<li>192.168.1.1/24</li>
-<li>192.168.1.1-192.168.1.100</li>
-<li>192.168.1.1-254</li>
-<li>domain.com</li>
-<li>[http/https]://domain.com</li>
-</ul>
-<p><del>现版本根据不同的输入目标会执行相应的功能：</del></p>
-<ul>
-<li><del>纯ip地址执行端口扫描，e x 192.168.1.1…</del></li>
-<li><del>域名会执行子域名爆破，e x domain.com</del></li>
-<li><del>url会执行目录扫描，e x <span class="exturl" data-url="aHR0cDovL2RvbWFpbi5jb20v">http://domain.com<i class="fa fa-external-link-alt"></i></span> or <span class="exturl" data-url="aHR0cHM6Ly9kb21haW4uY29tLw==">https://domain.com<i class="fa fa-external-link-alt"></i></span></del></li>
-</ul>
-<p>所有初始目标都会执行端口扫描，如果没有协议会再执行子域名爆破、如果还有协议会再加上目录扫描。</p>
-<p><del>该版本只在OSX、python3.7下测试过，别的系统版本可以自己试试（估计问题不大）。</del></p>
-<p>Windows（10）、linux（Debian）、MacOS（10.15） &amp;&amp; python3.7皆测试通过。</p>
-<p>由于端口扫描是调用nmap的，本地机器需要安装nmap，并且执行脚本需要有对应权限，可在lib/core/setting.py中配置SUDO_PASSWORD。具体端口扫描速度并未进行测试。</p>
-<p>由于端口扫描是调用nmap的，本地机器需要安装nmap，并且执行脚本需要有对应权限，可在lib/core/setting.py中配置SUDO_PASSWORD。具体端口扫描速度并未进行测试。</p>
-<p>子域名爆破需要指定对应DNS服务器，整体速度子域名爆破一千三百多个，最快一次是三十多秒（估计有dns缓存的原因）。清理缓存，再次测试七分钟左右（协程数50）。</p>
-<p>目录扫描由于设计到网络、防护等关系，未进行测试。</p>
-<h1 id="问题难点"><a href="#问题难点" class="headerlink" title="问题难点"></a>问题难点</h1><p>在编写的时候遇到种种问题和难点：</p>
-<ul>
-<li>协程库的资料相对较少</li>
-<li>许多库在调用中会出现千奇百怪的问题</li>
-<li>慢速生产、快速消费模型，如何保持消费者数不减少</li>
-</ul>
-<p>针对第三个模型做一下记录：下面代码有可能导致最后只有一个协程在工作，但任务队列中还具备无数任务</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">target_queue, html</span>):</span></span><br><span class="line">  urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟页面解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">work</span>(<span class="params">url</span>):</span></span><br><span class="line">  resp = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟网络请求</span></span><br><span class="line">  <span class="keyword">if</span> resp.status == <span class="number">200</span>:</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">scan</span>(<span class="params">target_queue</span>):</span></span><br><span class="line">  <span class="keyword">while</span> target_queue.qsize() &gt; <span class="number">0</span>:</span><br><span class="line">    target = target_queue.get_nowait()</span><br><span class="line">    html = work(target)</span><br><span class="line">    result = <span class="keyword">await</span> parse(target_queue, html)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">control</span>(<span class="params">base_url</span>):</span></span><br><span class="line">  tasks = []</span><br><span class="line">	target_queue = asyncio.Queue()</span><br><span class="line">  base_urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟初始url解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> base_urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">50</span>):</span><br><span class="line">    tasks.append(asyncio.create_task(scan(target_queue)))</span><br><span class="line">  <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asyncio.run(contronl(base_url))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>后面在主协程中同归队列进行阻塞，子协程阻塞至任务获取，即可解决该问题。即所有子协程都不断运行，直至取不到任务时阻塞。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">target_queue, html</span>):</span></span><br><span class="line">  urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟页面解析</span></span><br><span class="line">  <span class="keyword">if</span> urls:</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">      target_queue.put_notwait(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">work</span>(<span class="params">url</span>):</span></span><br><span class="line">  resp = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟网络请求</span></span><br><span class="line">  <span class="keyword">if</span> resp.status == <span class="number">200</span>:</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">scan</span>(<span class="params">target_queue</span>):</span></span><br><span class="line">  <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">await</span> target_queue.get()</span><br><span class="line">    target = target_queue.get_nowait()</span><br><span class="line">    html = work(target)</span><br><span class="line">    result = <span class="keyword">await</span> parse(target_queue, html)</span><br><span class="line">    target_queue.task_done()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">control</span>(<span class="params">base_url</span>):</span></span><br><span class="line">  tasks = []</span><br><span class="line">	target_queue = asyncio.Queue()</span><br><span class="line">  base_urls = <span class="keyword">await</span> asyncio.sleep(<span class="string">&quot;5&quot;</span>) <span class="comment"># 用来模拟初始url解析</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> base_urls:</span><br><span class="line">    target_queue.put_notwait(url)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">50</span>):</span><br><span class="line">    tasks.append(asyncio.create_task(scan(target_queue)))</span><br><span class="line">  <span class="keyword">await</span> target_queue.join()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asyncio.run(contronl(base_url))</span><br></pre></td></tr></table></figure>
-
-<p>下面再记录一下小问题</p>
-<ul>
-<li><p>通过asyncio.queue设置队列最好在对应协程函数中建立：一开始将工作队列设置成全局，然后在各个文件进行加载，该方式会导致异常，大概含义是一个loop只能使用同一个队列。</p>
-</li>
-<li><p>由于协程概念，所以最好只使用一个loop：在进行dns服务器测试的时候通过get_event_loop建立了新的loop之后（完成任务之后loop.close），在后续再次通过get_event_loop是无法成功新建协程的：RuntimeError: Event loop is closed。可通过set_even_loop解决，但不建议。</p>
-</li>
-</ul>
-<ul>
-<li>异步DNS库还不够完善，在aiodns、async_dns、aiodnsresolver中来来回回切换，最后选择了aiodns。<ul>
-<li>aiodns未看到timeout参数，所以子域名爆破有可能超时导致速度不稳定</li>
-<li>async_dns在DNS服务器测试完成之后，再此调用返回的结果为空，估计是由于不同loop的原因导致？</li>
-<li>aiodnsresolver在进行dns服务器配置感觉不太好用，所以弃用。</li>
-</ul>
-</li>
-</ul>
-<h1 id="后续计划更新"><a href="#后续计划更新" class="headerlink" title="后续计划更新"></a>后续计划更新</h1><ul>
-<li><input checked="" disabled="" type="checkbox"> 目录爆破支持随机User-Agent</li>
-<li><input checked="" disabled="" type="checkbox"> 目录爆破支持代理</li>
-<li><input disabled="" type="checkbox"> 整合目标，将ip、domain这些统一整合</li>
-<li><input disabled="" type="checkbox"> 支持多进程扫描</li>
-<li><input disabled="" type="checkbox"> 支持自定义插件扫描</li>
-<li><input disabled="" type="checkbox"> 强化扫描能力</li>
-<li><input disabled="" type="checkbox"> 。。。</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>感谢GitHub上这么多开源的工具</li>
-<li>写代码好难～～～</li>
-<li>在遇到问题查看官方文档如果无法解决，可以直接看对应源码</li>
-<li>AWIScan项目应该有很多面条式代码，后续看看能不能逐渐优化</li>
-<li>对变量进行命令真的太难了，所以很多地方用了同样的变量名。全局变量设置成全大写，局部变量是全小写，不同参数传递参数前面变量名相同（尽量）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工具环境</category>
-      </categories>
-      <tags>
-        <tag>AWIScan</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BurpSuitePro 2.1及之后版本通杀加载器</title>
-    <url>/archives/c5863b38.html</url>
-    <content><![CDATA[<p>直接看图。</p>
-<p><img data-src="https://i.loli.net/2020/03/28/UQFCOg8EhKqejGo.gif" alt="BpLoad"></p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>工具环境</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jar文件打包成app</title>
-    <url>/archives/4afab831.html</url>
-    <content><![CDATA[<p>在Mac上运行jar文件（例如Behinder）每次都需要</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">java -XstartOnFirstThread -jar Behinder.jar </span><br></pre></td></tr></table></figure>
-
-<p>，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的app。</p>
-<p>链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMTQ3NENyZ2JiU2ZiWHhxSkdnOWNhckE=">https://pan.baidu.com/s/1474CrgbbSfbXxqJGg9carA<i class="fa fa-external-link-alt"></i></span>  密码:f9vm</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c0170f62716b.png" alt="成功效果图"></p>
-<span id="more"></span>
-
-<p>使用工具可方便的将jar文件打包成app，本文以Behinder为例，记录所遇到的问题以及如何处理。</p>
-<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0pvcmwxNy9qYXIyYXBw">jar2app<i class="fa fa-external-link-alt"></i></span>之后，将其安装。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Jorl17/jar2app</span><br><span class="line"><span class="built_in">cd</span> jar2app</span><br><span class="line">chmod +x install.sh uninstall.sh</span><br><span class="line">sudo ./install.sh</span><br><span class="line"><span class="comment"># Install to /usr/local/bin</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Jorl17/jar2app</span><br><span class="line"><span class="built_in">cd</span> jar2app</span><br><span class="line">chmod +x install.sh uninstall.sh</span><br><span class="line">sudo ./install.sh /usr/<span class="built_in">local</span>/bin</span><br></pre></td></tr></table></figure>
-
-<h1 id="生成APP"><a href="#生成APP" class="headerlink" title="生成APP"></a>生成APP</h1><p>通过jar2app的命令我们可以得知，直接使用对应命令即可生成。其中需要注意以下两点：</p>
-<ol>
-<li>Behinder需要通过<code>-XstartOnFirstThread</code>命令启动；</li>
-<li>Behinder需要jre6~jre8版本才可以运行。</li>
-</ol>
-<p>因此我在使用jar2app时，指定了JVM设置和JDK版本。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jar2app Behinder.jar -j &quot;-XstartOnFirstThread&quot; -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk</span><br></pre></td></tr></table></figure>
-
-<p>使用上面的命令可以成功生成一个app，但是直接运行无法打开。</p>
-<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>直接打开Behinder.app/Contents/MacOS/JavaAppLauncher启动脚本，提示数据库文件丢失，无法启动。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c0170f5b1d5a.png" alt="数据库文件丢失"></p>
-<h3 id="数据库文件丢失"><a href="#数据库文件丢失" class="headerlink" title="数据库文件丢失"></a>数据库文件丢失</h3><p>根据报错信息提示以及Behinder本身的文件结构，我将data.db移动到Behinder.app/Contents和其他杂七杂八的位置都不行。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Contents/data.db</span><br><span class="line">Contents/Java/data.db</span><br><span class="line">Contents/MacOS/data.db</span><br><span class="line">Contents/Plugins/jdk1.8.0_181.jdk/Contents/data.db</span><br><span class="line">Contents/Plugins/jdk1.8.0_181.jdk/Contents/MacOS/data.db</span><br><span class="line">Contents/Resources/data.db</span><br></pre></td></tr></table></figure>
-
-<h3 id="重构class文件"><a href="#重构class文件" class="headerlink" title="重构class文件"></a>重构class文件</h3><p>根据报错信息（数据库文件丢失）以及上述所进行的测试方法，基于当前的情况，只能通过将jar包文件反编译成class文件进行查看，判断本身源码逻辑。这里我采用JD进行反编译，直接加载Behinder的jar包文件。根据关键字：data.db进行搜索。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c0170f5b2a6a.png" alt="源代码查询"></p>
-<p>根据上图可以看到对应判断的逻辑在：net/rebeyond/behinder/core/ShellManager.class文件中：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="keyword">new</span> File(<span class="string">&quot;data.db&quot;</span>).exists()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;数据库文件丢失，无法启动。&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过File().exists()进行判断文件是否存在，根据大佬的提示得知File().exists()使用的user.home作为路径，将其修改成File.getAbsoluteFile()即可成功。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c0170f607879.png" alt="测试代码"></p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c85be7.png" alt="测试结果"></p>
-<p>在JD将ShellManager.class保存成java代码，使用Intellij创建一个项目。Ps:也可以用eclipse等。</p>
-<p>这里我新建了一个Maven项目，Project SDK选择1.8.0</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c89823.png" alt="Project SDK"></p>
-<p>下面有关字段全部设置成Behinder</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6b75627.png" alt="GroupId"></p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6b739b1.png" alt="ProjectName"></p>
-<p>将ShellManager.java文件拖入到src/main/java目录下，并将File().exists()修改成File().getAbsoluteFile().exists()。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c5748e.png" alt="修改代码"></p>
-<p>新建一个package，右键java目录new即可创建，目录名称为net.rebeyond.behinder.core。该名称来源为ShellManager在Behinder.jar文件中的路径。将ShellManager.java文件移动到net.rebeyond.behinder.core中。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c5575f.png" alt="新目录结构"></p>
-<p>此时还有一系列包引入问题待解决，这时候点击【File】选项中的【Project Structure】功能，在【Project Settings】中的【Modules】的【Dependencies】中引入Behinder.jar文件。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6be64ec.png" alt="Project Structure"></p>
-<p>这时候还存在模块无法import的问题，根据查看发现是json模块无法引入，查看JD中json包是20180130的。在<span class="exturl" data-url="aHR0cHM6Ly9qYXItZG93bmxvYWQuY29tL2FydGlmYWN0cy9vcmcuanNvbi9qc29uLzIwMTgwMTMwL3NvdXJjZS1jb2Rl">jar-download<i class="fa fa-external-link-alt"></i></span>页面进行下载即可，下载完成之后，按照刚刚的流程导入。导入完成之后，这时候已经所有包都正常import。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c8f06f.png" alt="import success"></p>
-<p>使用【Build Project】将java文件编译成class文件。</p>
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c8c306.png" alt="BuildProject"></p>
-<p>解压Behinder.jar文件，将解压出来的ShellManager.class文件替换成新编译出来的ShellManager.class文件。替换完成之后，使用压缩软件将其压缩成zip。将文件后缀修改成jar，在终端下运行，看能否成功运行。Ps：记得在Behinder.jar文件同级目录需要有一个data.db；这里有个问题，我用BetterZip将其压缩成zip之后，修改后缀无法运行，使用BandiZip（Windows）压缩可以，猜测有可能是软件压缩机制或者操作系统的问题。也可以使用jar命令进行打包。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jar -cfm Behinder.jar ./META-INF/MANIFEST.MF .<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -XstartOnFirstThread -jar Behinder.jar</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://i.loli.net/2018/12/01/5c016f6c65434.png" alt="运行成功"></p>
-<p>可以成功运行，在使用jar2app命令将其打包成app</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jar2app Behinder.jar -j &quot;-XstartOnFirstThread&quot; -r /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk</span><br></pre></td></tr></table></figure>
-
-<p>将data.db文件移动到Behinder.app/Contents即可成功运行。</p>
-<h2 id="生成带有图标的APP"><a href="#生成带有图标的APP" class="headerlink" title="生成带有图标的APP"></a>生成带有图标的APP</h2><p>上面生成的app是没有图标的，jar2app有-i参数支持图标生成。直接将Behinder.jar文件的net/rebeyond/behinder/resource目录下的logo.jpg拿出来。使用<span class="exturl" data-url="aHR0cHM6Ly9pY29udmVydGljb25zLmNvbS9vbmxpbmUv">ICON在线转换<i class="fa fa-external-link-alt"></i></span>，这里需要注意的是下载的文件格式应该为icns，并非是icon。</p>
-<p>使用如下命令即可生成一个带有logo图标的Behinder.app文件。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">jar2app</span> Behinder.jar -j <span class="string">&quot;-XstartOnFirstThread&quot;</span> -r /Library/Java/JavaVirtualMachines/jdk<span class="number">1</span>.<span class="number">8</span>.<span class="number">0</span>_<span class="number">181</span>.jdk -i logo.icns</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这里面踩了无数个坑，反反复复好长一段时间才解决。</p>
-<ol>
-<li>工具记得多读手册，例如在这里用的jar2app直接在GitHub上面多读手册，基本问题都能解决；</li>
-<li>实现同样功能的不同函数，在使用时需要按照需求进行使用。例如这里的File().exists()与File.getAbsoluteFile()，不同函数名总有会不一样的地方，直接平时只是为了实现功能而忽略其本质，有时候出现问题的时候需要深入了解其本质；</li>
-<li>在处理问题过程中使用到软件工具出现问题时，可不进行任何修改重复使用软件进行问题定位。例如这里的BetterZip压缩之后无法运行，我是通过直接解压缩-压缩-运行将这个问题定位出来的。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工具环境</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>漏洞环境搭建</title>
-    <url>/archives/583f4516.html</url>
-    <content><![CDATA[<p>　在进行安全测试的时候，经常需要搭建各种各样、不同配置的漏洞环境。有时候一天不到就能搞定，有时候两三天都没成功。后来发现一个神器:Docer，结合GitHub上面的漏洞靶场可以通过几条命令就能成功”搭建”一个漏洞环境。</p>
-<span id="more"></span>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>　本文选用Debian作为操作环境。大家也可以根据自己的操作系统，安装对应Docker。大家可以去<span class="exturl" data-url="aHR0cHM6Ly93d3cuZG9ja2VyLmNvbS8=">Docker官网<i class="fa fa-external-link-alt"></i></span>查看如何安装，也可以去<span class="exturl" data-url="aHR0cDovL3d3dy5kb2NrZXIub3JnLmNuL2Jvb2svaW5zdGFsbC9zdXBwb3J0ZWQtcGxhdGZvcm0tMTcuaHRtbA==">Docker中文<i class="fa fa-external-link-alt"></i></span>看如何安装。</p>
-<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>　安装Docker之前需要在/etc/apt/sources.list文件中添加backports源。使用Vim命令。(下面所有命令建议在root权限下执行，要不然请在命令前加sudo。)</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>apt/sources.list</span><br></pre></td></tr></table></figure>
-<p>　添加<code>deb http://http.debian.net/debian jessie-backports main</code>，执行更新操作。</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59910c63e2518.png" alt="apt-get update.png"><br>　成功更新之后，安装docker.io。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> install docker.io</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59910f677c8d5.png" alt="apt-get install docker.io.png"><br>　查看Docker版本信息。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">docker <span class="comment">--version</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/599117af1e74b.png" alt="docker version.png"></p>
-<h3 id="添加漏洞环境"><a href="#添加漏洞环境" class="headerlink" title="添加漏洞环境"></a>添加漏洞环境</h3><p>　接下来就可以使用Docer添加对应的漏洞环境，那么漏洞环境在哪里找勒？这里我推荐两个地址:<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3BoaXRoMG4vdnVsaHVi">phith0h<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01lZGljZWFuL1Z1bEFwcHM=">Medicean<i class="fa fa-external-link-alt"></i></span>。<br>　这里我以Struts2-S2-045为例：[S2-045][<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01lZGljZWFuL1Z1bEFwcHMvdHJlZS9tYXN0ZXIvcy9zdHJ1dHMyL3MyLTA0NV0lRTMlODAlODI=">https://github.com/Medicean/VulApps/tree/master/s/struts2/s2-045]。<i class="fa fa-external-link-alt"></i></span><br>　将环境下载到本地，如果使用命令无法成功下载，那么多下载几次或者设置一下代理(你懂的)。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/599119aa146fa.png" alt="docker pull.png"><br>　下载完成之后，启动环境。-p后面的参数是将容器的端口映射到本机的端口，-p 80:8080就是将容器的8080端口映射到本机的80端口，可以自定义修改。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d -p <span class="number">80</span>:<span class="number">8080</span> medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span></span><br></pre></td></tr></table></figure>
-<h3 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p>　使用Exploit工具复现S2-045漏洞。<br><img data-src="https://i.loli.net/2017/08/14/599118e97fa7c.png" alt="exploit.png"></p>
-<h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><p>　查看所有镜像。</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker images</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/599119541645f.png" alt="docker images.png"><br>　拉取镜像。</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker pull</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/599119aa146fa.png" alt="docker pull.png"><br>　保存镜像。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> save medicean/vulapps:s_struts<span class="number">2</span>_s<span class="number">2</span>-<span class="number">045</span> &gt; /tmp/s<span class="number">2</span>-<span class="number">045</span>.tar</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911a3e90e51.png" alt="docker save.png"><br>　加载镜像。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> load &lt; /tmp/s<span class="number">2</span>-<span class="number">045</span>.tar</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911aac6d77c.png" alt="docker load.png"><br>　查看正在运行的容器。</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker ps</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911b3acb2c4.png" alt="docker ps.png"><br>　停止容器，使用docker ps查看的id来停止对应容器。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> stop ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911bea2acf5.png" alt="docker stop.png"><br>　启动容器。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> start ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>　关闭容器。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> kill ddedb<span class="number">0</span>cd<span class="number">35</span>e<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911c355130b.png" alt="docker kill.png"><br>　删除镜像，如果不知道id可以使用Tab键来进行补全查看。</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">docker rm <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2017/08/14/59911d4829cb9.png" alt="docker rm.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　使用Docker虽然可以快速的部署漏洞环境，但是这样不容易理解一些由于配置问题导致的漏洞。因此，建议在新漏洞出现之后使用Docker快速复现完成后，自己手工搭建一遍。</p>
-]]></content>
-      <categories>
-        <category>工具环境</category>
-      </categories>
-      <tags>
-        <tag>漏洞环境</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用electron-build打包</title>
-    <url>/archives/221b42d4.html</url>
-    <content><![CDATA[<p>在Mac上运行electron框架程序（例如Antsword、CaptfEncoder等）每次都需要<code>npm start</code>，感觉太繁琐了。因此，想打包成app方便使用。成功打包效果图如下，这里给大家提供打包出来的dmg包。<br>Antsword链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVo0TndBTXdjT2Fkb2Y5M18xbmE4bUE=">https://pan.baidu.com/s/1Z4NwAMwcOadof93_1na8mA<i class="fa fa-external-link-alt"></i></span>  密码:eokx<br><a href="https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png"><img data-src="https://i.loli.net/2018/08/22/5b7d0a4cea9c2.png" alt="antsword-success.png"></a><br>CaptfEncoder链接:<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVA0Vl9Pc09Jc0t1MjU4WGJVQUUtWnc=">https://pan.baidu.com/s/1P4V_OsOIsKu258XbUAE-Zw<i class="fa fa-external-link-alt"></i></span>  密码:659d<br><a href="https://i.loli.net/2018/11/14/5beb8abf3a945.png"><img data-src="https://i.loli.net/2018/11/14/5beb8abf3a945.png" alt="CaptfEncoder.png"></a></p>
-<span id="more"></span>
-<p>本文以Antsword为例。</p>
-<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>安装<span class="exturl" data-url="aHR0cHM6Ly9icmV3LnNoLw==">brew<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">/usr/bin/ruby</span> -e <span class="string">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span></span><br><span class="line">brew <span class="params">--version</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/22/5b7ce3753387f.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3753387f.png" alt="brew--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMub3JnL2VuLw==">node<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="title"></span></span><br><span class="line"><span class="title">node</span> --<span class="keyword">version</span></span><br><span class="line">npm --<span class="keyword">version</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/22/5b7ce3769f69d.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3769f69d.png" alt="node--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly95YXJucGtnLmNvbS8=">yarn<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>yarn</span><br><span class="line">yarn --version</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/22/5b7ce3c47b5c3.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3c47b5c3.png" alt="yarn--version.png"></a><br>安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsZWN0cm9uLXVzZXJsYW5kL2VsZWN0cm9uLWJ1aWxkZXIjaW4tc2hvcnQ=">electron-builder<i class="fa fa-external-link-alt"></i></span>，安装成功之后需要建立软连接</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">yarn add electron-builder -dev</span><br><span class="line">sudo <span class="keyword">find</span> / -name electron-builder</span><br><span class="line">ln -s <span class="regexp">/Users/</span>hywell<span class="regexp">/node_modules/</span>.bin<span class="regexp">/electron-builder /u</span>sr<span class="regexp">/local/</span>bin/electron-builder</span><br><span class="line">elecctron-builder --version</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/22/5b7ce3c47a28f.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce3c47a28f.png" alt="electron-builder--version.png"></a><br>下载蚁剑，安装依赖并启动</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/AntSwordProject/</span>antSword.git</span><br><span class="line">cd antSword</span><br><span class="line">npm install</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/22/5b7ce408c330a.png"><img data-src="https://i.loli.net/2018/08/22/5b7ce408c330a.png" alt="antSword.png"></a></p>
-<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>修改antSword目录下的package.json，结构如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;antsword&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.3.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;中国蚁剑是一款跨平台的开源网站管理工具&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;app.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;build&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;appId&quot;</span>: <span class="string">&quot;1.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;mac&quot;</span>: &#123; <span class="comment">//添加设置mac下的配置</span></span><br><span class="line">      <span class="attr">&quot;category&quot;</span>: <span class="string">&quot;public.app-category.developer-tools&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;target&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;dmg&quot;</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;start&quot;</span>: <span class="string">&quot;electron app.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build&quot;</span>: <span class="string">&quot;npm start&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;pack&quot;</span>: <span class="string">&quot;electron-builder --dir&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dist&quot;</span>: <span class="string">&quot;electron-builder&quot;</span> <span class="comment">// 添加用于执行dist命令</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;antoor &lt;u@uyu.us&gt;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;MIT&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;repository&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;git&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;update&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;md5&quot;</span>: <span class="string">&quot;184c9217b01513647ccfaad49e795cfe&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;logs&quot;</span>: <span class="string">&quot;移除webpack以及其他不必要的依赖，直接无需编译即可执行ES6代码\n更新美化关于页面\n重构modules/request.js后端数据请求模块\n添加 aspx hex encoder 支持\n修正custom shell 读取自身时数据被截断的 bug\n增加php中的mysql数据库模板，用于不支持使用mysqli的服务器\n以及其他小部分的代码重构优化&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;sources&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;coding.net&quot;</span>: <span class="string">&quot;https://coding.net/api/share/download/c405db5d-6fdb-4078-9326-32cd86c392a3&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;github&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword/releases/download/1.3.0/update.zip&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;bugs&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://github.com/antoor/antSword/issues&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;homepage&quot;</span>: <span class="string">&quot;http://uyu.us&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;postinstall&quot;</span>: <span class="string">&quot;electron-builder install-app-deps&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在antSword目录下新建一个app文件夹，将antSword目录下所有文件迁移到app文件夹下(<font color=red>保证原有结构不变</font>)。结构如下:<br><a href="https://i.loli.net/2018/08/22/5b7d0d736d8a4.png"><img data-src="https://i.loli.net/2018/08/22/5b7d0d736d8a4.png" alt="tree -L 2 -C.png"></a><br>在里面新建一个package.json文件，结构如下:</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;antsword&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.3.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;app.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;antsword-MacOS&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;antoor &lt;u@uyu.us&gt;&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span>: &#123; <span class="comment">// 将上个文件的依赖迁移</span></span><br><span class="line">        <span class="attr">&quot;babel&quot;</span>: <span class="string">&quot;^5.2.17&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;extract-zip&quot;</span>: <span class="string">&quot;^1.5.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;geoips&quot;</span>: <span class="string">&quot;0.0.1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;iconv-lite&quot;</span>: <span class="string">&quot;^0.4.13&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;log4js&quot;</span>: <span class="string">&quot;^0.6.29&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;nedb&quot;</span>: <span class="string">&quot;^1.5.1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;nugget&quot;</span>: <span class="string">&quot;^2.0.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;superagent&quot;</span>: <span class="string">&quot;^3.8.3&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;superagent-proxy&quot;</span>: <span class="string">&quot;^1.0.0&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;through&quot;</span>: <span class="string">&quot;^2.3.8&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    <span class="attr">&quot;devDependencies&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;electron-prebuilt&quot;</span>: <span class="string">&quot;^0.37.2&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在antSword目录下,执行命令将其打包。</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">yarn dist</span></span><br></pre></td></tr></table></figure>
-<p>完成之后会生成一个dist目录，在目录中就有成功打包的antSword。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次耗费了大半天的时间,查阅了无数资料,发现还是官方的文档最好!</p>
-<ol>
-<li>elecctron-builder打包程序时，需要建立一个app文件夹&amp;两个package.json（一个作为打包使用，一个作为项目使用）;</li>
-<li>elecctron-builder打包程序时，把所有程序的资源文件、代码文件等都放到app文件夹下；</li>
-<li>遇到<code>cannot unpack electron zip file, will be re-downloaded error=zip: not a valid zip file</code>，请删除缓存<code>rm -rf ~/Library/Caches/electron/</code></li>
-<li>编译出来的程序无法正常运行，可通过运行dist(release)/mac/xxxx.app/Contents/MacOS/xxxx，查看错误信息以便定位问题；</li>
-<li>两个package.json的区别，根据我的理解（不一定正确，大家可以看官方文档），最外层的package.json是打包的配置信息，里层的package.json为项目的配置信息。因此依赖（dependencies、devDependencies）写在里面package.json。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工具环境</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BurpSuite抓取非HTTP协议流量</title>
-    <url>/archives/ffc80a19.html</url>
-    <content><![CDATA[<p>在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。<br><img data-src="https://i.loli.net/2018/11/29/5bff79c9eb463.png" title="NoPE界面"></p>
-<span id="more"></span>
-<h1 id="NoPE安装"><a href="#NoPE安装" class="headerlink" title="NoPE安装"></a>NoPE安装</h1><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1bW1pdHQvQnVycC1Ob24tSFRUUC1FeHRlbnNpb24vcmVsZWFzZXM=" title="NoPE下载地址">NoPE<i class="fa fa-external-link-alt"></i></span>安装很简单，直接下载对应的jar文件，然后在BurpSuite的【Extender】选项卡中添加即可。Ps：记得要配置Java Environment环境。</p>
-<h1 id="NoPE使用"><a href="#NoPE使用" class="headerlink" title="NoPE使用"></a>NoPE使用</h1><p>安装完成之后，需要对NoPE进行配置：DNS配置、HTTP代理设置等。</p>
-<h2 id="Server设置"><a href="#Server设置" class="headerlink" title="Server设置"></a>Server设置</h2><p>在NoPE工具的【Server Config】选项卡进行配置，猜测设置DNS是为了获取请求包的domain。</p>
-<ol>
-<li>设置【DNS Response IP】和【DNS Listener Port】，将这个ip设置为代理服务器的ip地址，port设置为DNS常用端口：53；</li>
-<li>设置【Interface】，这个是设置网卡，可通过<code>ifconfig</code>查看 ；</li>
-<li>点击【Add 80 &amp; 443 to Burp】，将80、443端口添加到Burp。<br><img data-src="https://i.loli.net/2018/11/29/5bff7dc7c120a.png" alt="服务器配置" title="Server Config"><br>设置完之后回到【Proxy】选项卡的【Options】看一下，并且将Invisible设置为勾选（如果没勾选）。Ps：这时候可以使用手机进行操作，看看BurpSuite能不能拦截到HTTP的包。<br><img data-src="https://i.loli.net/2018/11/29/5bff7ef9103f7.png" title="Proxy setting.png"><h2 id="HTTP-Proxy设置"><a href="#HTTP-Proxy设置" class="headerlink" title="HTTP Proxy设置"></a>HTTP Proxy设置</h2>设置完Server之后，在【NoPE Proxy】选项卡的【Server Config】中启动DNS服务，直接点击那个大大的绿色箭头就可以了，显示红色为已经运行。<br><img data-src="https://i.loli.net/2018/11/29/5bff7fac6fdf5.png" title="Run DNS Server"><br>查看【DNS History】选项卡中的DNS记录，获取Domain、Port等信息。</li>
-<li>开启Port Monitor；</li>
-<li>在手机上进行操作,**<font color=red>手机DNS配置成PC的地址</font>**；</li>
-<li>获取Domain和与其对应的Port。<br>在获取对应Port有可能会有点烦，我在获取Port的时候每次会有一堆的信息冒出来，导致并不知道那个Port跟domain是对应上的，所以点了好多次。<br><img data-src="https://i.loli.net/2018/11/29/5bff8190e5207.png" alt="获取Domain Port等信息" title="DNS History"><br>获取到Domain与Port之后，回到【Server Config】选项卡中，将信息填入到【Non HTTP Proxy Settings】中，例如我现在有了一个domain为xxxx.com，端口为8020，将其填入对应的地方进行添加，添加之后勾选Enable即可。<br><img data-src="https://i.loli.net/2018/11/29/5bff8483456cf.png" alt="设置http代理：domain、port" title="Proxy Settings"><h2 id="拦截TCP流量"><a href="#拦截TCP流量" class="headerlink" title="拦截TCP流量"></a>拦截TCP流量</h2>通过上面的配置，现在已经可以通过NoPE拦截非HTTP协议的流量。在【TCP intercept】选项卡开启【Intercept is ON】，在手机上进行操作，就可以在下面看到对应的请求包。<br><img data-src="https://i.loli.net/2018/11/29/5bff85541c135.png" title="TCP Intercept"><br>由于我这边已经把包放过了，给大家看下历史记录的包。<br><img data-src="https://i.loli.net/2018/11/29/5bff85548e480.png" title="TCP History"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>通过这种方式已经可以拦截到TCP的流量，但是通过NoPE感觉操作很繁琐。不知道有没有比的简单、优雅的方式？</li>
-</ol>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Struts2另类命令执行</title>
     <url>/archives/be483e67.html</url>
     <content><![CDATA[<p>在某次HW遇到了一个Struts2可以获取目录，但无法执行命令<br><img data-src="https://i.loli.net/2021/08/07/wUpI28ykAf7tKoz.png" alt="Struts2RCE"></p>
@@ -1555,6 +1531,30 @@
       </categories>
       <tags>
         <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BurpSuite抓取非HTTP协议流量</title>
+    <url>/archives/ffc80a19.html</url>
+    <content><![CDATA[<p>在进行APP渗透的时候，设置代理到BurpSuite的时候，发现没拦截到包，但是已经获取到数据。猜测是请求包走的是非HTTP协议，发现BurpSuite有一个插件可以抓取TCP的流量：NoPE Proxy。<br><img data-src="https://i.loli.net/2018/11/29/5bff79c9eb463.png" title="NoPE界面"></p>
+<span id="more"></span>
+<h1 id="NoPE安装"><a href="#NoPE安装" class="headerlink" title="NoPE安装"></a>NoPE安装</h1><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1bW1pdHQvQnVycC1Ob24tSFRUUC1FeHRlbnNpb24vcmVsZWFzZXM=" title="NoPE下载地址">NoPE<i class="fa fa-external-link-alt"></i></span>安装很简单，直接下载对应的jar文件，然后在BurpSuite的【Extender】选项卡中添加即可。Ps：记得要配置Java Environment环境。</p>
+<h1 id="NoPE使用"><a href="#NoPE使用" class="headerlink" title="NoPE使用"></a>NoPE使用</h1><p>安装完成之后，需要对NoPE进行配置：DNS配置、HTTP代理设置等。</p>
+<h2 id="Server设置"><a href="#Server设置" class="headerlink" title="Server设置"></a>Server设置</h2><p>在NoPE工具的【Server Config】选项卡进行配置，猜测设置DNS是为了获取请求包的domain。</p>
+<ol>
+<li>设置【DNS Response IP】和【DNS Listener Port】，将这个ip设置为代理服务器的ip地址，port设置为DNS常用端口：53；</li>
+<li>设置【Interface】，这个是设置网卡，可通过<code>ifconfig</code>查看 ；</li>
+<li>点击【Add 80 &amp; 443 to Burp】，将80、443端口添加到Burp。<br><img data-src="https://i.loli.net/2018/11/29/5bff7dc7c120a.png" alt="服务器配置" title="Server Config"><br>设置完之后回到【Proxy】选项卡的【Options】看一下，并且将Invisible设置为勾选（如果没勾选）。Ps：这时候可以使用手机进行操作，看看BurpSuite能不能拦截到HTTP的包。<br><img data-src="https://i.loli.net/2018/11/29/5bff7ef9103f7.png" title="Proxy setting.png"><h2 id="HTTP-Proxy设置"><a href="#HTTP-Proxy设置" class="headerlink" title="HTTP Proxy设置"></a>HTTP Proxy设置</h2>设置完Server之后，在【NoPE Proxy】选项卡的【Server Config】中启动DNS服务，直接点击那个大大的绿色箭头就可以了，显示红色为已经运行。<br><img data-src="https://i.loli.net/2018/11/29/5bff7fac6fdf5.png" title="Run DNS Server"><br>查看【DNS History】选项卡中的DNS记录，获取Domain、Port等信息。</li>
+<li>开启Port Monitor；</li>
+<li>在手机上进行操作,**<font color=red>手机DNS配置成PC的地址</font>**；</li>
+<li>获取Domain和与其对应的Port。<br>在获取对应Port有可能会有点烦，我在获取Port的时候每次会有一堆的信息冒出来，导致并不知道那个Port跟domain是对应上的，所以点了好多次。<br><img data-src="https://i.loli.net/2018/11/29/5bff8190e5207.png" alt="获取Domain Port等信息" title="DNS History"><br>获取到Domain与Port之后，回到【Server Config】选项卡中，将信息填入到【Non HTTP Proxy Settings】中，例如我现在有了一个domain为xxxx.com，端口为8020，将其填入对应的地方进行添加，添加之后勾选Enable即可。<br><img data-src="https://i.loli.net/2018/11/29/5bff8483456cf.png" alt="设置http代理：domain、port" title="Proxy Settings"><h2 id="拦截TCP流量"><a href="#拦截TCP流量" class="headerlink" title="拦截TCP流量"></a>拦截TCP流量</h2>通过上面的配置，现在已经可以通过NoPE拦截非HTTP协议的流量。在【TCP intercept】选项卡开启【Intercept is ON】，在手机上进行操作，就可以在下面看到对应的请求包。<br><img data-src="https://i.loli.net/2018/11/29/5bff85541c135.png" title="TCP Intercept"><br>由于我这边已经把包放过了，给大家看下历史记录的包。<br><img data-src="https://i.loli.net/2018/11/29/5bff85548e480.png" title="TCP History"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>通过这种方式已经可以拦截到TCP的流量，但是通过NoPE感觉操作很繁琐。不知道有没有比的简单、优雅的方式？</li>
+</ol>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1899,24 +1899,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2017-5487分析</title>
-    <url>/archives/5a5cf5bb.html</url>
-    <content><![CDATA[<p>针对Content Injection Vulnerability in WordPress进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/31/5b0f887805634.png" alt="success.png"></p>
-<span id="more"></span>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>由于WordPress4.7.0-4.7.1REST API接口权限判断不合理导致命令注入。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbGVvbmp6YS8yMjQ0ZWIxNTUxMGEwNjg3ZWQ5MzE2MGM2MjM3NjJhYg==">下载<i class="fa fa-external-link-alt"></i></span>POC脚本，运行即可。</p>
-<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>查看/wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php的第90行，发现参数ID的值会被过滤成数字。发现REST API在管理访问时，其会在正则表达式之前优先考虑$_GET和$_POST的值。例如: /wp-json/wp/v2/posts/1234?id=12345helloworld，REST API会将其ID参数设置成12345helloworld。<br>在99行使用了update_item和update_item_permissions_check。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89783224b.png" alt="1.png"><br>查看593行的update_item_permissions_check函数，其将ID值传递给get_post()函数。这个函数功能用来检查帖子是否存在、是否有权限。如果发送的ID没有对应的post，就可以绕过权限检查，并允许继续执行update_item方法。<br><img data-src="https://i.loli.net/2018/05/31/5b0f899d3b8fa.png" alt="2.png"><br>由于使用get_instance()静态方法来获取post，造成get_post()在特定情况下无法找到对应的ID。<br>查看/wordpress/wp-includes/class-wp-post.php第210行，发现需全部使用数字，例如123ABC将会导致获取post失败。有一个细节，其会将ID参数在传递给get_post之前会将其转换成整数。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89b300743.png" alt="3.png"><br>PHP语言中做类型的比较和转换时，其会返回整数。例如<br><img data-src="https://i.loli.net/2018/05/31/5b0f89c229bd3.png" alt="4.png"><br>例如提交一个请求为/wp-json/wp/v2/posts/123?id=456ABC，PHP会将其ID返回456。由于456ABC并不是纯数字会导致/wordpress/wp-includes/class-wp-post.php获取post_id失败。在流程进入权限检查时update_item_permissions_check判断其没有对应的post绕过权限判断，进行更新操作update_item。最终导致ID为456被修改。<br>在受影响的WordPress版本中REST API接口是默认开放的。任何用户都可以利用该漏洞修改任意文章，只需要指定修改文章的ID即可。<br>修改前：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89dc0e3d0.png" alt="5.png"><br>修改后：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89edabed6.png" alt="6.png"></p>
-<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>在复现时如果遇到id is not of type integer报错信息，有可能是因为版本不对。最新版本的4.7.2已经对该漏洞进行修复。<br><img data-src="https://i.loli.net/2018/05/31/5b0f8a0db7ddf.png" alt="11.png"><br><img data-src="https://i.loli.net/2018/05/31/5b0f8a19c8a8a.png" alt="12.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级WordPress至4.7.2及以上。</p>
-]]></content>
-      <categories>
-        <category>安全研究</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>weblogic wls9-async rce复现&amp;分析</title>
     <url>/archives/94f70d04.html</url>
     <content><![CDATA[<p>针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。</p>
@@ -1967,6 +1949,24 @@
 <h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>1.删除对应war包；</p>
 <p>2.禁用bea_wls9_async_response组件。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析还有存在疑难点：weblogic整体的逻辑处理流程是如何，这个需要后续是多了解。</p>
+]]></content>
+      <categories>
+        <category>安全研究</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2017-5487分析</title>
+    <url>/archives/5a5cf5bb.html</url>
+    <content><![CDATA[<p>针对Content Injection Vulnerability in WordPress进行复现并分析。<br><img data-src="https://i.loli.net/2018/05/31/5b0f887805634.png" alt="success.png"></p>
+<span id="more"></span>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>由于WordPress4.7.0-4.7.1REST API接口权限判断不合理导致命令注入。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbGVvbmp6YS8yMjQ0ZWIxNTUxMGEwNjg3ZWQ5MzE2MGM2MjM3NjJhYg==">下载<i class="fa fa-external-link-alt"></i></span>POC脚本，运行即可。</p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>查看/wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php的第90行，发现参数ID的值会被过滤成数字。发现REST API在管理访问时，其会在正则表达式之前优先考虑$_GET和$_POST的值。例如: /wp-json/wp/v2/posts/1234?id=12345helloworld，REST API会将其ID参数设置成12345helloworld。<br>在99行使用了update_item和update_item_permissions_check。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89783224b.png" alt="1.png"><br>查看593行的update_item_permissions_check函数，其将ID值传递给get_post()函数。这个函数功能用来检查帖子是否存在、是否有权限。如果发送的ID没有对应的post，就可以绕过权限检查，并允许继续执行update_item方法。<br><img data-src="https://i.loli.net/2018/05/31/5b0f899d3b8fa.png" alt="2.png"><br>由于使用get_instance()静态方法来获取post，造成get_post()在特定情况下无法找到对应的ID。<br>查看/wordpress/wp-includes/class-wp-post.php第210行，发现需全部使用数字，例如123ABC将会导致获取post失败。有一个细节，其会将ID参数在传递给get_post之前会将其转换成整数。<br><img data-src="https://i.loli.net/2018/05/31/5b0f89b300743.png" alt="3.png"><br>PHP语言中做类型的比较和转换时，其会返回整数。例如<br><img data-src="https://i.loli.net/2018/05/31/5b0f89c229bd3.png" alt="4.png"><br>例如提交一个请求为/wp-json/wp/v2/posts/123?id=456ABC，PHP会将其ID返回456。由于456ABC并不是纯数字会导致/wordpress/wp-includes/class-wp-post.php获取post_id失败。在流程进入权限检查时update_item_permissions_check判断其没有对应的post绕过权限判断，进行更新操作update_item。最终导致ID为456被修改。<br>在受影响的WordPress版本中REST API接口是默认开放的。任何用户都可以利用该漏洞修改任意文章，只需要指定修改文章的ID即可。<br>修改前：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89dc0e3d0.png" alt="5.png"><br>修改后：<br><img data-src="https://i.loli.net/2018/05/31/5b0f89edabed6.png" alt="6.png"></p>
+<h2 id="复现注意事项"><a href="#复现注意事项" class="headerlink" title="复现注意事项"></a>复现注意事项</h2><p>在复现时如果遇到id is not of type integer报错信息，有可能是因为版本不对。最新版本的4.7.2已经对该漏洞进行修复。<br><img data-src="https://i.loli.net/2018/05/31/5b0f8a0db7ddf.png" alt="11.png"><br><img data-src="https://i.loli.net/2018/05/31/5b0f8a19c8a8a.png" alt="12.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级WordPress至4.7.2及以上。</p>
 ]]></content>
       <categories>
         <category>安全研究</category>
