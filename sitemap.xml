@@ -354,13 +354,6 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/tags/Bash/</loc>
-    <lastmod>2021-08-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://iassas.com/tags/Python/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
@@ -375,7 +368,7 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/tags/Python3/</loc>
+    <loc>https://iassas.com/tags/Bash/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -438,14 +431,7 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2021-08-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://iassas.com/tags/Go/</loc>
+    <loc>https://iassas.com/tags/Python3/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -514,17 +500,24 @@
     <priority>0.6</priority>
   </url>
   
-
-  
   <url>
-    <loc>https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://iassas.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://iassas.com/categories/%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://iassas.com/tags/Go/</loc>
+    <lastmod>2021-08-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -545,6 +538,13 @@
   </url>
   
   <url>
+    <loc>https://iassas.com/categories/%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2021-08-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
@@ -552,14 +552,14 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
+    <loc>https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
+    <loc>https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2021-08-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
