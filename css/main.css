@@ -224,7 +224,7 @@ body {
   line-height: 2;
   min-height: 100%;
   position: relative;
-  transition: all 0.2s ease-in-out;
+  transition: padding 0.2s ease-in-out;
 }
 h1,
 h2,
@@ -235,7 +235,7 @@ h6 {
   font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
-  margin: 20px 0 15px;
+  margin: 30px 0 15px;
 }
 h1 {
   font-size: 1.5em;
@@ -725,9 +725,6 @@ pre code {
   transform: translate(0.2rem, 0.2rem);
 }
 .post-body .link-grid .link-grid-container .link-grid-image {
-  background-clip: content-box;
-  background-origin: content-box;
-  background-size: cover;
   border: 1px solid #ddd;
   border-radius: 50%;
   box-sizing: border-box;
@@ -1465,6 +1462,9 @@ pre code {
   padding: 18px 10px;
   text-align: center;
 }
+.site-overview {
+  max-height: var(--sidebar-wrapper-height);
+}
 .site-overview-item:not(:first-child) {
   margin-top: 10px;
 }
@@ -1510,29 +1510,24 @@ pre code {
 .sidebar .sidebar-button:not(:first-child) {
   margin-top: 15px;
 }
-.sidebar .sidebar-button a {
+.sidebar .sidebar-button button {
+  background: transparent;
+  color: #fc6423;
+  cursor: pointer;
+  line-height: 2;
+  padding: 0 15px;
   border: 1px solid #fc6423;
   border-radius: 4px;
-  color: #fc6423;
-  display: inline-block;
-  padding: 0 15px;
 }
-.sidebar .sidebar-button a .fa,
-.sidebar .sidebar-button a .fab,
-.sidebar .sidebar-button a .far,
-.sidebar .sidebar-button a .fas {
-  margin-right: 5px;
-}
-.sidebar .sidebar-button a:hover {
+.sidebar .sidebar-button button:hover {
   background: #fc6423;
-  border: 1px solid #fc6423;
   color: #fff;
 }
-.sidebar .sidebar-button a:hover .fa,
-.sidebar .sidebar-button a:hover .fab,
-.sidebar .sidebar-button a:hover .far,
-.sidebar .sidebar-button a:hover .fas {
-  color: #fff;
+.sidebar .sidebar-button button .fa,
+.sidebar .sidebar-button button .fab,
+.sidebar .sidebar-button button .far,
+.sidebar .sidebar-button button .fas {
+  margin-right: 5px;
 }
 .links-of-blogroll {
   font-size: 0.8125em;
@@ -1785,6 +1780,12 @@ pre code {
   display: inline-block;
   margin: 0 5px;
 }
+.busuanzi-count #busuanzi_container_site_uv {
+  display: none;
+}
+.busuanzi-count #busuanzi_container_site_pv {
+  display: none;
+}
 @-moz-keyframes icon-animate {
   0%, 100% {
     transform: scale(1);
@@ -1858,7 +1859,7 @@ pre code {
   .post-body h4,
   .post-body h5,
   .post-body h6 {
-    margin: 10px 0 8px;
+    margin: 20px 0 8px;
   }
   .post-body .note h1,
   .post-body .tabs .tab-content .tab-pane h1,
@@ -2113,14 +2114,6 @@ pre code {
     text-align: justify;
   }
 }
-.post-body h1,
-.post-body h2,
-.post-body h3,
-.post-body h4,
-.post-body h5,
-.post-body h6 {
-  padding-top: 10px;
-}
 .post-body h1 .header-anchor,
 .post-body h2 .header-anchor,
 .post-body h3 .header-anchor,
@@ -2306,7 +2299,7 @@ pre code {
   flex-wrap: wrap;
   justify-content: center;
 }
-.post-meta-item:not(:first-child)::before {
+:not(.post-meta-break) + .post-meta-item::before {
   content: '|';
   margin: 0 0.5em;
 }
@@ -2317,6 +2310,13 @@ pre code {
   .post-meta-item-text {
     display: none;
   }
+}
+.post-meta-break {
+  flex-basis: 100%;
+  height: 0;
+}
+#busuanzi_container_page_pv {
+  display: none;
 }
 .post-nav {
   border-top: 1px solid #eee;
@@ -2400,19 +2400,18 @@ pre code {
 }
 .reward-container button {
   background: transparent;
-  border: 2px solid #87daff;
-  border-radius: 2px;
   color: #87daff;
   cursor: pointer;
   line-height: 2;
-  outline: 0;
   padding: 0 15px;
+  border: 2px solid #87daff;
+  border-radius: 2px;
+  outline: 0;
   transition: all 0.2s ease-in-out;
   vertical-align: text-top;
 }
 .reward-container button:hover {
   background: #87daff;
-  border: 2px solid transparent;
   color: #fff;
 }
 .post-reward {
@@ -3108,7 +3107,7 @@ hr {
 }
 @media (min-width: 992px) {
   .sidebar-active {
-    margin-right: 320px;
+    padding-right: 320px;
   }
 }
 .sidebar {
@@ -3147,7 +3146,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #09ffe5;
+  background: #0a6f53;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
