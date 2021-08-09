@@ -361,13 +361,6 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/tags/Bash/</loc>
-    <lastmod>2021-08-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://iassas.com/tags/Python/</loc>
     <lastmod>2021-08-09</lastmod>
     <changefreq>daily</changefreq>
@@ -375,21 +368,14 @@
   </url>
   
   <url>
+    <loc>https://iassas.com/tags/Bash/</loc>
+    <lastmod>2021-08-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://iassas.com/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2021-08-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://iassas.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2021-08-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://iassas.com/tags/Go/</loc>
     <lastmod>2021-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -453,6 +439,20 @@
   
   <url>
     <loc>https://iassas.com/tags/Python3/</loc>
+    <lastmod>2021-08-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://iassas.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2021-08-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://iassas.com/tags/Go/</loc>
     <lastmod>2021-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -538,14 +538,14 @@
   </url>
   
   <url>
-    <loc>https://iassas.com/categories/%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2021-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://iassas.com/categories/%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2021-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
