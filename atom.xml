@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2021-08-09T07:28:58.161Z</updated>
+  <updated>2021-08-18T03:05:39.962Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>某多重混淆应急响应</title>
+    <link href="https://iassas.com/archives/9bb5d45b.html"/>
+    <id>https://iassas.com/archives/9bb5d45b.html</id>
+    <published>2021-08-18T02:43:26.000Z</published>
+    <updated>2021-08-18T03:05:39.962Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在一次攻防演练中，发现一个有趣的shell，文件做过多层混淆。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/08/18/4hfFrNpeTZxsYCn.png&quot; alt=&quot;源文件&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+    
+    <category term="应急响应" scheme="https://iassas.com/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+  </entry>
   
   <entry>
     <title>Webshell混淆-jsp类型</title>
@@ -198,25 +220,6 @@
     
     
     <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQLMap原理分析(二)</title>
-    <link href="https://iassas.com/archives/782ab1db.html"/>
-    <id>https://iassas.com/archives/782ab1db.html</id>
-    <published>2019-05-04T06:29:44.000Z</published>
-    <updated>2019-05-15T11:50:58.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-    
-    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
