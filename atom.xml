@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2021-08-18T03:05:39.962Z</updated>
+  <updated>2022-03-28T15:05:47.643Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小米AX3600 TTL刷机</title>
+    <link href="https://iassas.com/archives/ed29cee2.html"/>
+    <id>https://iassas.com/archives/ed29cee2.html</id>
+    <published>2022-03-28T15:03:27.000Z</published>
+    <updated>2022-03-28T15:05:47.643Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;心血来潮把ax3600刷成openwrt 5.15内核，然后直接通过web界面（没清配置）降级到5.10，导致直接刷成砖。后面通过ttl成功救回来。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2022/03/28/zBLkYT5yaWqoZX3.png&quot; alt=&quot;AX3600-黄灯&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="iot" scheme="https://iassas.com/categories/iot/"/>
+    
+    
+    <category term="路由器" scheme="https://iassas.com/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>某多重混淆应急响应</title>
@@ -200,26 +220,6 @@
     
     
     <category term="ssrf" scheme="https://iassas.com/tags/ssrf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>渗透测试-响应加密SQL注入</title>
-    <link href="https://iassas.com/archives/8592a171.html"/>
-    <id>https://iassas.com/archives/8592a171.html</id>
-    <published>2019-07-11T03:06:07.000Z</published>
-    <updated>2019-07-11T07:26:50.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/07/11/5d26a759ad31f57825.png&quot; alt=&quot;sqlmap-result.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
