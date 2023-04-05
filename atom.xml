@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2022-03-28T15:05:47.000Z</updated>
+  <updated>2023-04-05T11:37:57.290Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>帆软数据库配置解密</title>
+    <link href="https://iassas.com/archives/df18668b.html"/>
+    <id>https://iassas.com/archives/df18668b.html</id>
+    <published>2023-04-05T11:29:26.000Z</published>
+    <updated>2023-04-05T11:37:57.290Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在某次红蓝演练中，通过帆软反序列化拿下服务器之后，发现数据库的配置信息被加密，通过查看帆软源代码最终将其解密。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/Fe9Z8yLAqGdrfnC.png&quot; alt=&quot;decode&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    
+    <category term="帆软" scheme="https://iassas.com/tags/%E5%B8%86%E8%BD%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>小米AX3600 TTL刷机</title>
@@ -128,14 +148,16 @@
     <link href="https://iassas.com/archives/6201c371.html"/>
     <id>https://iassas.com/archives/6201c371.html</id>
     <published>2020-11-22T13:08:27.000Z</published>
-    <updated>2020-11-22T13:08:27.000Z</updated>
+    <updated>2023-04-05T11:44:19.822Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近遇到weblogic的目标，大部分漏洞都修复了，发现了存在ssrf，但是部署了WAF。无法直接利用，后面通过脏数据的方式绕过waf。对内网进行探测，发现redis，通过定时任务方式，但反弹失败。&lt;/p&gt;</summary>
     
     
     
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
     <category term="ssrf" scheme="https://iassas.com/tags/ssrf/"/>
@@ -147,19 +169,41 @@
     <link href="https://iassas.com/archives/f4423a86.html"/>
     <id>https://iassas.com/archives/f4423a86.html</id>
     <published>2020-11-22T12:57:59.000Z</published>
-    <updated>2020-11-22T12:57:59.000Z</updated>
+    <updated>2023-04-05T11:42:53.791Z</updated>
     
     
     <summary type="html">&lt;p&gt;针对Python的多线程、多进程、协程等进行学习。&lt;/p&gt;</summary>
     
     
     
-    <category term="Python基础" scheme="https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/"/>
+    <category term="Code" scheme="https://iassas.com/categories/Code/"/>
+    
+    <category term="Python3" scheme="https://iassas.com/categories/Code/Python3/"/>
     
     
     <category term="Code" scheme="https://iassas.com/tags/Code/"/>
     
-    <category term="Python" scheme="https://iassas.com/tags/Python/"/>
+    <category term="Python3" scheme="https://iassas.com/tags/Python3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CVE-2020-0796复现</title>
+    <link href="https://iassas.com/archives/852991fb.html"/>
+    <id>https://iassas.com/archives/852991fb.html</id>
+    <published>2020-06-08T06:50:57.000Z</published>
+    <updated>2023-04-05T11:48:49.574Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;看到GitHub上面有对应的exp，就复现看看。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png&quot; alt=&quot;image-20200608145057355&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
@@ -184,46 +228,6 @@
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
     <category term="泛微" scheme="https://iassas.com/tags/%E6%B3%9B%E5%BE%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IDA动态调试-ELF</title>
-    <link href="https://iassas.com/archives/260d9dca.html"/>
-    <id>https://iassas.com/archives/260d9dca.html</id>
-    <published>2020-05-14T14:34:17.000Z</published>
-    <updated>2020-05-26T05:48:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;使用IDA对ELF文件进行简单的动态调试。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/05/14/lmWx6FuG83Meqz4.png&quot; alt=&quot;hero&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-    
-    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BurpSuitePro 2.1及之后版本通杀加载器</title>
-    <link href="https://iassas.com/archives/c5863b38.html"/>
-    <id>https://iassas.com/archives/c5863b38.html</id>
-    <published>2020-03-28T01:11:48.000Z</published>
-    <updated>2020-03-28T01:12:06.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;直接看图。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/03/28/UQFCOg8EhKqejGo.gif&quot; alt=&quot;BpLoad&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
-    
-    
-    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
