@@ -122,6 +122,47 @@
   </entry>
   
   <entry>
+    <title>某擎应急响应</title>
+    <link href="https://iassas.com/archives/3f861046.html"/>
+    <id>https://iassas.com/archives/3f861046.html</id>
+    <published>2021-04-11T11:55:31.000Z</published>
+    <updated>2023-04-05T11:57:40.245Z</updated>
+    
+    
+    <summary type="html">由于内容敏感，因此加密处理</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+    
+    <category term="应急响应" scheme="https://iassas.com/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Apereo CAS反序列化漏洞分析</title>
+    <link href="https://iassas.com/archives/ab2213f4.html"/>
+    <id>https://iassas.com/archives/ab2213f4.html</id>
+    <published>2021-04-09T10:52:27.000Z</published>
+    <updated>2023-04-05T11:55:42.024Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在项目上遇到CAS，因此对CAS反序列化做一下复现及分析。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/04/19/1GDpOiHLNCwl6go.png&quot; alt=&quot;CAS漏洞利用&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Fastjson漏洞复现</title>
     <link href="https://iassas.com/archives/87c00e88.html"/>
     <id>https://iassas.com/archives/87c00e88.html</id>
@@ -184,50 +225,6 @@
     <category term="Code" scheme="https://iassas.com/tags/Code/"/>
     
     <category term="Python3" scheme="https://iassas.com/tags/Python3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CVE-2020-0796复现</title>
-    <link href="https://iassas.com/archives/852991fb.html"/>
-    <id>https://iassas.com/archives/852991fb.html</id>
-    <published>2020-06-08T06:50:57.000Z</published>
-    <updated>2023-04-05T11:48:49.574Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;看到GitHub上面有对应的exp，就复现看看。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png&quot; alt=&quot;image-20200608145057355&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-    
-    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>泛微E-cology任意文件上传</title>
-    <link href="https://iassas.com/archives/be5ece47.html"/>
-    <id>https://iassas.com/archives/be5ece47.html</id>
-    <published>2020-05-20T19:18:14.000Z</published>
-    <updated>2023-04-05T10:29:33.234Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;这是一个“偶遇”泛微任意文件上传的故事。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/AuXVyHvI1tJF2q4.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-    <category term="泛微" scheme="https://iassas.com/tags/%E6%B3%9B%E5%BE%AE/"/>
     
   </entry>
   
