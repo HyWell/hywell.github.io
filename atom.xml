@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2022-03-28T15:05:47.643Z</updated>
+  <updated>2022-03-28T15:05:47.000Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://iassas.com/archives/ed29cee2.html"/>
     <id>https://iassas.com/archives/ed29cee2.html</id>
     <published>2022-03-28T15:03:27.000Z</published>
-    <updated>2022-03-28T15:05:47.643Z</updated>
+    <updated>2022-03-28T15:05:47.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;心血来潮把ax3600刷成openwrt 5.15内核，然后直接通过web界面（没清配置）降级到5.10，导致直接刷成砖。后面通过ttl成功救回来。&lt;/p&gt;
@@ -41,7 +41,7 @@
     <link href="https://iassas.com/archives/9bb5d45b.html"/>
     <id>https://iassas.com/archives/9bb5d45b.html</id>
     <published>2021-08-18T02:43:26.000Z</published>
-    <updated>2021-08-18T03:05:39.962Z</updated>
+    <updated>2021-08-18T03:05:39.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;在一次攻防演练中，发现一个有趣的shell，文件做过多层混淆。&lt;/p&gt;
@@ -63,7 +63,7 @@
     <link href="https://iassas.com/archives/a5dc99c.html"/>
     <id>https://iassas.com/archives/a5dc99c.html</id>
     <published>2021-08-09T07:02:05.000Z</published>
-    <updated>2021-08-09T07:28:58.161Z</updated>
+    <updated>2021-08-09T07:28:58.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;由于现在常见的shell（蚁剑、冰蝎、哥斯拉等），极其容易被一眼识破。因此，需要掌握一定的webshell混淆技巧用于对抗。&lt;/p&gt;
@@ -85,7 +85,7 @@
     <link href="https://iassas.com/archives/be483e67.html"/>
     <id>https://iassas.com/archives/be483e67.html</id>
     <published>2021-08-07T14:16:40.000Z</published>
-    <updated>2021-08-07T14:21:44.163Z</updated>
+    <updated>2021-08-07T14:21:44.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;在某次HW遇到了一个Struts2可以获取目录，但无法执行命令&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2021/08/07/wUpI28ykAf7tKoz.png&quot; alt=&quot;Struts2RCE&quot;&gt;&lt;/p&gt;</summary>
@@ -105,8 +105,8 @@
     <title>Fastjson漏洞复现</title>
     <link href="https://iassas.com/archives/87c00e88.html"/>
     <id>https://iassas.com/archives/87c00e88.html</id>
-    <published>2020-11-26T16:06:56.690Z</published>
-    <updated>2020-11-28T12:09:35.756Z</updated>
+    <published>2020-11-28T12:09:35.000Z</published>
+    <updated>2020-11-28T12:09:35.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;前些日子遇到了Fastjson1.2.35，该版本存在反序列化漏洞。但由于服务器不出网，只能验证dnslog。通过网上搜索发现bytecode的方式，但是payload无法成功将命令执行从异常带回来。因此，尝试自己复现了解一下是何情况。&lt;/p&gt;
@@ -120,6 +120,67 @@
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
     <category term="fastjson" scheme="https://iassas.com/tags/fastjson/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>weblogic-ssrf-redis</title>
+    <link href="https://iassas.com/archives/6201c371.html"/>
+    <id>https://iassas.com/archives/6201c371.html</id>
+    <published>2020-11-22T13:08:27.000Z</published>
+    <updated>2020-11-22T13:08:27.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近遇到weblogic的目标，大部分漏洞都修复了，发现了存在ssrf，但是部署了WAF。无法直接利用，后面通过脏数据的方式绕过waf。对内网进行探测，发现redis，通过定时任务方式，但反弹失败。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="ssrf" scheme="https://iassas.com/tags/ssrf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python多线程&amp;&amp;多进程&amp;&amp;协程</title>
+    <link href="https://iassas.com/archives/f4423a86.html"/>
+    <id>https://iassas.com/archives/f4423a86.html</id>
+    <published>2020-11-22T12:57:59.000Z</published>
+    <updated>2020-11-22T12:57:59.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;针对Python的多线程、多进程、协程等进行学习。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Python基础" scheme="https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="Code" scheme="https://iassas.com/tags/Code/"/>
+    
+    <category term="Python" scheme="https://iassas.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>泛微E-cology任意文件上传</title>
+    <link href="https://iassas.com/archives/be5ece47.html"/>
+    <id>https://iassas.com/archives/be5ece47.html</id>
+    <published>2020-05-20T19:18:14.000Z</published>
+    <updated>2023-04-05T10:16:00.327Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这是一个“偶遇”泛微任意文件上传的故事。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
@@ -160,66 +221,6 @@
     
     
     <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python多线程&amp;&amp;多进程&amp;&amp;协程</title>
-    <link href="https://iassas.com/archives/f4423a86.html"/>
-    <id>https://iassas.com/archives/f4423a86.html</id>
-    <published>2019-10-27T08:50:11.000Z</published>
-    <updated>2020-11-22T12:57:59.351Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;针对Python的多线程、多进程、协程等进行学习。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Python基础" scheme="https://iassas.com/categories/Python%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="Code" scheme="https://iassas.com/tags/Code/"/>
-    
-    <category term="Python" scheme="https://iassas.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWIScan编写之路</title>
-    <link href="https://iassas.com/archives/84cd09d9.html"/>
-    <id>https://iassas.com/archives/84cd09d9.html</id>
-    <published>2019-10-23T07:45:53.000Z</published>
-    <updated>2019-10-25T03:47:35.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;红队评估、渗透测试等安全工作最为重要的就是信息收集，信息收集工作需要对目标多方面、多维度进行收集、梳理。相信大家也用过许多信息收集的工具，例如：nmap、msscan、subdomainBrute、whatweb、dirscan、dirsearch、wydomain等等。当对一个目标群体（多ip段 or 多域名）进行信息收集时，往往需要不断在各个工具之间来回切换。通过寻找发现了一款工具：&lt;a href=&quot;https://github.com/TideSec/FuzzScanner&quot;&gt;FuzzScaner&lt;/a&gt;，该工具整合了子域名、端口、指纹、c段等信息收集。但FuzzScaner存在几点问题：1.长期不维护&amp;amp;更新，上次提交为2019.04；2.使用python2，python2马上不被官方支持；3.只做了简单整合，多工具调度之间容易出问题。因此，自己动手造了一个轮子：&lt;a href=&quot;https://github.com/HyWell/AWIScan&quot;&gt;AWIScan&lt;/a&gt;——All Web Info Scan。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/10/23/lLGJKfo2j1Wdvyk.png&quot; alt=&quot;AWIScan.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
-    
-    
-    <category term="AWIScan" scheme="https://iassas.com/tags/AWIScan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>weblogic-ssrf-redis</title>
-    <link href="https://iassas.com/archives/6201c371.html"/>
-    <id>https://iassas.com/archives/6201c371.html</id>
-    <published>2019-08-05T07:46:17.000Z</published>
-    <updated>2020-11-22T13:08:27.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;最近遇到weblogic的目标，大部分漏洞都修复了，发现了存在ssrf，但是部署了WAF。无法直接利用，后面通过脏数据的方式绕过waf。对内网进行探测，发现redis，通过定时任务方式，但反弹失败。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="ssrf" scheme="https://iassas.com/tags/ssrf/"/>
     
   </entry>
   
