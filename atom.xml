@@ -341,6 +341,27 @@
   </entry>
   
   <entry>
+    <title>大汉CMS-jact任意文件上传</title>
+    <link href="https://iassas.com/archives/ae1f095f.html"/>
+    <id>https://iassas.com/archives/ae1f095f.html</id>
+    <published>2019-09-01T03:28:06.000Z</published>
+    <updated>2023-04-06T02:56:16.894Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在护网的时候，许多目标都用大汉jact这套系统。根据“小道消息”说是有最新的任意文件上传！&lt;img src=&quot;https://s2.loli.net/2023/04/06/jmcwoWMYTx54lyk.png&quot; alt=&quot;hanweb-decode&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>渗透测试-响应加密SQL注入</title>
     <link href="https://iassas.com/archives/8592a171.html"/>
     <id>https://iassas.com/archives/8592a171.html</id>
@@ -422,32 +443,6 @@
     
     
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python-scrapy学习(四)</title>
-    <link href="https://iassas.com/archives/8c2656f.html"/>
-    <id>https://iassas.com/archives/8c2656f.html</id>
-    <published>2018-12-02T06:51:51.000Z</published>
-    <updated>2023-04-05T11:40:18.958Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;scrapy学习到此告一段落，下图为一个项目的框架图。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/03/5c04c4f799a40.png&quot; alt=&quot;项目框架图&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Code" scheme="https://iassas.com/categories/Code/"/>
-    
-    <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
-    
-    
-    <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
-    
-    <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
-    
-    <category term="爬虫" scheme="https://iassas.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
