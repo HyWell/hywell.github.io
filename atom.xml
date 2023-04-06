@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-05T11:37:57.290Z</updated>
+  <updated>2023-04-06T01:21:42.290Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://iassas.com/archives/df18668b.html"/>
     <id>https://iassas.com/archives/df18668b.html</id>
     <published>2023-04-05T11:29:26.000Z</published>
-    <updated>2023-04-05T11:37:57.290Z</updated>
+    <updated>2023-04-06T01:21:42.290Z</updated>
     
     
     <summary type="html">&lt;p&gt;在某次红蓝演练中，通过帆软反序列化拿下服务器之后，发现数据库的配置信息被加密，通过查看帆软源代码最终将其解密。&lt;/p&gt;
@@ -29,7 +29,9 @@
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
     <category term="帆软" scheme="https://iassas.com/tags/%E5%B8%86%E8%BD%AF/"/>
@@ -41,7 +43,7 @@
     <link href="https://iassas.com/archives/ed29cee2.html"/>
     <id>https://iassas.com/archives/ed29cee2.html</id>
     <published>2022-03-28T15:03:27.000Z</published>
-    <updated>2022-03-28T15:05:47.000Z</updated>
+    <updated>2023-04-06T01:27:03.937Z</updated>
     
     
     <summary type="html">&lt;p&gt;心血来潮把ax3600刷成openwrt 5.15内核，然后直接通过web界面（没清配置）降级到5.10，导致直接刷成砖。后面通过ttl成功救回来。&lt;/p&gt;
@@ -49,7 +51,9 @@
     
     
     
-    <category term="iot" scheme="https://iassas.com/categories/iot/"/>
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    <category term="IOT" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/IOT/"/>
     
     
     <category term="路由器" scheme="https://iassas.com/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
@@ -61,7 +65,7 @@
     <link href="https://iassas.com/archives/9bb5d45b.html"/>
     <id>https://iassas.com/archives/9bb5d45b.html</id>
     <published>2021-08-18T02:43:26.000Z</published>
-    <updated>2021-08-18T03:05:39.000Z</updated>
+    <updated>2023-04-06T01:15:38.203Z</updated>
     
     
     <summary type="html">&lt;p&gt;在一次攻防演练中，发现一个有趣的shell，文件做过多层混淆。&lt;/p&gt;
@@ -69,9 +73,9 @@
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
     
-    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
     
     
     <category term="应急响应" scheme="https://iassas.com/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
@@ -83,7 +87,7 @@
     <link href="https://iassas.com/archives/a5dc99c.html"/>
     <id>https://iassas.com/archives/a5dc99c.html</id>
     <published>2021-08-09T07:02:05.000Z</published>
-    <updated>2021-08-09T07:28:58.000Z</updated>
+    <updated>2023-04-06T01:16:36.865Z</updated>
     
     
     <summary type="html">&lt;p&gt;由于现在常见的shell（蚁剑、冰蝎、哥斯拉等），极其容易被一眼识破。因此，需要掌握一定的webshell混淆技巧用于对抗。&lt;/p&gt;
@@ -91,9 +95,7 @@
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
-    
-    <category term="原理分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
     
     
     <category term="webshell" scheme="https://iassas.com/tags/webshell/"/>
@@ -105,16 +107,16 @@
     <link href="https://iassas.com/archives/be483e67.html"/>
     <id>https://iassas.com/archives/be483e67.html</id>
     <published>2021-08-07T14:16:40.000Z</published>
-    <updated>2021-08-07T14:21:44.000Z</updated>
+    <updated>2023-04-06T01:15:18.538Z</updated>
     
     
     <summary type="html">&lt;p&gt;在某次HW遇到了一个Struts2可以获取目录，但无法执行命令&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2021/08/07/wUpI28ykAf7tKoz.png&quot; alt=&quot;Struts2RCE&quot;&gt;&lt;/p&gt;</summary>
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
     
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
     <category term="Struts2" scheme="https://iassas.com/tags/Struts2/"/>
@@ -126,16 +128,16 @@
     <link href="https://iassas.com/archives/3f861046.html"/>
     <id>https://iassas.com/archives/3f861046.html</id>
     <published>2021-04-11T11:55:31.000Z</published>
-    <updated>2023-04-05T11:57:40.245Z</updated>
+    <updated>2023-04-06T01:15:36.396Z</updated>
     
     
     <summary type="html">由于内容敏感，因此加密处理</summary>
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
     
-    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    <category term="应急响应" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
     
     
     <category term="应急响应" scheme="https://iassas.com/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
@@ -147,7 +149,7 @@
     <link href="https://iassas.com/archives/ab2213f4.html"/>
     <id>https://iassas.com/archives/ab2213f4.html</id>
     <published>2021-04-09T10:52:27.000Z</published>
-    <updated>2023-04-05T11:55:42.024Z</updated>
+    <updated>2023-04-06T01:20:13.010Z</updated>
     
     
     <summary type="html">&lt;p&gt;在项目上遇到CAS，因此对CAS反序列化做一下复现及分析。&lt;/p&gt;
@@ -155,7 +157,9 @@
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
     
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
@@ -167,7 +171,7 @@
     <link href="https://iassas.com/archives/87c00e88.html"/>
     <id>https://iassas.com/archives/87c00e88.html</id>
     <published>2020-11-28T12:09:35.000Z</published>
-    <updated>2020-11-28T12:09:35.000Z</updated>
+    <updated>2023-04-06T01:20:39.839Z</updated>
     
     
     <summary type="html">&lt;p&gt;前些日子遇到了Fastjson1.2.35，该版本存在反序列化漏洞。但由于服务器不出网，只能验证dnslog。通过网上搜索发现bytecode的方式，但是payload无法成功将命令执行从异常带回来。因此，尝试自己复现了解一下是何情况。&lt;/p&gt;
@@ -175,7 +179,9 @@
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
     
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
@@ -189,16 +195,16 @@
     <link href="https://iassas.com/archives/6201c371.html"/>
     <id>https://iassas.com/archives/6201c371.html</id>
     <published>2020-11-22T13:08:27.000Z</published>
-    <updated>2023-04-05T11:44:19.822Z</updated>
+    <updated>2023-04-06T01:15:21.110Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近遇到weblogic的目标，大部分漏洞都修复了，发现了存在ssrf，但是部署了WAF。无法直接利用，后面通过脏数据的方式绕过waf。对内网进行探测，发现redis，通过定时任务方式，但反弹失败。&lt;/p&gt;</summary>
     
     
     
-    <category term="安全研究" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/"/>
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
     
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
     <category term="ssrf" scheme="https://iassas.com/tags/ssrf/"/>
@@ -225,6 +231,223 @@
     <category term="Code" scheme="https://iassas.com/tags/Code/"/>
     
     <category term="Python3" scheme="https://iassas.com/tags/Python3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CVE-2020-0796复现</title>
+    <link href="https://iassas.com/archives/852991fb.html"/>
+    <id>https://iassas.com/archives/852991fb.html</id>
+    <published>2020-06-08T06:50:57.000Z</published>
+    <updated>2023-04-06T01:20:38.040Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;看到GitHub上面有对应的exp，就复现看看。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png&quot; alt=&quot;image-20200608145057355&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>泛微E-cology任意文件上传</title>
+    <link href="https://iassas.com/archives/be5ece47.html"/>
+    <id>https://iassas.com/archives/be5ece47.html</id>
+    <published>2020-05-20T19:18:14.000Z</published>
+    <updated>2023-04-06T01:14:52.555Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这是一个“偶遇”泛微任意文件上传的故事。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/05/AuXVyHvI1tJF2q4.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+    <category term="泛微" scheme="https://iassas.com/tags/%E6%B3%9B%E5%BE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IDA动态调试-ELF</title>
+    <link href="https://iassas.com/archives/260d9dca.html"/>
+    <id>https://iassas.com/archives/260d9dca.html</id>
+    <published>2020-05-14T14:34:17.000Z</published>
+    <updated>2023-04-06T01:16:54.209Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;使用IDA对ELF文件进行简单的动态调试。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/05/14/lmWx6FuG83Meqz4.png&quot; alt=&quot;hero&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BurpSuitePro 2.1及之后版本通杀加载器</title>
+    <link href="https://iassas.com/archives/c5863b38.html"/>
+    <id>https://iassas.com/archives/c5863b38.html</id>
+    <published>2020-03-28T01:11:48.000Z</published>
+    <updated>2020-03-28T01:12:06.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;直接看图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/03/28/UQFCOg8EhKqejGo.gif&quot; alt=&quot;BpLoad&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
+    
+    
+    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWIScan编写之路</title>
+    <link href="https://iassas.com/archives/84cd09d9.html"/>
+    <id>https://iassas.com/archives/84cd09d9.html</id>
+    <published>2019-10-23T07:45:53.000Z</published>
+    <updated>2019-10-25T03:47:35.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;红队评估、渗透测试等安全工作最为重要的就是信息收集，信息收集工作需要对目标多方面、多维度进行收集、梳理。相信大家也用过许多信息收集的工具，例如：nmap、msscan、subdomainBrute、whatweb、dirscan、dirsearch、wydomain等等。当对一个目标群体（多ip段 or 多域名）进行信息收集时，往往需要不断在各个工具之间来回切换。通过寻找发现了一款工具：&lt;a href=&quot;https://github.com/TideSec/FuzzScanner&quot;&gt;FuzzScaner&lt;/a&gt;，该工具整合了子域名、端口、指纹、c段等信息收集。但FuzzScaner存在几点问题：1.长期不维护&amp;amp;更新，上次提交为2019.04；2.使用python2，python2马上不被官方支持；3.只做了简单整合，多工具调度之间容易出问题。因此，自己动手造了一个轮子：&lt;a href=&quot;https://github.com/HyWell/AWIScan&quot;&gt;AWIScan&lt;/a&gt;——All Web Info Scan。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/10/23/lLGJKfo2j1Wdvyk.png&quot; alt=&quot;AWIScan.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
+    
+    
+    <category term="AWIScan" scheme="https://iassas.com/tags/AWIScan/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>渗透测试-响应加密SQL注入</title>
+    <link href="https://iassas.com/archives/8592a171.html"/>
+    <id>https://iassas.com/archives/8592a171.html</id>
+    <published>2019-07-11T03:06:07.000Z</published>
+    <updated>2023-04-06T01:15:12.752Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/07/11/5d26a759ad31f57825.png&quot; alt=&quot;sqlmap-result.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
+    
+    <category term="SQLMAP" scheme="https://iassas.com/tags/SQLMAP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQLMap原理分析(二)</title>
+    <link href="https://iassas.com/archives/782ab1db.html"/>
+    <id>https://iassas.com/archives/782ab1db.html</id>
+    <published>2019-05-04T06:29:44.000Z</published>
+    <updated>2023-04-06T01:16:30.538Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQLMap原理分析(一)</title>
+    <link href="https://iassas.com/archives/e409b646.html"/>
+    <id>https://iassas.com/archives/e409b646.html</id>
+    <published>2019-05-02T04:53:25.000Z</published>
+    <updated>2023-04-06T01:16:34.024Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;记得好久以前看过SQLMap的原理分析，但是那时候仅仅只是看过并没有自己去研究。因此，这次想深入研究一下SQLMap的原理。大概会从网络请求、运行流程、源码这些角度进行分析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>weblogic wls9-async rce复现&amp;分析</title>
+    <link href="https://iassas.com/archives/94f70d04.html"/>
+    <id>https://iassas.com/archives/94f70d04.html</id>
+    <published>2019-04-25T00:52:59.000Z</published>
+    <updated>2023-04-06T01:20:41.878Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png&quot; alt=&quot;success.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1f59bf8.png&quot; alt=&quot;webshell&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python-scrapy学习(四)</title>
+    <link href="https://iassas.com/archives/8c2656f.html"/>
+    <id>https://iassas.com/archives/8c2656f.html</id>
+    <published>2018-12-02T06:51:51.000Z</published>
+    <updated>2023-04-05T11:40:18.958Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;scrapy学习到此告一段落，下图为一个项目的框架图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/03/5c04c4f799a40.png&quot; alt=&quot;项目框架图&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Code" scheme="https://iassas.com/categories/Code/"/>
+    
+    <category term="Python2" scheme="https://iassas.com/categories/Code/Python2/"/>
+    
+    
+    <category term="Python2" scheme="https://iassas.com/tags/Python2/"/>
+    
+    <category term="scrapy" scheme="https://iassas.com/tags/scrapy/"/>
+    
+    <category term="爬虫" scheme="https://iassas.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
