@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-06T01:21:42.290Z</updated>
+  <updated>2023-04-06T03:30:51.637Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Oracle-LOGON_AUDIT_TRIGGER限制</title>
+    <link href="https://iassas.com/archives/d36c1a86.html"/>
+    <id>https://iassas.com/archives/d36c1a86.html</id>
+    <published>2023-04-06T03:27:52.000Z</published>
+    <updated>2023-04-06T03:30:51.637Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在某次红蓝演练中遇到Oracle用户、密码正确，但无法连接 提示没有权限。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/06/oMhbv9KRZicGs4N.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="Oracle" scheme="https://iassas.com/tags/Oracle/"/>
+    
+  </entry>
   
   <entry>
     <title>帆软数据库配置解密</title>
@@ -305,7 +327,7 @@
     <link href="https://iassas.com/archives/c5863b38.html"/>
     <id>https://iassas.com/archives/c5863b38.html</id>
     <published>2020-03-28T01:11:48.000Z</published>
-    <updated>2020-03-28T01:12:06.000Z</updated>
+    <updated>2023-04-06T03:30:05.906Z</updated>
     
     
     <summary type="html">&lt;p&gt;直接看图。&lt;/p&gt;
@@ -313,7 +335,9 @@
     
     
     
-    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    <category term="工具环境" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
     
     
     <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
@@ -325,7 +349,7 @@
     <link href="https://iassas.com/archives/84cd09d9.html"/>
     <id>https://iassas.com/archives/84cd09d9.html</id>
     <published>2019-10-23T07:45:53.000Z</published>
-    <updated>2019-10-25T03:47:35.000Z</updated>
+    <updated>2023-04-06T03:30:00.657Z</updated>
     
     
     <summary type="html">&lt;p&gt;红队评估、渗透测试等安全工作最为重要的就是信息收集，信息收集工作需要对目标多方面、多维度进行收集、梳理。相信大家也用过许多信息收集的工具，例如：nmap、msscan、subdomainBrute、whatweb、dirscan、dirsearch、wydomain等等。当对一个目标群体（多ip段 or 多域名）进行信息收集时，往往需要不断在各个工具之间来回切换。通过寻找发现了一款工具：&lt;a href=&quot;https://github.com/TideSec/FuzzScanner&quot;&gt;FuzzScaner&lt;/a&gt;，该工具整合了子域名、端口、指纹、c段等信息收集。但FuzzScaner存在几点问题：1.长期不维护&amp;amp;更新，上次提交为2019.04；2.使用python2，python2马上不被官方支持；3.只做了简单整合，多工具调度之间容易出问题。因此，自己动手造了一个轮子：&lt;a href=&quot;https://github.com/HyWell/AWIScan&quot;&gt;AWIScan&lt;/a&gt;——All Web Info Scan。&lt;/p&gt;
@@ -333,7 +357,9 @@
     
     
     
-    <category term="工具环境" scheme="https://iassas.com/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    <category term="工具环境" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
     
     
     <category term="AWIScan" scheme="https://iassas.com/tags/AWIScan/"/>
@@ -420,29 +446,6 @@
     
     
     <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>weblogic wls9-async rce复现&amp;分析</title>
-    <link href="https://iassas.com/archives/94f70d04.html"/>
-    <id>https://iassas.com/archives/94f70d04.html</id>
-    <published>2019-04-25T00:52:59.000Z</published>
-    <updated>2023-04-06T01:20:41.878Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png&quot; alt=&quot;success.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/04/25/5cc10d1f59bf8.png&quot; alt=&quot;webshell&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
-    
-    <category term="漏洞分析" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-    
-    <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
