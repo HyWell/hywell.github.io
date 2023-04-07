@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-06T03:30:51.637Z</updated>
+  <updated>2023-04-07T01:27:04.988Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jar打包应用程序</title>
+    <link href="https://iassas.com/archives/undefined.html"/>
+    <id>https://iassas.com/archives/undefined.html</id>
+    <published>2023-04-07T01:24:26.000Z</published>
+    <updated>2023-04-07T01:27:04.988Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;之前写过一篇&lt;a href=&quot;/archives/4afab831.html&quot; title=&quot;jar文件打包成app&quot;&gt;jar文件打包成app&lt;/a&gt;的文章，使用的是jar2app的方式。之后发现更加优雅的方式，使用install4j并且可以实现将jar打包成多平台的应用程序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/07/MHXwTsbxJftidKy.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    <category term="工具" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Oracle-LOGON_AUDIT_TRIGGER限制</title>
@@ -420,25 +442,6 @@
     
     
     <summary type="html">&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQLMap原理分析(一)</title>
-    <link href="https://iassas.com/archives/e409b646.html"/>
-    <id>https://iassas.com/archives/e409b646.html</id>
-    <published>2019-05-02T04:53:25.000Z</published>
-    <updated>2023-04-06T01:16:34.024Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;记得好久以前看过SQLMap的原理分析，但是那时候仅仅只是看过并没有自己去研究。因此，这次想深入研究一下SQLMap的原理。大概会从网络请求、运行流程、源码这些角度进行分析。&lt;/p&gt;</summary>
     
     
     
