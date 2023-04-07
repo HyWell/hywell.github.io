@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-07T01:27:04.988Z</updated>
+  <updated>2023-04-07T01:28:25.577Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://iassas.com/archives/undefined.html"/>
     <id>https://iassas.com/archives/undefined.html</id>
     <published>2023-04-07T01:24:26.000Z</published>
-    <updated>2023-04-07T01:27:04.988Z</updated>
+    <updated>2023-04-07T01:28:25.577Z</updated>
     
     
     <summary type="html">&lt;p&gt;之前写过一篇&lt;a href=&quot;/archives/4afab831.html&quot; title=&quot;jar文件打包成app&quot;&gt;jar文件打包成app&lt;/a&gt;的文章，使用的是jar2app的方式。之后发现更加优雅的方式，使用install4j并且可以实现将jar打包成多平台的应用程序。&lt;/p&gt;
@@ -31,7 +31,7 @@
     
     <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
     
-    <category term="工具" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7/"/>
+    <category term="工具环境" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
     
     
     <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
