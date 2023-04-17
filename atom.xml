@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-07T01:28:25.577Z</updated>
+  <updated>2023-04-17T06:42:49.915Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -17,11 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>家庭组网-软路由</title>
+    <link href="https://iassas.com/archives/fb727318.html"/>
+    <id>https://iassas.com/archives/fb727318.html</id>
+    <published>2023-04-17T06:42:00.000Z</published>
+    <updated>2023-04-17T06:42:49.915Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近在折腾家庭组网，买了一个软路由：N5105+16G+256 SSD。pve+ikuai+openwrt。由于有两条宽带（移动+电信），因此，使用ikuai进行分流，op进行科学。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/17/BEC6IzjXfFMT3PV.png&quot; alt=&quot;测速&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>jar打包应用程序</title>
-    <link href="https://iassas.com/archives/undefined.html"/>
-    <id>https://iassas.com/archives/undefined.html</id>
+    <link href="https://iassas.com/archives/18ca2507.html"/>
+    <id>https://iassas.com/archives/18ca2507.html</id>
     <published>2023-04-07T01:24:26.000Z</published>
-    <updated>2023-04-07T01:28:25.577Z</updated>
+    <updated>2023-04-17T06:47:05.914Z</updated>
     
     
     <summary type="html">&lt;p&gt;之前写过一篇&lt;a href=&quot;/archives/4afab831.html&quot; title=&quot;jar文件打包成app&quot;&gt;jar文件打包成app&lt;/a&gt;的文章，使用的是jar2app的方式。之后发现更加优雅的方式，使用install4j并且可以实现将jar打包成多平台的应用程序。&lt;/p&gt;
@@ -31,7 +47,7 @@
     
     <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
     
-    <category term="工具环境" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/"/>
+    <category term="工具" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/%E5%B7%A5%E5%85%B7/"/>
     
     
     <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
@@ -430,25 +446,6 @@
     <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
     
     <category term="SQLMAP" scheme="https://iassas.com/tags/SQLMAP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQLMap原理分析(二)</title>
-    <link href="https://iassas.com/archives/782ab1db.html"/>
-    <id>https://iassas.com/archives/782ab1db.html</id>
-    <published>2019-05-04T06:29:44.000Z</published>
-    <updated>2023-04-06T01:16:30.538Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;在&lt;a href=&quot;/archives/e409b646.html&quot; title=&quot;SQLMap原理分析(一)&quot;&gt;SQLMap原理分析(一)&lt;/a&gt;通过SQLMap的请求进行了一次简单的分析，大概了解SQLMap一个粗略的运行流程。这次通过源码的Debug进行深入一点研究。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="工具" scheme="https://iassas.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
