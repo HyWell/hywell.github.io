@@ -6,7 +6,7 @@
   <link href="https://iassas.com/atom.xml" rel="self"/>
   
   <link href="https://iassas.com/"/>
-  <updated>2023-04-17T06:42:49.915Z</updated>
+  <updated>2023-07-11T13:41:04.311Z</updated>
   <id>https://iassas.com/</id>
   
   <author>
@@ -17,17 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CaptfEncoder编译</title>
+    <link href="https://iassas.com/archives/80d64a8d.html"/>
+    <id>https://iassas.com/archives/80d64a8d.html</id>
+    <published>2023-07-11T13:40:04.000Z</published>
+    <updated>2023-07-11T13:41:04.311Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;解决CaptfEncoder无法在MacOS上运行。&lt;br&gt;&lt;img src=&quot;https://s2.loli.net/2023/07/11/Sbd7FWLkODvZjU5.jpg&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>家庭组网-软路由</title>
     <link href="https://iassas.com/archives/fb727318.html"/>
     <id>https://iassas.com/archives/fb727318.html</id>
     <published>2023-04-17T06:42:00.000Z</published>
-    <updated>2023-04-17T06:42:49.915Z</updated>
+    <updated>2023-04-23T04:27:16.807Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近在折腾家庭组网，买了一个软路由：N5105+16G+256 SSD。pve+ikuai+openwrt。由于有两条宽带（移动+电信），因此，使用ikuai进行分流，op进行科学。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2023/04/17/BEC6IzjXfFMT3PV.png&quot; alt=&quot;测速&quot;&gt;&lt;/p&gt;</summary>
     
     
+    
+    <category term="瞎折腾" scheme="https://iassas.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
     
     
   </entry>
@@ -422,30 +441,6 @@
     
     
     <category term="漏洞分析" scheme="https://iassas.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>渗透测试-响应加密SQL注入</title>
-    <link href="https://iassas.com/archives/8592a171.html"/>
-    <id>https://iassas.com/archives/8592a171.html</id>
-    <published>2019-07-11T03:06:07.000Z</published>
-    <updated>2023-04-06T01:15:12.752Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/07/11/5d26a759ad31f57825.png&quot; alt=&quot;sqlmap-result.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="安全" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/"/>
-    
-    <category term="渗透测试" scheme="https://iassas.com/categories/%E5%AE%89%E5%85%A8/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="SQL注入" scheme="https://iassas.com/tags/SQL%E6%B3%A8%E5%85%A5/"/>
-    
-    <category term="SQLMAP" scheme="https://iassas.com/tags/SQLMAP/"/>
     
   </entry>
   
